@@ -1,0 +1,44 @@
+/* Ensure the section takes up the full viewport */
+.maincontent {
+    position: relative;
+    height: 100vh;
+    background-color: #f4f4f9;
+    /* Optional background color */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* Include padding and borders in width and height */
+}
+
+/* Style for the logout button */
+#logout-btn {
+    position: absolute;
+    top: 10px;
+    /* Position 100px from the top (considering the navbar height) */
+    right: 50px;
+    /* Position 50px from the right edge of the page */
+    padding: 15px 30px;
+    background-color: #f05454;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#logout-btn:hover {
+    background-color: #d94343;
+}
+
+/* Ensure the button is responsive on smaller screens */
+@media (max-width: 600px) {
+    #logout-btn {
+        font-size: 16px;
+        padding: 12px 25px;
+        right: 20px;
+        /* Adjust position on smaller screens */
+        top: 20px;
+        /* Adjust top margin on smaller screens */
+    }
+}
