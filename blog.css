@@ -1,0 +1,221 @@
+/* Blog Page Styling */
+.blog-page {
+    display: flex;
+    flex-direction: column;
+    /* Stack items vertically */
+    gap: 30px;
+    align-items: center;
+    /* Center align content */
+    padding: 2rem;
+    /* Space around the blog page */
+    position: relative;
+    /* Allows positioning of banners */
+    max-width: 100%;
+    /* Ensure full width */
+    overflow: hidden;
+    /* Prevent overflow issues */
+}
+
+/* Blog Page Title Styling */
+.blog-title {
+    font-size: 2.5rem;
+    /* Font size for the title */
+    color: #333;
+    /* Color of the title */
+    text-align: center;
+    /* Center the text */
+    margin: 0;
+    /* Remove default margin */
+    padding-top: 1rem;
+    /* Space at the top */
+    margin-bottom: 2rem;
+    /* Space below the title */
+    font-weight: bold;
+    /* Make the title bold */
+}
+
+/* Banner Images on Both Sides */
+.blog-page::before,
+.blog-page::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 150px;
+    /* Adjust width as per the image size */
+    background-size: cover;
+    background-position: center;
+    opacity: 0.8;
+    /* Slightly transparent */
+    z-index: -1;
+    /* Keep banners behind content */
+}
+
+.blog-page::before {
+    left: 0;
+    background-image: url('https://cdn.pixabay.com/photo/2023/08/02/18/21/yoga-8165759_1280.jpg');
+    /* Replace with your left banner image URL */
+}
+
+.blog-page::after {
+    right: 0;
+    background-image: url('https://cdn.pixabay.com/photo/2023/08/02/18/21/yoga-8165759_1280.jpg');
+    /* Replace with your right banner image URL */
+}
+
+/* Blog Post Styling */
+.blog-post {
+    background-color: #f9f9f9;
+    /* Background color for posts */
+    border-radius: 10px;
+    /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
+    transition: transform 0.3s ease-in-out;
+    /* Smooth scale on hover */
+    width: 90%;
+    /* Relative width */
+    max-width: 600px;
+    /* Limit max width */
+    text-align: center;
+    /* Center align text */
+    padding: 1rem;
+    /* Add padding inside posts */
+}
+
+.blog-post:hover {
+    transform: scale(1.05);
+    /* Enlarge on hover */
+}
+
+.blog-post h2 {
+    font-size: 1.5rem;
+    /* Title size for blog posts */
+    color: #333;
+    /* Title color */
+}
+
+.blog-post p {
+    color: #666;
+    /* Summary color */
+    line-height: 1.6;
+    /* Improve readability */
+}
+
+/* Small "Read More" button */
+.blog-post a {
+    display: inline-block;
+    margin: 1rem auto;
+    /* Center the button */
+    padding: 0.5rem 1rem;
+    /* Padding */
+    font-size: 0.875rem;
+    /* Font size */
+    background-color: #00bfa5;
+    /* Button color */
+    color: white;
+    /* Text color */
+    text-transform: uppercase;
+    /* Uppercase text */
+    font-weight: bold;
+    /* Bold text */
+    text-decoration: none;
+    /* Remove underline */
+    border-radius: 20px;
+    /* Rounded button */
+    transition: background-color 0.3s ease-in-out;
+    /* Smooth transition */
+}
+
+.blog-post a:hover {
+    background-color: #008f75;
+    /* Darker button color on hover */
+}
+
+/* Responsive Layout for Blog Posts */
+@media (min-width: 768px) {
+    .blog-page {
+        flex-direction: row;
+        /* Align items in a row */
+        flex-wrap: wrap;
+        /* Allow wrapping */
+        justify-content: center;
+        /* Center content */
+    }
+
+    .blog-post {
+        flex: 1 1 calc(50% - 2rem);
+        /* Two posts side by side */
+        max-width: 45%;
+        /* Adjust max width */
+    }
+}
+
+@media (min-width: 1024px) {
+    .blog-post {
+        flex: 1 1 calc(33.33% - 2rem);
+        /* Three posts side by side */
+        max-width: 30%;
+        /* Adjust max width */
+    }
+}
+
+/* Footer Styling */
+footer {
+    background-color: #333;
+    /* Dark background */
+    color: white;
+    /* White text */
+    text-align: center;
+    /* Center text */
+    padding: 1rem;
+    /* Padding */
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    /* Space out footer items */
+    padding: 1.5rem;
+    /* Padding */
+}
+
+.quick-links {
+    list-style: none;
+    /* Remove bullet points */
+    padding: 0;
+    /* Remove padding */
+}
+
+.quick-links li a {
+    color: #fff;
+    /* White text */
+    text-decoration: none;
+    /* Remove underline */
+    padding: 0.5rem 0;
+    /* Space between links */
+}
+
+.social-media a {
+    color: #fff;
+    /* White text */
+    text-decoration: none;
+    /* Remove underline */
+    margin-right: 1rem;
+    /* Space between social links */
+}
+
+.contact-info p {
+    margin: 0.5rem 0;
+    /* Space between contact info */
+}
+
+.custom-tooltip {
+    position: absolute;
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 12px;
+    z-index: 10;
+}

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitFlow</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="website icon" href="logo.jpeg" type="jpeg">
+    <link rel="stylesheet" href="tracker.css">
+</head>
+
+<body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if (isLoggedIn === 'true') {
+                // User is logged in, optionally get the user ID if stored
+                const userId = localStorage.getItem('userId');
+
+                // Redirect to dashboard or display user-specific data
+                window.location.href = "dashboard.html";
+            } else {
+                // User is not logged in, show login/signup options
+                // Optionally, you can hide certain elements here if needed
+            }
+        });
+    </script>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="logo.jpeg" alt="Health & Wellness Logo">
+        </div>
+        <div class="name">
+            <h1>FITFLOW</h1>
+            <p>Growing Strong,Staying Healthy</p>
+        </div>
+        <nav>
+            <ul id="nav-menu">
+                <li><a href="index.html" title="Click to Open Homepage"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="about.html" title="Click to Open About Us"><i class="fas fa-info-circle"></i> About Us</a>
+                </li>
+                <li><a href="tracker.html" title="Click to Go to Tracker"><i class="fas fa-heartbeat"></i> Go to
+                        Tracker</a></li>
+                <li><a href="features.html" title="Click to Go to Features"><i class="fas fa-list"></i> Features</a>
+                </li>
+                <li><a href="blog.html" title="Click to Go to Blogs"><i class="fas fa-blog"></i> Blog</a></li>
+                <li><a href="signup.html" title="Click to Sign Up"><i class="fas fa-user-plus"></i> Sign Up</a></li>
+                <li><a href="login.html" title="Click to Log in"><i class="fas fa-sign-in-alt"></i> Log In</a></li>
+                <li><a href="contact.html" title="Click to Contact us"><i class="fas fa-envelope"></i> Contact</a></li>
+                <li><a href="support.html" title="Click For Support"><i class="fas fa-question-circle"></i> Support</a>
+                </li>
+            </ul>
+
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        </nav>
+        <div id="tooltip">
+            <ol>
+                <li><a href="index.html" title="Click to Open Homepage"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="about.html" title="Click to Open About Us"><i class="fas fa-info-circle"></i> About Us</a>
+                </li>
+                <li><a href="tracker.html" title="Click to Go to Tracker"><i class="fas fa-heartbeat"></i> Go to
+                        Tracker</a></li>
+                <li><a href="features.html" title="Click to Go to Features"><i class="fas fa-list"></i> Features</a>
+                </li>
+                <li><a href="blog.html" title="Click to Go to Blogs"><i class="fas fa-blog"></i> Blog</a></li>
+                <li><a href="signup.html" title="Click to Sign Up"><i class="fas fa-user-plus"></i> Sign Up</a></li>
+                <li><a href="login.html" title="Click to Log in"><i class="fas fa-sign-in-alt"></i> Log In</a></li>
+                <li><a href="contact.html" title="Click to Contact us"><i class="fas fa-envelope"></i> Contact</a></li>
+                <li><a href="support.html" title="Click For Support"><i class="fas fa-question-circle"></i> Support</a>
+                </li>
+            </ol>
+
+        </div>
+    </header>
+    <div class="content-wrapper">
+        <main class="main-content">
+            <!-- Tagline before the buttons -->
+            <section class="tagline">
+                <h2>Your Wellness Journey Starts Here</h2>
+                <p>Track Progress, Transform Life</p>
+            </section>
+
+            <!-- Dynamic Login/Sign Up Buttons -->
+            <div id="auth-buttons">
+                <button id="loginBtn" class="auth-btn" onclick="window.location.href='login.html'">Log In</button>
+                <button id="signupBtn" class="auth-btn" onclick="window.location.href='signup.html'">Sign Up</button>
+            </div>
+        </main>
+    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <ul class="quick-links">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#terms">Terms of Service</a></li>
+            </ul>
+            <div class="social-media">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+            <div class="contact-info">
+                <p><i class="fas fa-map-marker-alt"></i> Newada Samogar, Industrial Area Naini, Prayagraj UP 211010</p>
+                <p><i class="fas fa-envelope"></i> Email: fitflow71@gmail.com</p>
+                <p><i class="fas fa-phone"></i> Phone: (123) 456-7890</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2024 FitFlow Health & Wellness Tracker. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Privacy Policy Modal -->
+    <div id="privacy-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Privacy Policy</h2>
+            <p>We value your privacy. Your personal information will be kept confidential and will not be shared with
+                third parties unless required by law.</p>
+            <p>By using this platform, you agree to the collection and use of information in accordance with this
+                privacy policy.</p>
+            <button id="understood-btn" class="cta-button">Understood</button>
+        </div>
+    </div>
+
+    <!-- Terms of Service Modal -->
+    <div id="terms-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn terms-close-btn">&times;</span>
+            <h2>Terms of Service</h2>
+            <p>By accessing and using our platform, you agree to comply with our terms and conditions. Please make sure
+                to read these terms carefully before using our services.</p>
+            <p>We reserve the right to modify or update these terms at any time, and your continued use of the platform
+                constitutes acceptance of the updated terms.</p>
+            <button id="terms-understood-btn" class="cta-button">Understood</button>
+        </div>
+    </div>
+    </footer>
+    <script src="hamburger.js"></script>
+    <script src="privacyandterms.js"></script>
+</body>
+
+</html>

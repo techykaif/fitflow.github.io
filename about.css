@@ -1,0 +1,103 @@
+/* About Us Section */
+.about-us {
+    text-align: center;
+    /* Center text in the section */
+    padding: 20px;
+    /* Add some padding to the section */
+}
+
+/* Flex Container */
+.grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    /* Allow items to wrap onto multiple lines */
+    justify-content: center;
+    /* Center the cards horizontally */
+    gap: 10px;
+    /* Space between cards */
+    padding: 20px;
+}
+
+/* Card */
+.card {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 30px;
+    /* Increased padding for a better look */
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 1 1 300px;
+    /* Allow flexible widths with a minimum size */
+    max-width: 350px;
+    /* Set a maximum width for larger cards */
+    height: auto;
+    /* Allow height to adjust based on content */
+}
+
+/* Image Style */
+.card-image img {
+    width: 150px;
+    /* Keep image size */
+    height: 150px;
+    /* Keep image size */
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    /* Maintain margin */
+}
+
+.card h2 {
+    font-size: 22px;
+    /* Adjust heading size */
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 16px;
+    /* Adjust text size */
+    margin-bottom: 5px;
+}
+
+/* Links */
+.card p strong {
+    display: block;
+    margin-top: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .grid-container {
+        flex-direction: row;
+        /* Two cards per row on medium screens */
+    }
+
+    .card {
+        flex: 1 1 45%;
+        /* Allow flexibility for card size, making them responsive */
+    }
+}
+
+@media (max-width: 768px) {
+    .grid-container {
+        flex-direction: column;
+        /* Stack cards vertically on small screens */
+        align-items: center;
+        /* Center cards */
+    }
+
+    .card {
+        width: 90%;
+        /* Make cards responsive to screen size */
+        margin: 10px 0;
+        /* Margin between stacked cards */
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        width: 95%;
+        /* Adjust card width for very small screens */
+    }
+}
