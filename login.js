@@ -34,9 +34,9 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 export function login() {
-    email = document.getElementById('email').value;
+    const email = document.getElementById('email').value;
     const emailError = document.getElementById('emailError');
-    password = document.getElementById('password').value;
+    const password = document.getElementById('password').value;
     const passwordError = document.getElementById('passwordError');
     const loadingMessage = document.getElementById('loadingMessage');
     const incorrectMessage=document.getElementById('incorrectMessage');
