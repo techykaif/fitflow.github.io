@@ -1,44 +1,140 @@
-/* Ensure the section takes up the full viewport */
+/* Main content layout */
 .maincontent {
-    position: relative;
-    height: 100vh;
-    background-color: #f4f4f9;
-    /* Optional background color */
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    /* Include padding and borders in width and height */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 20px;
+    gap: 20px;
 }
 
-/* Style for the logout button */
-#logout-btn {
-    position: absolute;
-    top: 10px;
-    /* Position 100px from the top (considering the navbar height) */
-    right: 50px;
-    /* Position 50px from the right edge of the page */
-    padding: 15px 30px;
-    background-color: #f05454;
+/* Dynamic container styling */
+.container {
+    flex: 1;
+    max-width: 400px;
+    margin: 10px;
+    background: linear-gradient(135deg, #f4f4f9 0%, #e1e8f0 100%);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container:hover {
+    transform: translateY(-10px); /* Lift effect on hover */
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Heading styles */
+h2 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    color: #4CAF50; /* Matching the button style */
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 5px;
+}
+
+/* Form input and textarea styling */
+input, textarea {
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    width: 100%;
+    margin-bottom: 15px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus, textarea:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+/* Button styling inside forms */
+form button {
+    padding: 12px 30px;
+    background-color: #4CAF50;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     font-size: 18px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+form button:hover {
+    background-color: #45a049;
+    transform: translateY(-3px);
+}
+
+form button:active {
+    transform: translateY(0px);
+}
+
+/* Styling for meal suggestion box */
+#mealSuggestion {
+    padding: 20px;
+    background-color: #fff;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Dashboard and logout buttons */
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#dashboardBtn, #logout-btn {
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#dashboardBtn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#dashboardBtn:hover {
+    background-color: #45a049;
+}
+
+#logout-btn {
+    background-color: #f05454;
+    color: white;
+    margin-left: 15px;
 }
 
 #logout-btn:hover {
     background-color: #d94343;
 }
 
-/* Ensure the button is responsive on smaller screens */
-@media (max-width: 600px) {
-    #logout-btn {
-        font-size: 16px;
-        padding: 12px 25px;
-        right: 20px;
-        /* Adjust position on smaller screens */
-        top: 20px;
-        /* Adjust top margin on smaller screens */
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .maincontent {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .container {
+        width: 100%;
+    }
+
+    .button-container {
+        justify-content: center;
+    }
+
+    #dashboardBtn, #logout-btn {
+        width: 100%;
+        margin-bottom: 10px;
     }
 }

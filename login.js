@@ -1,7 +1,7 @@
 // Import Firebase modules (Ensure these imports are correct)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-import { getDatabase, ref, set, update } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+import { getDatabase, ref, update } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -23,26 +23,28 @@ document.addEventListener("DOMContentLoaded", function () {
     const passwordError = document.getElementById('passwordError');
     const emailError = document.getElementById('emailError');
     const passwordInput = document.getElementById('password');
+    
     loginBtn.addEventListener("click", login);
     emailInput.addEventListener("focus", () => {
         emailError.style.display = "none";
-
     });
     passwordInput.addEventListener('focus', () => {
         passwordError.style.display = "none";
     });
-
 });
+
 export function login() {
-    email = document.getElementById('email').value;
+    const email = document.getElementById('email').value;
     const emailError = document.getElementById('emailError');
-    password = document.getElementById('password').value;
+    const password = document.getElementById('password').value;
     const passwordError = document.getElementById('passwordError');
+    const loadingMessage = document.getElementById('loadingMessage');
+    const incorrectMessage=document.getElementById('incorrectMessage');
+    
     //validate inputs
     if (!validateEmail(email)) {
         emailError.textContent = "Please Enter a Valid Email Address";
         emailError.style.display = "block";
-
         return;
     }
     if (!validatePassword(password)) {
@@ -50,8 +52,12 @@ export function login() {
         passwordError.style.display = "block";
         return;
     }
+
+    // Show loading message
+    loadingMessage.style.display = "block";
     signInWithEmailAndPassword(auth, email, password)
-        .then(function (userCredential) { // Pass userCredential here
+    .then(function (userCredential) {
+        loginSection.style.visibility="hidden";
             const user = userCredential.user;
 
             // Store user data in Firebase database
@@ -60,7 +66,7 @@ export function login() {
             };
 
             // Update the user's last login data in Firebase
-            update(ref(database, 'users/' + user.uid), userData) // Use update correctly
+            update(ref(database, 'users/' + user.uid), userData)
                 .then(() => {
                     localStorage.setItem('isLoggedIn', 'true');
                     localStorage.setItem('userId', user.uid);
@@ -71,8 +77,15 @@ export function login() {
                 });
 
         })
-        .catch((error) => {
-            alert('Error: ' + error.message);
+        .catch(() => {
+            // Show the incorrectMessage and clear the input fields
+            incorrectMessage.style.display = "block";
+            document.getElementById('email').value = "";
+            document.getElementById('password').value = "";
+        })
+        .finally(() => {
+            // Hide loading message if there's an error
+            loadingMessage.style.display = "none";
         });
 
 }

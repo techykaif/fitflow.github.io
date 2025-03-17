@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="details.css">
+</head>
+<body>
+
+    <a href="dashboard.html" class="dashboard-link">Go to Dashboard</a>
+
+    <div id="loadingMessage">Loading your dashboard...</div>
+    
+    <div class="dashboard">
+        <h2>Welcome, <span id="userName"></span></h2>
+        <p>Current Weight: <span id="currentWeightDisplay"></span> kg</p>
+        <p>Target Weight: <span id="targetWeightDisplay"></span> kg</p>
+        <h3>Today's Activity</h3>
+        <p>Steps Covered: <span id="stepsDisplay"></span></p>
+        <p>Exercises: <span id="exercisesDisplay"></span></p>
+        <p>Meals: <span id="mealsDisplay"></span></p>
+    </div>
+
+    <script type="module" src="details.js"></script>
+
+</body>
+</html>
