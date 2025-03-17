@@ -24,11 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
     onAuthStateChanged(auth, (user) => {
         if (user) {
             const formattedEmail = formatEmail(user.email);
-            console.log("User signed in:", user.email, "→ Fetching data for:", formattedEmail);
             document.getElementById("userName").innerText = user.email.split("@")[0]; // Display username
             fetchUserData(formattedEmail);
         } else {
-            console.log("No user signed in.");
             alert("No user logged in. Please log in to see your dashboard.");
             document.getElementById('loadingMessage').style.display = 'none';
         }
@@ -38,24 +36,23 @@ document.addEventListener("DOMContentLoaded", () => {
 // Function to format email for Firebase path
 function formatEmail(email) {
     return email.replace(/\./g, "_dot_").replace(/@/g, "_at_");
-}function fetchUserData(userEmail) {
-    const date = new Date().toISOString().split('T')[0];
+}
 
-    console.log("Fetching user data for:", userEmail);
+// Function to fetch user data
+function fetchUserData(userEmail) {
+    const date = new Date().toISOString().split('T')[0];
 
     // Fetch fitness logs
     get(ref(db, `users/${userEmail}/fitnessLogs/${date}`)).then(snapshot => {
         if (snapshot.exists()) {
             const logs = snapshot.val();
-            console.log("✅ Fitness Logs:", logs);
-    
             const latestLogKey = Object.keys(logs).pop(); // Get latest timestamp
-            const latestLog = logs[latestLogKey]; // This still contains another nested object
-    
+            const latestLog = logs[latestLogKey];
+
             if (latestLog) {
-                const innerKey = Object.keys(latestLog).pop(); // Extract nested object key
-                const actualData = latestLog[innerKey]; // Get the actual log data
-    
+                const innerKey = Object.keys(latestLog).pop();
+                const actualData = latestLog[innerKey];
+
                 document.getElementById('stepsDisplay').innerText = actualData?.steps || "No data";
                 document.getElementById('exercisesDisplay').innerText = actualData?.exercises || "No data";
                 document.getElementById('mealsDisplay').innerText = actualData?.meals || "No data";
@@ -65,19 +62,14 @@ function formatEmail(email) {
             document.getElementById('exercisesDisplay').innerText = "No exercises logged for today.";
             document.getElementById('mealsDisplay').innerText = "No meals logged for today.";
         }
-    }).catch(error => {
-        console.error("Error fetching fitness logs:", error);
-    });
-    
+    }).catch(() => {});
+
     // Fetch weight logs
     get(ref(db, `users/${userEmail}/weightLogs/${date}`)).then(snapshot => {
         if (snapshot.exists()) {
             const logs = snapshot.val();
-            console.log("✅ Weight Logs:", logs);
-
-            // Extract the latest weight entry properly
-            const latestLogKey = Object.keys(logs).sort().pop(); // Get the latest timestamp
-            const latestLog = Object.values(logs[latestLogKey])[0]; // Get first object in timestamp
+            const latestLogKey = Object.keys(logs).sort().pop();
+            const latestLog = Object.values(logs[latestLogKey])[0];
 
             if (latestLog) {
                 document.getElementById('currentWeightDisplay').innerText = latestLog.currentWeight || "No data";
@@ -87,13 +79,10 @@ function formatEmail(email) {
                 document.getElementById('targetWeightDisplay').innerText = "No target weight set.";
             }
         } else {
-            console.log("❌ No weight log data found.");
             document.getElementById('currentWeightDisplay').innerText = "No weight log found.";
             document.getElementById('targetWeightDisplay').innerText = "No target weight set.";
         }
-    }).catch(error => {
-        console.error("Error fetching weight logs:", error);
-    }).finally(() => {
+    }).catch(() => {}).finally(() => {
         document.getElementById('loadingMessage').style.display = 'none'; // Hide loading message
         document.querySelector('.dashboard').style.display = 'block'; // Show dashboard
     });
