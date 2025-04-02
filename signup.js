@@ -1,24 +1,17 @@
 // Import and configure Firebase
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+import { auth, database, createUserWithEmailAndPassword, ref, set } from "./firebaseConfig.js";
 
-// Your web app's Firebase configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyDfU_CER8IJqqmNIKIQyVEUJJhEWtxNIzI",
-    authDomain: "fitflow-fitness-website.firebaseapp.com",
-    projectId: "fitflow-fitness-website",
-    storageBucket: "fitflow-fitness-website.appspot.com",
-    messagingSenderId: "826583269123",
-    appId: "1:826583269123:web:2f9cab4b7fdf17eec77336",
-    measurementId: "G-5LGXQ81QRQ"
-};
+// Function to format email for Firebase keys
+function formatEmail(email) {
+    return email.toLowerCase().replace(/\./g, "_dot_").replace(/@/g, "_at_");
+}
 
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const database = getDatabase(app);
+// Function to get Indian Standard Time (IST)
+function getISTTime() {
+    const now = new Date();
+    const options = { timeZone: "Asia/Kolkata", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit" };
+    return new Intl.DateTimeFormat("en-GB", options).format(now).replace(",", "");
+}
 
 // Event listener for DOMContentLoaded
 document.addEventListener("DOMContentLoaded", function () {
@@ -33,60 +26,52 @@ document.addEventListener("DOMContentLoaded", function () {
     const emailError = document.getElementById('emailError');
     const passwordError = document.getElementById('passwordError');
     const confirmPasswordError = document.getElementById('confirmPasswordError');
+    const statusMessage = document.getElementById('statusMessage');
+
+    // Add event listeners
     signUpBtn.addEventListener("click", signup);
-    name.addEventListener('focus', () => {
-        nameError.style.display = "none";
-    });
-    email.addEventListener('focus', () => {
-        emailError.style.display = "none";
-    });
-    password.addEventListener("focus", () => {
-        passwordError.style.display = "none";
-    });
-    confirmPassword.addEventListener("focus", () => {
-        confirmPasswordError.style.display = "none";
-    });
 
+    name.addEventListener('focus', () => { nameError.style.display = "none"; });
+    email.addEventListener('focus', () => { emailError.style.display = "none"; });
+    password.addEventListener("focus", () => { passwordError.style.display = "none"; });
+    confirmPassword.addEventListener("focus", () => { confirmPasswordError.style.display = "none"; });
 });
-document.addEventListener("DOMContentLoaded", function () {
 
-});
 // Function for registering users
 export function signup() {
-    // Get input fields
-    const name = document.getElementById('name').value.trim(); // Trim whitespace
-    const email = document.getElementById('email').value.trim();
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim().toLowerCase();
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
 
-    // Get error message elements
-    const name1 = document.getElementById('name');
     const nameError = document.getElementById('nameError');
     const emailError = document.getElementById('emailError');
     const passwordError = document.getElementById('passwordError');
     const confirmPasswordError = document.getElementById('confirmPasswordError');
+    const statusMessage = document.getElementById('statusMessage');
+    const signUpBtn = document.getElementById("signUpBtn");
 
-    // Hide error messages initially
+    // Reset error messages
     nameError.style.display = 'none';
     emailError.style.display = 'none';
     passwordError.style.display = 'none';
     confirmPasswordError.style.display = 'none';
+    statusMessage.textContent = "";
+    statusMessage.style.color = "";
 
     let isValid = true;
 
     // Validate inputs
-    if (!name || !name1) {
+    if (!name) {
         nameError.textContent = "Please enter your name";
         nameError.style.display = 'block';
         isValid = false;
     }
-
-    if (!validateEmail(email)) {
+    if (!validateEmail(email)) {  
         emailError.textContent = "Please enter a valid email address";
         emailError.style.display = 'block';
         isValid = false;
     }
-
     if (!validatePassword(password)) {
         passwordError.textContent = "Password must be at least 6 characters long";
         passwordError.style.display = 'block';
@@ -98,49 +83,72 @@ export function signup() {
         isValid = false;
     }
 
-    // If validation fails, stop the function
     if (!isValid) return;
 
-    const statusMessage = document.getElementById('statusMessage');
+    // Show loader effect
+    signUpBtn.disabled = true;
+    signUpBtn.innerHTML = `<span class="loader"></span> Signing up...`;
 
-    // Create user with Firebase Authentication
-    createUserWithEmailAndPassword(auth, email, password) // Call as a function
+    createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             const user = userCredential.user;
+            const formattedEmail = formatEmail(email); // Format email for Firebase
+            const userUID = user.uid; // Get Firebase UID
+            const creationTime = getISTTime(); // Get IST time
 
-            // Store user data in Firebase database
             const userData = {
-                email: email,
                 name: name,
-                last_login: Date.now()
+                email: email, // Store original email
+                uid: userUID // Store user UID
             };
 
-            set(ref(database, 'users/' + user.uid), userData) // Use set with the ref function
+            // Store personal information
+            set(ref(database, `users/${formattedEmail}/personal_information`), userData)
                 .then(() => {
-                    statusMessage.textContent = "User registered successfully!";
-                    statusMessage.style.color = "green";
+                    // Store account creation time in separate login_activity
+                    set(ref(database, `users/${formattedEmail}/login_activity`), {
+                        account_created: creationTime
+                    })
+                    .then(() => {
+                        statusMessage.textContent = "User registered successfully!";
+                        statusMessage.style.color = "green";
+                        resetButton();
+                    })
+                    .catch((error) => {
+                        statusMessage.textContent = "Some error occurred. Please try again later.";
+                        statusMessage.style.color = "red";
+                        resetButton();
+                    });
                 })
                 .catch((error) => {
-                    alert('Database error: ' + error.message);
+                    statusMessage.textContent = "Some error occurred. Please try again later.";
+                    statusMessage.style.color = "red";
+                    resetButton();
                 });
         })
         .catch((error) => {
-            alert('Error: ' + error.message);
+            if (error.code === "auth/email-already-in-use") {
+                statusMessage.textContent = "User already exists.";
+            } else {
+                statusMessage.textContent = "Some error occurred. Please try again later.";
+            }
+            statusMessage.style.color = "red";
+            resetButton();
         });
+
+    function resetButton() {
+        signUpBtn.disabled = false;
+        signUpBtn.innerHTML = "Sign Up";
+    }
 }
 
-// Email validation
+// Fixed Email Validation
 function validateEmail(email) {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return regex.test(email);
 }
 
 // Password validation (minimum 6 characters)
 function validatePassword(password) {
     return password.length >= 6;
-}
-
-// General field validation
-function validateField(field) {
-    return field != null && field.length > 0;
 }

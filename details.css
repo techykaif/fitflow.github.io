@@ -1,69 +1,233 @@
-body {
-    font-family: Arial, sans-serif;
+/* General Reset and Styling */
+* {
     margin: 0;
-    padding: 20px;
-    background-color: #f9f9f9;
-}
-.dashboard {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    max-width: 600px;
-    margin: 0 auto;
-    display: none; /* Initially hidden */
-}
-h2 {
-    color: #333;
-}
-p {
-    color: #555;
-}
-form {
-    margin: 20px 0;
-}
-
-form input, form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-form button {
-    padding: 10px 20px;
-    background-color: #28a745; /* Bootstrap primary color */
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', Arial, sans-serif;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    display: flex;
+    height: 100vh;
+    background-color: #f5f7fa;
+  }
+  
+  /* Sidebar Navigation */
+  .sidebar {
+    width: 250px;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
     color: white;
-    border: none;
-    cursor: pointer;
-}
-
-form button:hover {
-    background-color: #218838;
-}
-
-#mealSuggestion {
-    margin-top: 20px;
-    font-weight: bold;
-}
-
-.dashboard-link {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
+    transition: width 0.3s ease;
+  }
+  
+  .sidebar h2 {
+    margin-bottom: 40px;
+    font-size: 2rem;
+    color: #ffcc00;
+  }
+  
+  .sidebar a {
     text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    text-align: center;
-}
-
-/* Center the button */
-.button-container {
-    text-align: center;
+    color: white;
+    font-size: 1.2rem;
     margin-bottom: 20px;
-}
-
-.dashboard-link:hover {
-    background-color: #0056b3;
-}
+    display: block;
+    padding: 10px;
+    width: 80%;
+    text-align: center;
+    border-radius: 8px;
+    transition: background 0.3s;
+  }
+  
+  .sidebar a:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  /* Main Content */
+  .main-content {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+  }
+  
+  /* Loader Container */
+  .loader-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .loader {
+    border: 8px solid rgba(0, 0, 0, 0.1);
+    border-top: 8px solid #1e3c72;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 1s linear infinite;
+  }
+  
+  /* Loading Animation */
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Dashboard */
+  .dashboard {
+    display: none;
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+  
+  /* User Info Section */
+  .user-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .user-info div {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 12px;
+    flex: 1;
+    margin: 0 10px;
+    text-align: center;
+  }
+  
+  .user-info h3 {
+    color: #007bff;
+  }
+  
+  .user-info p {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  /* Progress Section */
+  .progress-section {
+    margin-bottom: 20px;
+  }
+  
+  .progress-bar {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  
+  .progress-fill {
+    height: 25px;
+    background: linear-gradient(90deg, #00b894, #00cec9);
+    color: white;
+    font-weight: bold;
+    line-height: 25px;
+    transition: width 1s ease-in-out;
+  }
+  
+  /* Chart Section */
+  .chart-section canvas {
+    width: 100%;
+    max-height: 400px;
+  }
+  
+  /* AI Meal Suggestion Section */
+  .day-view-section {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+  }
+  
+  #mealSuggestion {
+    color: #333;
+    font-style: italic;
+  }
+  
+  /* Date Picker */
+  input[type="date"] {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 900px) {
+    .sidebar {
+      width: 200px;
+    }
+  
+    .user-info {
+      flex-direction: column;
+    }
+  
+    .user-info div {
+      margin-bottom: 10px;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .sidebar {
+      display: none;
+    }
+  
+    .main-content {
+      padding: 20px;
+    }
+  
+    canvas {
+      max-height: 300px;
+    }
+  }
+  /* Adjustments for Dashboard Layout */
+.dashboard {
+    animation: fadeIn 0.6s ease-in-out;
+  }
+  
+  /* Smooth Progress Bar Animation */
+  .progress-fill {
+    transition: width 1.5s ease-in-out;
+  }
+  
+  /* Chart Responsiveness */
+  canvas {
+    width: 100% !important;
+    height: 300px !important;
+  }
+  
+  /* Loader Enhancements */
+  .loader-container {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Hover Effect for Sidebar */
+  .sidebar a {
+    transition: background 0.3s, transform 0.2s;
+  }
+  
+  .sidebar a:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Responsive Enhancements */
+  @media (max-width: 480px) {
+    .user-info div {
+      padding: 15px;
+    }
+  
+    input[type="date"] {
+      font-size: 0.9rem;
+    }
+  }
+  

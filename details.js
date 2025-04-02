@@ -1,24 +1,5 @@
 // Import Firebase SDKs
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-
-// Firebase Configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyDfU_CER8IJqqmNIKIQyVEUJJhEWtxNIzI",
-    authDomain: "fitflow-fitness-website.firebaseapp.com",
-    projectId: "fitflow-fitness-website",
-    storageBucket: "fitflow-fitness-website.appspot.com",
-    messagingSenderId: "826583269123",
-    appId: "1:826583269123:web:2f9cab4b7fdf17eec77336",
-    measurementId: "G-5LGXQ81QRQ"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-const auth = getAuth(app);
-
+import {database,ref,get} from "./firebaseConfig.js";
 // Ensure script runs after DOM is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
     onAuthStateChanged(auth, (user) => {
@@ -87,3 +68,4 @@ function fetchUserData(userEmail) {
         document.querySelector('.dashboard').style.display = 'block'; // Show dashboard
     });
 }
+

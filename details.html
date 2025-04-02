@@ -1,28 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="details.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="details.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
 
-    <a href="dashboard.html" class="dashboard-link">Go to Dashboard</a>
+  <!-- Sidebar Section -->
+  <div class="sidebar">
+    <h2>FitFlow</h2>
+    <a href="dashboard.html">🏠 Return to Tracker</a>
+    <a href="#">📊 Analytics</a>
+    <a href="#">🍎 Meal Suggestions</a>
+    <a href="#">📅 Day View</a>
+  </div>
 
-    <div id="loadingMessage">Loading your dashboard...</div>
-    
-    <div class="dashboard">
-        <h2>Welcome, <span id="userName"></span></h2>
-        <p>Current Weight: <span id="currentWeightDisplay"></span> kg</p>
-        <p>Target Weight: <span id="targetWeightDisplay"></span> kg</p>
-        <h3>Today's Activity</h3>
-        <p>Steps Covered: <span id="stepsDisplay"></span></p>
-        <p>Exercises: <span id="exercisesDisplay"></span></p>
-        <p>Meals: <span id="mealsDisplay"></span></p>
+  <!-- Main Section -->
+  <div class="main-content">
+    <!-- Loader (Circular Spinner) -->
+    <div class="loader-container" id="loaderContainer">
+      <div class="loader"></div>
     </div>
 
-    <script type="module" src="details.js"></script>
+    <!-- Dashboard -->
+    <div class="dashboard" id="dashboardContent" style="display: none;">
+      <h2>Welcome, <span id="userName"></span></h2>
+      <p>Current Weight: <span id="currentWeightDisplay"></span> kg</p>
+      <p>Target Weight: <span id="targetWeightDisplay"></span> kg</p>
 
+      <!-- Date Picker for Day View -->
+      <label for="datePicker">Select a Date:</label>
+      <input type="date" id="datePicker" />
+
+      <!-- Progress Section -->
+      <div class="progress-section">
+        <h3>Progress Overview</h3>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill">0%</div>
+        </div>
+      </div>
+
+      <!-- Today's Activity Section -->
+      <div class="user-info">
+        <div>
+          <h3>Steps Covered</h3>
+          <p><span id="stepsDisplay"></span></p>
+        </div>
+        <div>
+          <h3>Exercises</h3>
+          <p><span id="exercisesDisplay"></span></p>
+        </div>
+        <div>
+          <h3>Meals</h3>
+          <p><span id="mealsDisplay"></span></p>
+        </div>
+      </div>
+
+      <!-- Chart Section -->
+      <div class="chart-section">
+        <h3>Weekly Steps Overview</h3>
+        <canvas id="stepsChart" width="400" height="200"></canvas>
+      </div>
+
+      <!-- Meal Suggestion Section (For AI Integration) -->
+      <div class="day-view-section">
+        <h3>AI Meal Suggestions</h3>
+        <p id="mealSuggestion">Your personalized meals will appear here.</p>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="details.js"></script>
 </body>
+
 </html>
