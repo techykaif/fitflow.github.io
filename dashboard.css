@@ -1,140 +1,513 @@
-/* Main content layout */
-.maincontent {
+/* ==================== Base Styles ==================== */
+:root {
+    --primary-color: #4361ee;
+    --secondary-color: #3f37c9;
+    --accent-color: #4895ef;
+    --success-color: #4cc9f0;
+    --warning-color: #f72585;
+    --text-color: #333;
+    --text-light: #777;
+    --bg-color: #f8f9fa;
+    --card-bg: #fff;
+    --sidebar-bg: #fff;
+    --border-color: #e0e0e0;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --border-radius: 12px;
+    --transition: all 0.3s ease;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+  }
+  
+  .dashboard {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    padding: 20px;
-    gap: 20px;
-}
-
-/* Dynamic container styling */
-.container {
-    flex: 1;
-    max-width: 400px;
-    margin: 10px;
-    background: linear-gradient(135deg, #f4f4f9 0%, #e1e8f0 100%);
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.container:hover {
-    transform: translateY(-10px); /* Lift effect on hover */
-    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.2);
-}
-
-/* Heading styles */
-h2 {
-    font-size: 1.8em;
-    margin-bottom: 15px;
-    color: #4CAF50; /* Matching the button style */
-    border-bottom: 2px solid #4CAF50;
-    padding-bottom: 5px;
-}
-
-/* Form input and textarea styling */
-input, textarea {
-    padding: 12px;
-    border: 2px solid #ddd;
-    border-radius: 10px;
-    font-size: 16px;
-    width: 100%;
-    margin-bottom: 15px;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-input:focus, textarea:focus {
-    border-color: #4CAF50;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    outline: none;
-}
-
-/* Button styling inside forms */
-form button {
-    padding: 12px 30px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-form button:hover {
-    background-color: #45a049;
-    transform: translateY(-3px);
-}
-
-form button:active {
-    transform: translateY(0px);
-}
-
-/* Styling for meal suggestion box */
-#mealSuggestion {
-    padding: 20px;
-    background-color: #fff;
-    border: 2px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Dashboard and logout buttons */
-.button-container {
+    min-height: 100vh;
+  }
+  
+  /* ==================== Sidebar Styles ==================== */
+  .sidebar {
+    width: 250px;
+    background-color: var(--sidebar-bg);
+    border-right: 1px solid var(--border-color);
     display: flex;
-    justify-content: flex-end;
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-#dashboardBtn, #logout-btn {
-    padding: 12px 30px;
-    font-size: 16px;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+    z-index: 100;
+    transition: var(--transition);
+  }
+  
+  .logo {
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .logo h2 {
+    color: var(--primary-color);
+    font-weight: 700;
+  }
+  
+  .nav ul {
+    list-style: none;
+    padding: 20px 0;
+  }
+  
+  .nav li {
+    padding: 10px 20px;
+    margin: 0 10px 5px 10px;
     border-radius: 8px;
+    transition: var(--transition);
+  }
+  
+  .nav li.active {
+    background-color: var(--primary-color);
+  }
+  
+  .nav li.active a {
+    color: white;
+  }
+  
+  .nav li:hover:not(.active) {
+    background-color: rgba(67, 97, 238, 0.1);
+  }
+  
+  .nav a {
+    text-decoration: none;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+  }
+  
+  .icon {
+    margin-right: 10px;
+    font-size: 1.2em;
+  }
+  
+  /* ==================== User Profile ==================== */
+  .user-profile {
+    margin-top: auto;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid var(--border-color);
+  }
+  
+  .avatar {
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .user-info h4 {
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+  
+  .user-info p {
+    font-size: 12px;
+    color: var(--text-light);
+  }
+  
+  /* ==================== Main Content ==================== */
+  .main-content {
+    flex: 1;
+    padding: 20px;
+    margin-left: 250px;
+    transition: var(--transition);
+  }
+  
+  /* ==================== Header ==================== */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+    background-color: var(--card-bg);
+    border-radius: 30px;
+    padding: 5px 15px;
+    box-shadow: var(--shadow);
+    width: 300px;
+  }
+  
+  .search-bar input {
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 8px;
+    width: 100%;
+  }
+  
+  .search-btn {
+    background: none;
     border: none;
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-size: 16px;
+  }
+  
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  /* ==================== Stats Section ==================== */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .stat-card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    transition: var(--transition);
+  }
+  
+  .stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .stat-info h3 {
+    font-size: 14px;
+    color: var(--text-light);
+    margin-bottom: 5px;
+  }
+  
+  .stat-value {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+  
+  /* ==================== Charts Section ==================== */
+  .charts-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .chart-container {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+  }
+  
+  .chart-container h3 {
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
+  
+  /* ==================== Recent Activities ==================== */
+  .recent-activities {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+  }
+  
+  .activities-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .activity-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #f8f9fa;
+    transition: var(--transition);
+  }
+  
+  .activity-item:hover {
+    background-color: #f0f0f0;
+  }
+  
+  /* ==================== Modal ==================== */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal.active {
+    display: flex;
+  }
+  
+  .modal-content {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    width: 500px;
+    max-width: 90%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* ==================== Responsive Styles ==================== */
+  @media (max-width: 1200px) {
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 992px) {
+    .charts-section {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .sidebar {
+      width: 0;
+      overflow: hidden;
+    }
+  
+    .sidebar.active {
+      width: 250px;
+    }
+  
+    .main-content {
+      margin-left: 0;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .activity-stats {
+      display: none;
+    }
+  }
+  /* ================= Add Activity Button ================= */
+.add-activity-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
 }
 
-#dashboardBtn {
-    background-color: #4CAF50;
+.add-activity-btn:hover {
+    background-color: #0056b3;
+}
+
+/* ================= Modal Styling ================= */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ================= Modal Content ================= */
+.modal-content {
+    background: white;
+    width: 400px;
+    max-width: 90%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.modal-header h3 {
+    font-size: 20px;
+    margin: 0;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+}
+
+.close-modal:hover {
+    color: red;
+}
+
+/* ================= Form Styling ================= */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.form-group textarea {
+    resize: none;
+    height: 80px;
+}
+
+/* ================= Form Actions ================= */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.cancel-btn {
+    background: #ccc;
+    color: black;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.cancel-btn:hover {
+    background: #bbb;
+}
+
+.save-btn {
+    background: #28a745;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.save-btn:hover {
+    background: #218838;
+}
+
+/* ================= Animations ================= */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ================= View All Button ================= */
+.view-all-btn {
+    background-color: #f8f9fa;
+    color: #007bff;
+    border: 2px solid #007bff;
+    padding: 8px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.view-all-btn:hover {
+    background-color: #007bff;
     color: white;
 }
 
-#dashboardBtn:hover {
-    background-color: #45a049;
+/* ================= Notification Button ================= */
+.notification-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.3s ease;
+    position: relative;
 }
 
-#logout-btn {
-    background-color: #f05454;
-    color: white;
-    margin-left: 15px;
+.notification-btn:hover {
+    transform: scale(1.1);
+    opacity: 0.8;
 }
 
-#logout-btn:hover {
-    background-color: #d94343;
-}
-
-/* Responsive design for smaller screens */
-@media (max-width: 768px) {
-    .maincontent {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .container {
-        width: 100%;
-    }
-
-    .button-container {
-        justify-content: center;
-    }
-
-    #dashboardBtn, #logout-btn {
-        width: 100%;
-        margin-bottom: 10px;
-    }
+/* Optional: Add a red dot for unread notifications */
+.notification-btn::after {
+    content: "";
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 8px;
+    height: 8px;
+    background-color: red;
+    border-radius: 50%;
+    display: none; /* Change to 'block' when there's a new notification */
 }

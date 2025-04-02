@@ -1,0 +1,208 @@
+/* General Page Styling */
+body {
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(to right, #667eea, #764ba2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Card Container */
+.settings-container {
+    background: #fff;
+    width: 90%;
+    max-width: 400px;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Profile Section */
+.profile-section {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(to right, #667eea, #764ba2);
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 10px;
+}
+
+h3 {
+    color: #333;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 5px 0;
+}
+
+p {
+    color: #666;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* Divider */
+hr {
+    border: none;
+    height: 1px;
+    background: #ddd;
+    margin: 15px 0;
+}
+
+/* Profile Settings */
+.profile-settings {
+    text-align: left;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+    margin-top: 10px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    background: #f9f9f9;
+    transition: 0.3s;
+}
+
+input:focus {
+    outline: none;
+    border-color: #667eea;
+    background: #fff;
+    box-shadow: 0 0 8px rgba(102, 126, 234, 0.4);
+}
+
+/* Buttons */
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+/* Save Changes Button */
+#saveChangesBtn {
+    background: linear-gradient(to right, #667eea, #764ba2);
+    color: white;
+}
+
+#saveChangesBtn:hover {
+    background: linear-gradient(to right, #5a67d8, #6b46c1);
+}
+
+/* Change Password Button */
+#changePasswordBtn {
+    background: #f39c12;
+    color: white;
+}
+
+#changePasswordBtn:hover {
+    background: #e67e22;
+}
+
+/* Logout Button */
+#logoutBtn {
+    background: #ff4d4d;
+    color: white;
+}
+
+#logoutBtn:hover {
+    background: #e63946;
+}
+
+/* Dashboard Button */
+#dashboardBtn {
+    background-color: #28a745;
+    color: white;
+}
+
+#dashboardBtn:hover {
+    background-color: #218838;
+}
+
+/* Responsive Design */
+@media (max-width: 500px) {
+    .settings-container {
+        width: 95%;
+        padding: 20px;
+    }
+    
+    input {
+        font-size: 14px;
+        padding: 8px;
+    }
+    
+    button {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+/* Toast Notification Styles */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #333;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s, transform 0.4s;
+    z-index: 1000;
+    font-size: 14px;
+}
+
+/* Show Toast Effect */
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Success Toast */
+.toast.success {
+    background: #28a745;
+}
+
+/* Error Toast */
+.toast.error {
+    background: #dc3545;
+}

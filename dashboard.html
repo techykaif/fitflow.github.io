@@ -1,174 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tracker - FitFlow Health & Wellness Tracker</title>
-    
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="login.css">
+    <title>Fitness Tracker Dashboard</title>
     <link rel="stylesheet" href="dashboard.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
-    <!-- Favicon -->
-    <link rel="icon" href="logo.jpeg" type="image/jpeg">
 </head>
-
 <body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>FitFlow</h2>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li class="active"><a href="#"><span class="icon">📊</span> Dashboard</a></li>
+                    <li><a href="#"><span class="icon">👟</span> Activities</a></li>
+                    <li><a href="#"><span class="icon">📈</span> Progress</a></li>
+                    <li><a href="#"><span class="icon">🍎</span> Nutrition</a></li>
+                    <li><a href="#"><span class="icon">💤</span> Sleep</a></li>
+                    <li><a href="settings.html"><span class="icon">⚙️</span> Settings</a></li>
+                </ul>
+            </nav>
+            <div class="user-profile">
+                <div class="avatar" id="user-avatar">JD</div>
+                <div class="user-info">
+                    <h4 id="user-name">Loading...</h4>
+                </div>
+            </div>
+            
+        </aside>
 
-    <!-- Header -->
-    <header>
-        <div class="logo">
-            <img src="logo.jpeg" alt="Health & Wellness Logo">
-        </div>
-        <div class="name">
-            <h1>FITFLOW</h1>
-            <p>Growing Strong,Staying Healthy</p>
-        </div>
-        <nav>
-            <ul id="nav-menu">
-                <li><a href="index.html" title="Click to Open Homepage"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="about.html" title="Click to Open About Us"><i class="fas fa-info-circle"></i> About Us</a>
-                </li>
-                <li><a href="tracker.html" title="Click to Go to Tracker"><i class="fas fa-heartbeat"></i> Go to
-                        Tracker</a></li>
-                <li><a href="features.html" title="Click to Go to Features"><i class="fas fa-list"></i> Features</a>
-                </li>
-                <li><a href="blog.html" title="Click to Go to Blogs"><i class="fas fa-blog"></i> Blog</a></li>
-                <li><a href="signup.html" title="Click to Sign Up"><i class="fas fa-user-plus"></i> Sign Up</a></li>
-                <li><a href="login.html" title="Click to Log in"><i class="fas fa-sign-in-alt"></i> Log In</a></li>
-                <li><a href="contact.html" title="Click to Contact us"><i class="fas fa-envelope"></i> Contact</a></li>
-                <li><a href="support.html" title="Click For Support"><i class="fas fa-question-circle"></i> Support</a>
-                </li>
-            </ul>
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search...">
+                    <button class="search-btn">🔍</button>
+                </div>
+                <div class="header-actions">
+                    <button class="notification-btn">🔔</button>
+                    <button class="add-activity-btn">+ Add Activity</button>
+                </div>
+            </header>
 
-            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-        </nav>
-        <div id="tooltip">
-            <ol>
-                <li><a href="index.html" title="Click to Open Homepage"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="about.html" title="Click to Open About Us"><i class="fas fa-info-circle"></i> About Us</a>
-                </li>
-                <li><a href="tracker.html" title="Click to Go to Tracker"><i class="fas fa-heartbeat"></i> Go to
-                        Tracker</a></li>
-                <li><a href="features.html" title="Click to Go to Features"><i class="fas fa-list"></i> Features</a>
-                </li>
-                <li><a href="blog.html" title="Click to Go to Blogs"><i class="fas fa-blog"></i> Blog</a></li>
-                <li><a href="signup.html" title="Click to Sign Up"><i class="fas fa-user-plus"></i> Sign Up</a></li>
-                <li><a href="login.html" title="Click to Log in"><i class="fas fa-sign-in-alt"></i> Log In</a></li>
-                <li><a href="contact.html" title="Click to Contact us"><i class="fas fa-envelope"></i> Contact</a></li>
-                <li><a href="support.html" title="Click For Support"><i class="fas fa-question-circle"></i> Support</a>
-                </li>
-            </ol>
-
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <section class="maincontent">
-        <div class="button-container">
-            <button id="dashboardBtn" class="cta-button">Dashboard</button>
-            <button id="logout-btn" class="cta-button" onclick="logoutUser();">Logout</button>
-        </div>
-
-        <!-- Fitness Log -->
-        <div class="container">
-            <h2>Log Your Fitness Activities</h2>
-            <form id="fitnessLogForm">
-                <input type="number" id="steps" placeholder="Steps Covered" required>
-                <textarea id="exercises" placeholder="Exercises Completed" required></textarea>
-                <textarea id="meals" placeholder="Meals Eaten" required></textarea>
-                <input type="text" id="mealType" placeholder="Meal Type (e.g., Breakfast, Lunch, Dinner)" required>
-                <input type="text" id="portionSize" placeholder="Portion Size (e.g., 1 cup, 2 slices)" required>
-                <textarea id="ingredients" placeholder="Ingredients (optional)"></textarea>
-                <button type="submit" class="cta-button">Submit Log</button>
-            </form>
-        </div>
-
-        <!-- Weight Log -->
-        <div class="container">
-            <h2>Log Your Weight</h2>
-            <form id="weightLogForm">
-                <input type="number" id="currentWeight" placeholder="Current Weight (kg)" required>
-                <input type="number" id="targetWeight" placeholder="Target Weight (kg)" required>
-                <button type="submit" class="cta-button">Log Weight</button>
-            </form>
-        </div>
-
-        <!-- Meal Suggestions -->
-        <div class="container">
-            <h2>Meal Suggestions</h2>
-            <div id="mealSuggestion">Your meal suggestions will appear here...</div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <ul class="quick-links">
-                <li><a href="#" id="privacy-policy-link">Privacy Policy</a></li>
-                <li><a href="#" id="terms-service-link">Terms of Service</a></li>
-            </ul>
-
-            <div class="social-media">
-                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <div class="welcome-section">
+                <h1>Welcome back, John!</h1>
+                <p>Here's your fitness summary for today</p>
             </div>
 
-            <div class="contact-info">
-                <p><i class="fas fa-map-marker-alt"></i> Newada Samogar, Industrial Area Naini, Prayagraj UP 211010</p>
-                <p><i class="fas fa-envelope"></i> fitflow71@gmail.com</p>
-                <p><i class="fas fa-phone"></i> (123) 456-7890</p>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon steps">👣</div>
+                    <div class="stat-info">
+                        <h3>Steps</h3>
+                        <p class="stat-value" id="steps-value">0</p>
+                        <p class="stat-target">Goal: 10,000</p>
+                        <div class="progress-bar">
+                            <div class="progress" id="steps-progress"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon calories">🔥</div>
+                    <div class="stat-info">
+                        <h3>Calories</h3>
+                        <p class="stat-value" id="calories-value">0</p>
+                        <p class="stat-target">Goal: 2,500</p>
+                        <div class="progress-bar">
+                            <div class="progress" id="calories-progress"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon distance">🏃</div>
+                    <div class="stat-info">
+                        <h3>Distance</h3>
+                        <p class="stat-value" id="distance-value">0</p>
+                        <p class="stat-target">Goal: 5 km</p>
+                        <div class="progress-bar">
+                            <div class="progress" id="distance-progress"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon active">⏱️</div>
+                    <div class="stat-info">
+                        <h3>Active Time</h3>
+                        <p class="stat-value" id="active-value">0</p>
+                        <p class="stat-target">Goal: 60 min</p>
+                        <div class="progress-bar">
+                            <div class="progress" id="active-progress"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="copyright">
-            <p>© 2024 FitFlow Health & Wellness Tracker. All rights reserved.</p>
-        </div>
-    </footer>
 
-    <!-- Privacy Policy Modal -->
-    <div id="privacy-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h2>Privacy Policy</h2>
-            <p>We value your privacy. Your personal information will be kept confidential and will not be shared with third parties unless required by law.</p>
-            <p>By using this platform, you agree to our privacy policy.</p>
-            <button id="understood-btn" class="cta-button">Understood</button>
+            <div class="charts-section">
+                <div class="chart-container">
+                    <h3>Weekly Activity</h3>
+                    <div class="chart" id="weekly-chart">
+                        <div class="chart-bars">
+                            <div class="chart-bar" data-value="0" data-day="Mon">
+                                <div class="bar-fill"></div>
+                                <span class="bar-label">Mon</span>
+                            </div>
+                            <div class="chart-bar" data-value="0" data-day="Tue">
+                                <div class="bar-fill"></div>
+                                <span class="bar-label">Tue</span>
+                            </div>
+                            <div class="chart-bar" data-value="0" data-day="Wed">
+                                <div class="bar-fill"></div>
+                                <span class="bar-label">Wed</span>
+                            </div>
+                            <div class="chart-bar" data-value="0" data-day="Thu">
+                                <div class="bar-fill"></div>
+                                <span class="bar-label">Thu</span>
+                            </div>
+                            <div class="chart-bar" data-value="0" data-day="Fri">
+                                <div class="bar-fill"></div>
+                                <span class="bar-label">Fri</span>
+                            </div>
+                            <div class="chart-bar" data-value="0" data-day="Sat">
+                                <div class="bar-fill"></div>
+                                <span class="bar-label">Sat</span>
+                            </div>
+                            <div class="chart-bar" data-value="0" data-day="Sun">
+                                <div class="bar-fill"></div>
+                                <span class="bar-label">Sun</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <h3>Activity Distribution</h3>
+                    <div class="chart" id="distribution-chart">
+                        <div class="donut-chart">
+                            <div class="donut-segment running" style="--offset: 0; --value: 25"></div>
+                            <div class="donut-segment cycling" style="--offset: 25; --value: 30"></div>
+                            <div class="donut-segment walking" style="--offset: 55; --value: 20"></div>
+                            <div class="donut-segment gym" style="--offset: 75; --value: 25"></div>
+                            <div class="donut-hole"></div>
+                        </div>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <span class="legend-color running"></span>
+                                <span class="legend-label">Running</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color cycling"></span>
+                                <span class="legend-label">Cycling</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color walking"></span>
+                                <span class="legend-label">Walking</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color gym"></span>
+                                <span class="legend-label">Gym</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recent-activities">
+                <div class="section-header">
+                    <h3>Recent Activities</h3>
+                    <button class="view-all-btn">View All</button>
+                </div>
+                <div class="activities-list" id="activities-list">
+                    <!-- Activities will be added here by JavaScript -->
+                </div>
+            </div>
+        </main>
+
+        <!-- Add Activity Modal -->
+        <div class="modal" id="activity-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Add New Activity</h3>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="activity-form">
+                        <div class="form-group">
+                            <label for="activity-type">Activity Type</label>
+                            <select id="activity-type" required>
+                                <option value="">Select activity type</option>
+                                <option value="Running">Running</option>
+                                <option value="Walking">Walking</option>
+                                <option value="Cycling">Cycling</option>
+                                <option value="Swimming">Swimming</option>
+                                <option value="Gym">Gym workout</option>
+                                <option value="Yoga">Yoga</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="activity-duration">Duration (minutes)</label>
+                            <input type="number" id="activity-duration" min="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="activity-distance">Distance (km)</label>
+                            <input type="number" id="activity-distance" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="activity-calories">Calories Burned</label>
+                            <input type="number" id="activity-calories" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="activity-date">Date</label>
+                            <input type="date" id="activity-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="activity-notes">Notes</label>
+                            <textarea id="activity-notes"></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="cancel-btn">Cancel</button>
+                            <button type="submit" class="save-btn">Save Activity</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Terms of Service Modal -->
-    <div id="terms-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn terms-close-btn">&times;</span>
-            <h2>Terms of Service</h2>
-            <p>By accessing and using our platform, you agree to comply with our terms and conditions.</p>
-            <p>We reserve the right to update these terms at any time.</p>
-            <button id="terms-understood-btn" class="cta-button">Understood</button>
-        </div>
-    </div>
-
-    <!-- Scripts -->
-    <script>
-        function logoutUser() {
-            localStorage.setItem('isLoggedIn', 'false');
-            window.location.href = 'index.html';
-        }
-
-        document.getElementById("dashboardBtn").addEventListener("click", function () {
-            window.location.href = 'details.html';
-        });
-    </script>
-    
-    <script src="privacyandterms.js"></script>
-    <script src="hamburger.js"></script>
-    <script type="module" src="dashboard.js"></script>
-    <script type="module" src="hamburger.js"></script>
-
+    <script src="dashboard.js"></script>
+    <script type="module" src="dashboardjs.js"></script>
 </body>
 </html>
