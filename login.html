@@ -10,7 +10,32 @@
     <link rel="website icon" href="logo.jpeg" type="jpeg">
     <link rel="stylesheet" href="login.css">
 </head>
-
+<script type="module">
+    import { auth, onAuthStateChanged } from "./firebaseConfig.js";
+ 
+ onAuthStateChanged(auth, (user) => {
+     if (user) {
+         // Show loader only if the user is logged in
+         const loaderDiv = document.createElement("div");
+         loaderDiv.id = "loader-container";
+         loaderDiv.innerHTML = `
+             <div class="loader"></div>
+             <p>Please wait...</p>
+         `;
+         document.body.appendChild(loaderDiv);
+ 
+         // Redirect after a short delay
+         setTimeout(() => {
+             window.location.href = "dashboard.html";
+         }, 1000); // 1-second delay for smooth transition
+     } else {
+         // Redirect only once if user is not logged in
+         if (window.location.pathname !== "/login.html") {
+             window.location.href = "login.html";
+         }
+     }
+ });
+</script>
 <body>
     <!-- Header -->
     <header>

@@ -35,7 +35,7 @@ const nameInput = document.getElementById("name");
 // Check if the user is logged in and fetch data
 onAuthStateChanged(auth, (user) => {
     if (!user) {
-        window.location.href = "tracker.html";
+        window.location.href = "index.html";
     } else {
         const formattedEmail = formatEmail(user.email);
         const userRef = ref(database, `users/${formattedEmail}/personal_information`);
