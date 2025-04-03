@@ -133,3 +133,15 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+@media screen and (min-width: 1024px) and (max-width: 1440px) {
+    footer {
+        margin-top: 75px;
+    }
+}
+
+@media screen and (min-width: 1441px) {
+    footer {
+        margin-top: 105px; /* Adjust for larger desktops */
+    }
+}
