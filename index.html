@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="website icon" href="logo.jpeg" type="jpeg">
+    <link rel="stylesheet" href="enhanced-styles.css">
 </head>
 <script type="module" src="menuhider.js"></script>
 
@@ -60,60 +61,272 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>Your Journey to a Healthier Life Starts Here</h1>
-        <p>Track your wellness, monitor your health, and achieve your goals.</p>
-        <a href="tracker.html" class="cta-button" id="trackerPageBtn">Get Started</a>
+    <!-- Enhanced Hero Section -->
+    <section class="enhanced-hero">
+        <div class="hero-content">
+            <h1 class="animated-text">Your Journey to a <span class="highlight">Healthier Life</span> Starts Here</h1>
+            <p>Track your wellness, monitor your health, and achieve your goals with our comprehensive platform.</p>
+            <div class="hero-buttons">
+                <a href="tracker.html" class="cta-button primary" id="trackerPageBtn">Get Started</a>
+                <a href="features.html" class="cta-button secondary">Explore Features</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="stats-card steps">
+                <div class="icon-container">
+                    <i class="fas fa-walking"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Daily Steps</h3>
+                    <div class="stat-value" id="step-counter">0</div>
+                    <div class="progress-bar">
+                        <div class="progress" id="step-progress"></div>
+                    </div>
+                    <p>Goal: 10,000</p>
+                </div>
+            </div>
+            <div class="stats-card calories">
+                <div class="icon-container">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Calories Burned</h3>
+                    <div class="stat-value" id="calorie-counter">0</div>
+                    <div class="progress-bar">
+                        <div class="progress" id="calorie-progress"></div>
+                    </div>
+                    <p>Goal: 500</p>
+                </div>
+            </div>
+            <div class="stats-card heart">
+                <div class="icon-container">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Heart Rate</h3>
+                    <div class="stat-value" id="heart-counter">0</div>
+                    <div class="heart-animation">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <p>BPM</p>
+                </div>
+            </div>
+            <div class="stats-card water">
+                <div class="icon-container">
+                    <i class="fas fa-tint"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Water Intake</h3>
+                    <div class="stat-value" id="water-counter">0</div>
+                    <div class="water-container">
+                        <div class="water-level" id="water-level"></div>
+                    </div>
+                    <p>Goal: 2L</p>
+                </div>
+            </div>
+            <div class="pulse-circle"></div>
+        </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features">
-        <h2 style="color: green;">Our Features</h2>
-        <div class="feature-box">
-            <i class="fas fa-running" style="font-size: 30px;"></i>
-            <h3>Track Your Activities</h3>
-            <p>Log your daily physical activities and keep track of your progress.</p>
+    <!-- Enhanced Features Section -->
+    <section class="enhanced-features">
+        <div class="section-header">
+            <h2>Our <span class="highlight">Features</span></h2>
+            <p>Comprehensive tools to help you on your wellness journey</p>
         </div>
-        <div class="feature-box">
-            <i class="fas fa-heartbeat" style="font-size: 30px;"></i>
-            <h3>Monitor Your Health</h3>
-            <p>Track vital signs like heart rate, sleep patterns, and more.</p>
-        </div>
-        <div class="feature-box">
-            <i class="fas fa-tachometer-alt" style="font-size: 30px;"></i>
-            <h3>Personalized Goals</h3>
-            <p>Set and achieve personalized health and wellness goals.</p>
-        </div>
-        <div class="feature-box">
-            <i class="fas fa-apple-alt" style="font-size: 30px;"></i>
-            <h3>Nutrition Insights</h3>
-            <p>Track your meals, calorie intake, and nutritional information.</p>
+        <div class="features-container">
+            <div class="feature-card" data-aos="fade-up">
+                <div class="feature-icon">
+                    <i class="fas fa-running"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Track Your Activities</h3>
+                    <p>Log your daily physical activities and keep track of your progress with detailed analytics and insights.</p>
+                </div>
+                <div class="feature-hover">
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Running, walking, cycling tracking</li>
+                        <li><i class="fas fa-check-circle"></i> Distance and pace monitoring</li>
+                        <li><i class="fas fa-check-circle"></i> Workout history and trends</li>
+                        <li><i class="fas fa-check-circle"></i> Activity recommendations</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Monitor Your Health</h3>
+                    <p>Track vital signs like heart rate, sleep patterns, and more to ensure you're maintaining optimal health.</p>
+                </div>
+                <div class="feature-hover">
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Heart rate monitoring</li>
+                        <li><i class="fas fa-check-circle"></i> Sleep quality analysis</li>
+                        <li><i class="fas fa-check-circle"></i> Stress level tracking</li>
+                        <li><i class="fas fa-check-circle"></i> Health trend reports</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-icon">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Personalized Goals</h3>
+                    <p>Set and achieve personalized health and wellness goals tailored to your specific needs and lifestyle.</p>
+                </div>
+                <div class="feature-hover">
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Custom goal setting</li>
+                        <li><i class="fas fa-check-circle"></i> Progress tracking</li>
+                        <li><i class="fas fa-check-circle"></i> Achievement celebrations</li>
+                        <li><i class="fas fa-check-circle"></i> Adaptive goal recommendations</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="feature-icon">
+                    <i class="fas fa-apple-alt"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Nutrition Insights</h3>
+                    <p>Track your meals, calorie intake, and nutritional information to maintain a balanced and healthy diet.</p>
+                </div>
+                <div class="feature-hover">
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Meal logging</li>
+                        <li><i class="fas fa-check-circle"></i> Nutritional analysis</li>
+                        <li><i class="fas fa-check-circle"></i> Dietary recommendations</li>
+                        <li><i class="fas fa-check-circle"></i> Hydration tracking</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <!-- Testimonials Section -->
-    <section class="testimonials">
-        <h2>What Our Users Say</h2>
-        <div class="testimonial-slider" id="testimonial-slider">
-            <div class="testimonial active">
-                <p>"This tracker has helped me stay on top of my health goals!"</p>
-                <span>- Jack</span>
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <div class="section-header">
+            <h2>How <span class="highlight">FitFlow</span> Works</h2>
+            <p>Three simple steps to transform your health journey</p>
+        </div>
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h3>Create Your Profile</h3>
+                <p>Sign up and tell us about your health goals, preferences, and current fitness level.</p>
             </div>
-            <div class="testimonial">
-                <p>"A great tool for monitoring my daily activities."</p>
-                <span>- Samantha</span>
+            <div class="step-connector">
+                <i class="fas fa-chevron-right"></i>
             </div>
-            <div class="testimonial">
-                <p>"I love the personalized goals feature. It's so motivating!"</p>
-                <span>- Samuel</span>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-icon">
+                    <i class="fas fa-sliders-h"></i>
+                </div>
+                <h3>Track Your Activities</h3>
+                <p>Log your daily activities, meals, and health metrics using our intuitive interface.</p>
+            </div>
+            <div class="step-connector">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Achieve Your Goals</h3>
+                <p>Monitor your progress, adjust your goals, and celebrate your achievements.</p>
             </div>
         </div>
-        <div class="testimonial-navigation">
-            <button class="slider-button prev" onclick="prevTestimonial()">&#10094;</button>
-            <button class="slider-button next" onclick="nextTestimonial()">&#10095;</button>
+    </section>
+
+    <!-- Enhanced Testimonials Section -->
+    <section class="enhanced-testimonials">
+        <div class="section-header">
+            <h2>What Our <span class="highlight">Users</span> Say</h2>
+            <p>Real stories from people who have transformed their health with FitFlow</p>
         </div>
+        <div class="testimonial-container">
+            <div class="testimonial-card-container" id="testimonial-container">
+                <div class="testimonial-card active">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="testimonial-text">"This tracker has helped me stay on top of my health goals! I've lost 15 pounds and feel more energetic than ever."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Jack Thompson</h4>
+                            <p>FitFlow User - 6 months</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="testimonial-text">"A great tool for monitoring my daily activities. The interface is intuitive and the insights have been incredibly helpful for my fitness journey."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Samantha Davis</h4>
+                            <p>FitFlow User - 1 year</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="testimonial-text">"I love the personalized goals feature. It's so motivating! FitFlow has completely changed how I approach my health and wellness."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Samuel Wilson</h4>
+                            <p>FitFlow User - 8 months</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-controls">
+                <button class="testimonial-btn prev" id="prev-testimonial">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="testimonial-indicators">
+                    <span class="indicator active" data-index="0"></span>
+                    <span class="indicator" data-index="1"></span>
+                    <span class="indicator" data-index="2"></span>
+                </div>
+                <button class="testimonial-btn next" id="next-testimonial">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Ready to Transform Your Health Journey?</h2>
+            <p>Join thousands of users who have already improved their wellness with FitFlow.</p>
+            <div class="cta-buttons">
+                <a href="signup.html" class="cta-button primary">Sign Up Free</a>
+                <a href="tracker.html" class="cta-button secondary">Try the Tracker</a>
+            </div>
+        </div>
+        <div class="cta-background"></div>
     </section>
 
     <!-- Footer -->
@@ -169,7 +382,7 @@
     <script src="privacyandterms.js"></script>
     <script src="hamburger.js"></script>
     <script src="scripts.js"></script>
-
+    <script src="enhanced-scripts.js"></script>
 </body>
 
 </html>
