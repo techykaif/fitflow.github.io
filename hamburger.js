@@ -1,48 +1,40 @@
 function toggleMenu() {
     const menuBar = document.getElementById('tooltip');
 
-    // Toggle menu visibility
     if (menuBar.style.display === 'flex') {
         menuBar.style.display = 'none';
     } else {
         menuBar.style.display = 'flex';
 
-        // Debugging: Check if authentication flag is correctly set
-        console.log("Menu opened. Checking authentication...");
-        console.log("window.isUserLoggedIn:", window.isUserLoggedIn);
+        // Wait for Firebase auth to resolve
+        window.authReady?.then(() => {
+            const isUserLoggedIn = window.isUserLoggedIn || false;
 
-        let isUserLoggedIn = window.isUserLoggedIn || false; // Default to false if not set
+            if (isUserLoggedIn) {
+                let retryCount = 0;
 
-        if (isUserLoggedIn) {
-            setTimeout(() => { // Delay to ensure elements exist in the DOM
-                console.log("User is logged in. Attempting to hide login/signup buttons...");
+                function tryHideAuthLinks() {
+                    const loginLinks = document.querySelectorAll("#tooltip ol li a[href='login.html']");
+                    const signupLinks = document.querySelectorAll("#tooltip ol li a[href='signup.html']");
 
-                let loginLinks = document.querySelectorAll("#tooltip ol li a[href='login.html']");
-                let signupLinks = document.querySelectorAll("#tooltip ol li a[href='signup.html']");
-
-                console.log("Login buttons found:", loginLinks.length);
-                console.log("Signup buttons found:", signupLinks.length);
-
-                loginLinks.forEach(el => {
-                    if (el.parentElement) {
-                        el.parentElement.style.display = "none";
-                        console.log("Hiding login button:", el.parentElement);
+                    if (loginLinks.length > 0 || signupLinks.length > 0) {
+                        loginLinks.forEach(el => el.parentElement && (el.parentElement.style.display = "none"));
+                        signupLinks.forEach(el => el.parentElement && (el.parentElement.style.display = "none"));
+                    } else if (retryCount < 10) {
+                        retryCount++;
+                        setTimeout(tryHideAuthLinks, 50);
+                    } else {
+                        console.warn("Auth links not found after retry.");
                     }
-                });
+                }
 
-                signupLinks.forEach(el => {
-                    if (el.parentElement) {
-                        el.parentElement.style.display = "none";
-                        console.log("Hiding signup button:", el.parentElement);
-                    }
-                });
-
-            }, 200); // Small delay ensures dynamic elements exist
-        }
+                tryHideAuthLinks();
+            }
+        });
     }
 }
 
-// Tooltips for navigation links
+// Tooltip logic
 const navLinks = document.querySelectorAll('#nav-menu a');
 navLinks.forEach(link => {
     link.addEventListener('mouseenter', (e) => {
@@ -51,13 +43,12 @@ navLinks.forEach(link => {
         tooltip.textContent = link.getAttribute('title');
         document.body.appendChild(tooltip);
 
-        // Position the tooltip
         tooltip.style.left = `${e.pageX}px`;
         tooltip.style.top = `${e.pageY + 30}px`;
     });
 
     link.addEventListener('mouseleave', () => {
-        document.querySelector('.custom-tooltip').remove();
+        document.querySelector('.custom-tooltip')?.remove();
     });
 });
 
@@ -66,7 +57,6 @@ document.addEventListener('click', function (event) {
     const menuBar = document.getElementById('tooltip');
     const menuToggle = document.querySelector('.menu-toggle');
 
-    // Hide menu if clicked outside
     if (!menuBar.contains(event.target) && !menuToggle.contains(event.target)) {
         menuBar.style.display = 'none';
     }

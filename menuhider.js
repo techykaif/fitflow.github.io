@@ -1,20 +1,16 @@
 import { auth, onAuthStateChanged } from "./firebaseConfig.js";
-window.isUserLoggedIn = false;
 
-console.log("Before auth state check: ", window.isUserLoggedIn);
+// Create a promise that resolves once Firebase auth state is known
+window.authReady = new Promise((resolve) => {
+    onAuthStateChanged(auth, (user) => {
+        window.isUserLoggedIn = !!user; // true if user exists
 
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        window.isUserLoggedIn = true;
-        console.log("User is logged in. Setting isUserLoggedIn to: ", window.isUserLoggedIn);
-        
-        // Hide login and signup buttons
-        document.querySelectorAll("#nav-menu li a[href='login.html']").forEach(el => el.parentElement.style.display = "none");
-        document.querySelectorAll("#nav-menu li a[href='signup.html']").forEach(el => el.parentElement.style.display = "none");
-    } else {
-        window.isUserLoggedIn = false;
-        console.log("User is logged out. Setting isUserLoggedIn to: ", window.isUserLoggedIn);
-    }
+        // Also hide login/signup in top nav immediately if needed
+        if (window.isUserLoggedIn) {
+            document.querySelectorAll("#nav-menu li a[href='login.html']").forEach(el => el.parentElement.style.display = "none");
+            document.querySelectorAll("#nav-menu li a[href='signup.html']").forEach(el => el.parentElement.style.display = "none");
+        }
+
+        resolve(); // Let other scripts know auth is ready
+    });
 });
-
-console.log("After auth state check: ", window.isUserLoggedIn);

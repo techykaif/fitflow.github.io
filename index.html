@@ -8,17 +8,8 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="website icon" href="logo.jpeg" type="jpeg">
-</head><script type="module">
-    import { auth, onAuthStateChanged } from "./firebaseConfig.js";
-
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            // Hide login and signup buttons
-            document.querySelectorAll("#nav-menu li a[href='login.html']").forEach(el => el.parentElement.style.display = "none");
-            document.querySelectorAll("#nav-menu li a[href='signup.html']").forEach(el => el.parentElement.style.display = "none");
-        }
-    });
-</script>
+</head>
+<script type="module" src="menuhider.js"></script>
 
 <body>
     <!-- Header -->
