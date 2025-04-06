@@ -7,7 +7,8 @@ import {
     signOut, 
     reauthenticateWithCredential, 
     updatePassword, 
-    EmailAuthProvider // ✅ Added EmailAuthProvider
+    EmailAuthProvider,
+    sendPasswordResetEmail // ✅ Added EmailAuthProvider
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 
 import { 
@@ -51,5 +52,6 @@ export {
     signOut, 
     reauthenticateWithCredential, 
     updatePassword, 
-    EmailAuthProvider // ✅ Added
+    EmailAuthProvider,
+    sendPasswordResetEmail // ✅ Added
 };
