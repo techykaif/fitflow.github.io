@@ -6,7 +6,7 @@
     <title>Fitness Tracker Dashboard</title>
     <link rel="stylesheet" href="dashboard.css">
 </head>
-
+<script src="notifications.js" type="module"></script>
 <body>
     <div class="dashboard">
         <!-- Sidebar -->
@@ -42,7 +42,15 @@
                     <button class="search-btn">🔍</button>
                 </div>
                 <div class="header-actions">
-                    <button class="notification-btn">🔔</button>
+                    <div class="notification-wrapper">
+                        <button id="bell-icon" class="notification-btn">
+                          🔔
+                        </button>
+                        <div id="login-history" class="dropdown hidden">
+                          <ul></ul>
+                        </div>
+                      </div>
+                                      
                     <button class="add-activity-btn">+ Add Activity</button>
                 </div>
             </header>
