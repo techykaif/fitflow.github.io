@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sleep Tracker - FitFlow</title>
-   <!-- <link rel="stylesheet" href="sleep.css"> -->
+    <title>Progress - FitFlow</title>
     <link rel="stylesheet" href="dashboard.css">
+    <!-- <link rel="stylesheet" href="progress.css"> -->
+     <script src="notifications.js" type="module"></script>
+     
 </head>
 <body>
     <div class="dashboard">
@@ -50,25 +52,23 @@
                           <ul></ul>
                         </div>
                     </div>
-                    <button class="add-sleep-btn">+ Add Sleep Record</button>
+                    <button class="add-goal-btn">+ Add Goal</button>
                 </div>
             </header>
 
             <div class="welcome-section">
-                <h1>Sleep Tracker</h1>
-                <p>Monitor your sleep patterns and improve your rest quality</p>
+                <h1>Your Progress</h1>
+                <p>Track your fitness journey and see how far you've come</p>
             </div>
 
-          
     </div>
 
-    <script src="sleep.js">
-    </script>
-    <script type="module" src="dashboardjs.js"></script>
-    <script type="module">
-        import { initSidebar } from "./components/sidebar.js";
-        initSidebar()
-      </script>
-    <script type="module" src="dashboard.js"></script>
+   <script src="progress.js"></script>
+   <script type="module">
+    import { initSidebar } from "./components/sidebar.js";
+    initSidebar()
+  </script>
+  
+<script type="module" src="dashboardjs.js"></script>
 </body>
 </html>

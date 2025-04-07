@@ -8,31 +8,31 @@
 </head>
 <script src="notifications.js" type="module"></script>
 <body>
-    <div class="dashboard">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="logo">
-                <h2 style="cursor: pointer;" onclick="window.location.href='index.html'">FitFlow</h2>
+        <div class="dashboard">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="logo">
+                    <h2 style="cursor: pointer;" onclick="window.location.href='index.html'">FitFlow</h2>
 
-            </div>
-            <nav class="nav">
-                <ul>
-                    <li class="active"><a href="#"><span class="icon">📊</span> Dashboard</a></li>
-                    <li><a href="#"><span class="icon">👟</span> Activities</a></li>
-                    <li><a href="#"><span class="icon">📈</span> Progress</a></li>
-                    <li><a href="#"><span class="icon">🍎</span> Nutrition</a></li>
-                    <li><a href="sleep.html"><span class="icon">💤</span> Sleep</a></li>
-                    <li><a href="settings.html"><span class="icon">⚙️</span> Settings</a></li>
-                </ul>
-            </nav>
-            <div class="user-profile">
-                <div class="avatar" id="user-avatar">JD</div>
-                <div class="user-info">
-                    <h4 id="user-name">Loading...</h4>
                 </div>
-            </div>
-            
-        </aside>
+                <nav class="nav">
+                    <ul>
+                        <li class="active"><a href="#"><span class="icon">📊</span> Dashboard</a></li>
+                        <li><a href="activites.html"><span class="icon">👟</span> Activities</a></li>
+                        <li><a href="progress.html"><span class="icon">📈</span> Progress</a></li>
+                        <li><a href="#"><span class="icon">🍎</span> Nutrition</a></li>
+                        <li><a href="sleep.html"><span class="icon">💤</span> Sleep</a></li>
+                        <li><a href="settings.html"><span class="icon">⚙️</span> Settings</a></li>
+                    </ul>   
+                </nav>
+                <div class="user-profile">
+                    <div class="avatar" id="user-avatar">JD</div>
+                    <div class="user-info">
+                        <h4 id="user-name">Loading...</h4>
+                    </div>
+                </div>
+                
+            </aside>
 
         <!-- Main Content -->
         <main class="main-content">
@@ -238,6 +238,11 @@
     </div>
 
     <script src="dashboard.js"></script>
+    <script type="module">
+        import { initSidebar } from "./components/sidebar.js";
+        initSidebar()
+      </script>
+      
     <script type="module" src="dashboardjs.js"></script>
 </body>
 </html>

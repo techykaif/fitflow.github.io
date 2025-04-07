@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sleep Tracker - FitFlow</title>
-   <!-- <link rel="stylesheet" href="sleep.css"> -->
+    <title>Activities - FitFlow</title>
     <link rel="stylesheet" href="dashboard.css">
+    <script src="notifications.js" type="module"></script>
 </head>
 <body>
     <div class="dashboard">
@@ -20,7 +20,7 @@
                     <li class="active"><a href="#"><span class="icon">📊</span> Dashboard</a></li>
                     <li><a href="activites.html"><span class="icon">👟</span> Activities</a></li>
                     <li><a href="progress.html"><span class="icon">📈</span> Progress</a></li>
-                    <li><a href="#"><span class="icon">🍎</span> Nutrition</a></li>
+                    <li><a href="nutrition.html"><span class="icon">🍎</span> Nutrition</a></li>
                     <li><a href="sleep.html"><span class="icon">💤</span> Sleep</a></li>
                     <li><a href="settings.html"><span class="icon">⚙️</span> Settings</a></li>
                 </ul>   
@@ -38,7 +38,7 @@
         <main class="main-content">
             <header class="header">
                 <div class="search-bar">
-                    <input type="text" placeholder="Search...">
+                    <input type="text" placeholder="Search activities...">
                     <button class="search-btn">🔍</button>
                 </div>
                 <div class="header-actions">
@@ -50,25 +50,26 @@
                           <ul></ul>
                         </div>
                     </div>
-                    <button class="add-sleep-btn">+ Add Sleep Record</button>
+                    <button class="add-activity-btn">+ Add Activity</button>
                 </div>
             </header>
 
             <div class="welcome-section">
-                <h1>Sleep Tracker</h1>
-                <p>Monitor your sleep patterns and improve your rest quality</p>
+                <h1>Your Activities</h1>
+                <p>Track, manage, and analyze your fitness activities</p>
             </div>
 
-          
+            <!-- Activities content here -->
+        </main>
     </div>
 
-    <script src="sleep.js">
-    </script>
+    <script src="activities.js"></script>
     <script type="module" src="dashboardjs.js"></script>
     <script type="module">
         import { initSidebar } from "./components/sidebar.js";
         initSidebar()
       </script>
-    <script type="module" src="dashboard.js"></script>
+    <script type="module" src="main.js"></script>
 </body>
 </html>
+
