@@ -53,56 +53,45 @@
         </div>
     </header>
     
-
-    <!-- Blog Section -->
+ <!-- Blog Section -->
+ <div class="blog-title-container">
     <h1 class="blog-title">Our Blog</h1>
-    <section class="blog-page">
-        <div class="blog-post">
-            <h2>5 Tips for a Healthier Lifestyle</h2>
-            <p>Discover simple habits that can improve your overall wellness...</p>
-            <a href="#">Read More</a>
-        </div>
-        <div class="blog-post">
-            <h2>Understanding Your Sleep Patterns</h2>
-            <p>Learn how to track and improve the quality of your sleep...</p>
-            <a href="#">Read More</a>
-        </div>
-        <div class="blog-post">
-            <h2>The Importance of Staying Hydrated</h2>
-            <p>Find out why hydration is key to maintaining a healthy body...</p>
-            <a href="#">Read More</a>
-        </div>
-        <div class="blog-post">
-            <h2>Healthy Eating on a Busy Schedule</h2>
-            <p>Get tips on how to maintain a nutritious diet even when you're short on time...</p>
-            <a href="#">Read More</a>
-        </div>
-        <div class="blog-post">
-            <h2>Boost Your Immunity Naturally</h2>
-            <p>Explore foods and habits that can help strengthen your immune system...</p>
-            <a href="#">Read More</a>
-        </div>
-        <div class="blog-post">
-            <h2>Mindfulness and Stress Relief Techniques</h2>
-            <p>Learn effective mindfulness practices that can reduce stress and anxiety...</p>
-            <a href="#">Read More</a>
-        </div>
-        <div class="blog-post">
-            <h2>How to Create a Balanced Workout Routine</h2>
-            <p>Discover how to combine different types of exercise for optimal fitness...</p>
-            <a href="#">Read More</a>
-        </div>
-        <div class="blog-post">
-            <h2>The Benefits of Regular Health Check-Ups</h2>
-            <p>Understand why routine health screenings are essential for early detection...</p>
-            <a href="#">Read More</a>
-        </div>
-        <div class="blog-post">
-            <h2>Healthy Snacks to Keep You Energized</h2>
-            <p>Find out which snacks can fuel your day and keep your energy levels high...</p>
-            <a href="#">Read More</a>
-        </div>
-    </section>
+  </div>
+  
+<section id="blog-posts" class="blog-grid">
+  <!-- Blog posts are inserted here dynamically -->
+</section>
+
+ <!-- Blogger JSONP callback handler -->
+ <script>
+     function handleBloggerData(data) {
+         const blogContainer = document.getElementById('blog-posts');
+         const posts = data.feed.entry;
+
+         posts.forEach(post => {
+             const title = post.title.$t;
+             const link = post.link.find(l => l.rel === 'alternate').href;
+             const content = post.content.$t;
+
+             const tempDiv = document.createElement('div');
+             tempDiv.innerHTML = content;
+             const summary = tempDiv.textContent.substring(0, 100) + "...";
+
+             const postElement = document.createElement('div');
+             postElement.classList.add('blog-post');
+             postElement.innerHTML = `
+                 <h2>${title}</h2>
+                 <p>${summary}</p>
+                 <a href="${link}" target="_blank">Read More</a>
+             `;
+             blogContainer.appendChild(postElement);
+         });
+     }
+ </script>
+
+ <!-- Blogger feed via JSONP (No CORS issues) -->
+ <script src="https://fitflowhealth.blogspot.com/feeds/posts/default?alt=json-in-script&callback=handleBloggerData"></script>
+
 
     <!-- Footer -->
     <footer>
