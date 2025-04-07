@@ -56,74 +56,92 @@ body::before {
     margin-bottom: 2em;
 }
 
-/* General Auth Button Styles */
+/* Button Layout */
+#auth-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Buttons */
 .auth-btn {
-    display: inline-block;
-    padding: 12px 20px;
-    margin: 10px;
-    font-size: 18px;
+    padding: 14px 28px;
+    font-size: 1rem;
     font-weight: 600;
-    border-radius: 50px;
     border: none;
-    color: #fff;
-    background-color: #4CAF50;
+    border-radius: 50px;
+    color: white;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 0 15px rgba(0, 102, 255, 0.4);
+    position: relative;
 }
 
-/* Hover Effect for Buttons */
-.auth-btn:hover {
-    background-color: #45a049;
-    transform: scale(1.05);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    cursor: pointer;
+/* Button Icons */
+.auth-btn i {
+    font-size: 1.2rem;
 }
 
-/* Specific Background Colors for Login, Sign Up, and Logout */
+/* Login / Sign Up Colors */
 #loginBtn {
-    background-color: #2196F3;
+    background-color: #007bff;
 }
 
 #signupBtn {
-    background-color: #FF5722;
+    background-color: #ff5722;
 }
 
-#logoutBtn {
-    background-color: #F44336;
+/* Hover Effects */
+.auth-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(0, 102, 255, 0.6);
 }
 
-/* Responsive Styles */
+/* Pulse Animation */
+.auth-btn::after {
+    content: "";
+    position: absolute;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50px;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    animation: pulse 2s infinite;
+    opacity: 0;
+    z-index: -1;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+    70% {
+        transform: scale(1.2);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1.2);
+        opacity: 0;
+    }
+}
+
+/* Responsive Adjustments */
 @media (max-width: 768px) {
+    .tagline h2 {
+        font-size: 2rem;
+    }
+    .tagline p {
+        font-size: 1rem;
+    }
     .auth-btn {
         width: 100%;
-        padding: 15px 0;
-        font-size: 16px;
-        margin: 15px 0;
-    }
-}
-
-@media (max-width: 480px) {
-    .auth-btn {
-        font-size: 14px;
-        padding: 12px;
-    }
-}
-
-/* Container to Align Buttons Centered */
-#auth-buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    padding: 20px;
-    flex-direction: column;
-}
-
-@media (min-width: 769px) {
-    #auth-buttons {
-        flex-direction: row;
-        /* Horizontal alignment for larger screens */
+        justify-content: center;
     }
 }
 

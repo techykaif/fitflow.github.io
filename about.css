@@ -1,103 +1,82 @@
 /* About Us Section */
 .about-us {
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: auto;
     text-align: center;
-    /* Center text in the section */
-    padding: 20px;
-    /* Add some padding to the section */
+    animation: fadeIn 1s ease-in;
 }
 
-/* Flex Container */
-.grid-container {
-    display: flex;
-    flex-wrap: wrap;
-    /* Allow items to wrap onto multiple lines */
-    justify-content: center;
-    /* Center the cards horizontally */
-    gap: 10px;
-    /* Space between cards */
-    padding: 20px;
+.about-us h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #222;
 }
 
-/* Card */
-.card {
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 30px;
-    /* Increased padding for a better look */
+.about-us .intro {
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+    color: #555;
+}
+
+/* Grid Layout */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+}
+
+/* Team Member Card */
+.team-card {
+    background: #fff;
+    padding: 25px 20px;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    flex: 1 1 300px;
-    /* Allow flexible widths with a minimum size */
-    max-width: 350px;
-    /* Set a maximum width for larger cards */
-    height: auto;
-    /* Allow height to adjust based on content */
+    position: relative;
 }
 
-/* Image Style */
-.card-image img {
-    width: 150px;
-    /* Keep image size */
-    height: 150px;
-    /* Keep image size */
-    border-radius: 50%;
+.team-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.team-photo {
+    width: 110px;
+    height: 110px;
     object-fit: cover;
+    border-radius: 50%;
     margin-bottom: 15px;
-    /* Maintain margin */
+    border: 3px solid #00b894;
 }
 
-.card h2 {
-    font-size: 22px;
-    /* Adjust heading size */
-    font-weight: bold;
+/* Text Styling */
+.team-card h2 {
+    margin: 10px 0 5px;
+    color: #333;
+}
+
+.role {
+    font-weight: 600;
+    color: #00b894;
     margin-bottom: 10px;
 }
 
-.card p {
-    font-size: 16px;
-    /* Adjust text size */
-    margin-bottom: 5px;
+.bio {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 15px;
 }
 
-/* Links */
-.card p strong {
-    display: block;
-    margin-top: 10px;
+/* Email/Contact links */
+.team-card a {
+    color: #0984e3;
+    text-decoration: none;
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
-    .grid-container {
-        flex-direction: row;
-        /* Two cards per row on medium screens */
-    }
-
-    .card {
-        flex: 1 1 45%;
-        /* Allow flexibility for card size, making them responsive */
-    }
-}
-
-@media (max-width: 768px) {
-    .grid-container {
-        flex-direction: column;
-        /* Stack cards vertically on small screens */
-        align-items: center;
-        /* Center cards */
-    }
-
-    .card {
-        width: 90%;
-        /* Make cards responsive to screen size */
-        margin: 10px 0;
-        /* Margin between stacked cards */
-    }
-}
-
-@media (max-width: 480px) {
-    .card {
-        width: 95%;
-        /* Adjust card width for very small screens */
-    }
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
