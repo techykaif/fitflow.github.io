@@ -1,90 +1,123 @@
-/* Main sleep tracker section */
 .sleep-tracker-section {
-    max-width: 600px;
-    margin: 3rem auto;
     padding: 2rem;
-    background: #1e1e2f;
+    background: linear-gradient(to bottom right, #1a1f36, #2c2f4a);
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    color: #ffffff;
-    text-align: center;
-    animation: fadeInUp 0.8s ease;
-}
-
-/* Title */
-.sleep-tracker-section h2 {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    margin: 2rem;
+  }
+  
+  .sleep-tracker-section h2 {
     font-size: 2rem;
-    margin-bottom: 1.5rem;
-    color: #74b9ff;
-}
-
-/* Inputs and select */
-.sleep-tracker-section input,
-.sleep-tracker-section select {
-    width: 80%;
-    padding: 0.8rem 1rem;
-    margin: 0.5rem 0;
+    margin-bottom: 0.5rem;
+    color: #00f7ff;
+    text-align: center;
+  }
+  
+  .sleep-tracker-section .subtitle {
+    text-align: center;
     font-size: 1rem;
+    color: #ccc;
+    margin-bottom: 2rem;
+  }
+  
+  .sleep-inputs {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    min-width: 200px;
+  }
+  
+  .input-group label {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #b2fefa;
+  }
+  
+  .input-group input,
+  .input-group select {
+    width: 100%;
+    padding: 10px;
+    border: none;
     border-radius: 10px;
-    border: none;
-    background-color: #2d2d44;
-    color: #fff;
-    outline: none;
-    transition: background-color 0.3s;
-}
-
-.sleep-tracker-section input:focus,
-.sleep-tracker-section select:focus {
-    background-color: #3a3a56;
-}
-
-/* Save button */
-#saveSleepBtn {
-    margin-top: 1rem;
-    padding: 0.75rem 1.5rem;
-    background-color: #6c5ce7;
+    background-color: #1e2238;
     color: #fff;
     font-size: 1rem;
+    box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.05);
+    transition: 0.3s;
+  }
+  
+  .input-group input:focus,
+  .input-group select:focus {
+    outline: none;
+    background-color: #2a2e4a;
+    box-shadow: 0 0 0 2px #00f7ff;
+  }
+  
+  .save-btn {
+    padding: 10px 20px;
+    background: #00f7ff;
+    color: #1a1f36;
     border: none;
     border-radius: 12px;
+    font-weight: bold;
     cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-#saveSleepBtn:hover {
-    background-color: #a29bfe;
-}
-
-/* Chart canvas */
-.sleep-tracker-section canvas {
-    margin-top: 2rem;
-    background-color: #fff;
-    border-radius: 12px;
-    padding: 1rem;
-    box-shadow: 0 5px 20px rgba(255, 255, 255, 0.1);
-}
-
-/* Fade in animation */
-@keyframes fadeInUp {
-    0% {
-        opacity: 0;
-        transform: translateY(30px);
+    transition: all 0.3s ease;
+    margin-top: 1.6rem;
+  }
+  
+  .save-btn:hover {
+    background: #0ff;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #0ff;
+  }
+  
+  .chart-container {
+    background: #1e2238;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.05);
+  }
+  
+  .chart-container h3 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #fff;
+    font-size: 1.5rem;
+  }
+  
+  canvas {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .sleep-inputs {
+      flex-direction: column;
     }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
+  
+    .input-group {
+      width: 100%;
+      align-items: center;
     }
-}
-
-/* Responsive Design */
-@media (max-width: 600px) {
-    .sleep-tracker-section {
-        width: 90%;
-        padding: 1.5rem;
+  
+    .input-group input,
+    .input-group select {
+      text-align: center;
     }
-
-    .sleep-tracker-section input,
-    .sleep-tracker-section select {
-        width: 100%;
+  
+    .save-btn {
+      width: 100%;
     }
-}
+  }
+  

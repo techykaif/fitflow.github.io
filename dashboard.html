@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fitness Tracker Dashboard</title>
     <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="sidebar.css">
+
 </head>
 <script src="notifications.js" type="module"></script>
 <body>
@@ -13,7 +15,6 @@
             <aside class="sidebar">
                 <div class="logo">
                     <h2 style="cursor: pointer;" onclick="window.location.href='index.html'">FitFlow</h2>
-
                 </div>
                 <nav class="nav">
                     <ul>
@@ -50,193 +51,15 @@
                           <ul></ul>
                         </div>
                       </div>
-                                      
-                    <button class="add-activity-btn">+ Add Activity</button>
                 </div>
             </header>
 
-            <div class="welcome-section">
-                <h1>Welcome back, John!</h1>
+            <div class="welcome-section user-info">
+                <h1>Welcome back, <span id="user-name1">loding...</span></h1>
                 <p>Here's your fitness summary for today</p>
             </div>
 
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon steps">👣</div>
-                    <div class="stat-info">
-                        <h3>Steps</h3>
-                        <p class="stat-value" id="steps-value">0</p>
-                        <p class="stat-target">Goal: 10,000</p>
-                        <div class="progress-bar">
-                            <div class="progress" id="steps-progress"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon calories">🔥</div>
-                    <div class="stat-info">
-                        <h3>Calories</h3>
-                        <p class="stat-value" id="calories-value">0</p>
-                        <p class="stat-target">Goal: 2,500</p>
-                        <div class="progress-bar">
-                            <div class="progress" id="calories-progress"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon distance">🏃</div>
-                    <div class="stat-info">
-                        <h3>Distance</h3>
-                        <p class="stat-value" id="distance-value">0</p>
-                        <p class="stat-target">Goal: 5 km</p>
-                        <div class="progress-bar">
-                            <div class="progress" id="distance-progress"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon active">⏱️</div>
-                    <div class="stat-info">
-                        <h3>Active Time</h3>
-                        <p class="stat-value" id="active-value">0</p>
-                        <p class="stat-target">Goal: 60 min</p>
-                        <div class="progress-bar">
-                            <div class="progress" id="active-progress"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="charts-section">
-                <div class="chart-container">
-                    <h3>Weekly Activity</h3>
-                    <div class="chart" id="weekly-chart">
-                        <div class="chart-bars">
-                            <div class="chart-bar" data-value="0" data-day="Mon">
-                                <div class="bar-fill"></div>
-                                <span class="bar-label">Mon</span>
-                            </div>
-                            <div class="chart-bar" data-value="0" data-day="Tue">
-                                <div class="bar-fill"></div>
-                                <span class="bar-label">Tue</span>
-                            </div>
-                            <div class="chart-bar" data-value="0" data-day="Wed">
-                                <div class="bar-fill"></div>
-                                <span class="bar-label">Wed</span>
-                            </div>
-                            <div class="chart-bar" data-value="0" data-day="Thu">
-                                <div class="bar-fill"></div>
-                                <span class="bar-label">Thu</span>
-                            </div>
-                            <div class="chart-bar" data-value="0" data-day="Fri">
-                                <div class="bar-fill"></div>
-                                <span class="bar-label">Fri</span>
-                            </div>
-                            <div class="chart-bar" data-value="0" data-day="Sat">
-                                <div class="bar-fill"></div>
-                                <span class="bar-label">Sat</span>
-                            </div>
-                            <div class="chart-bar" data-value="0" data-day="Sun">
-                                <div class="bar-fill"></div>
-                                <span class="bar-label">Sun</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="chart-container">
-                    <h3>Activity Distribution</h3>
-                    <div class="chart" id="distribution-chart">
-                        <div class="donut-chart">
-                            <div class="donut-segment running" style="--offset: 0; --value: 25"></div>
-                            <div class="donut-segment cycling" style="--offset: 25; --value: 30"></div>
-                            <div class="donut-segment walking" style="--offset: 55; --value: 20"></div>
-                            <div class="donut-segment gym" style="--offset: 75; --value: 25"></div>
-                            <div class="donut-hole"></div>
-                        </div>
-                        <div class="chart-legend">
-                            <div class="legend-item">
-                                <span class="legend-color running"></span>
-                                <span class="legend-label">Running</span>
-                            </div>
-                            <div class="legend-item">
-                                <span class="legend-color cycling"></span>
-                                <span class="legend-label">Cycling</span>
-                            </div>
-                            <div class="legend-item">
-                                <span class="legend-color walking"></span>
-                                <span class="legend-label">Walking</span>
-                            </div>
-                            <div class="legend-item">
-                                <span class="legend-color gym"></span>
-                                <span class="legend-label">Gym</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="recent-activities">
-                <div class="section-header">
-                    <h3>Recent Activities</h3>
-                    <button class="view-all-btn">View All</button>
-                </div>
-                <div class="activities-list" id="activities-list">
-                    <!-- Activities will be added here by JavaScript -->
-                </div>
-            </div>
-        </main>
-
-        <!-- Add Activity Modal -->
-        <div class="modal" id="activity-modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>Add New Activity</h3>
-                    <button class="close-modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <form id="activity-form">
-                        <div class="form-group">
-                            <label for="activity-type">Activity Type</label>
-                            <select id="activity-type" required>
-                                <option value="">Select activity type</option>
-                                <option value="Running">Running</option>
-                                <option value="Walking">Walking</option>
-                                <option value="Cycling">Cycling</option>
-                                <option value="Swimming">Swimming</option>
-                                <option value="Gym">Gym workout</option>
-                                <option value="Yoga">Yoga</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="activity-duration">Duration (minutes)</label>
-                            <input type="number" id="activity-duration" min="1" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="activity-distance">Distance (km)</label>
-                            <input type="number" id="activity-distance" min="0" step="0.01">
-                        </div>
-                        <div class="form-group">
-                            <label for="activity-calories">Calories Burned</label>
-                            <input type="number" id="activity-calories" min="0">
-                        </div>
-                        <div class="form-group">
-                            <label for="activity-date">Date</label>
-                            <input type="date" id="activity-date" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="activity-notes">Notes</label>
-                            <textarea id="activity-notes"></textarea>
-                        </div>
-                        <div class="form-actions">
-                            <button type="button" class="cancel-btn">Cancel</button>
-                            <button type="submit" class="save-btn">Save Activity</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
+          
     <script src="dashboard.js"></script>
     <script type="module">
         import { initSidebar } from "./components/sidebar.js";
