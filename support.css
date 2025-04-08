@@ -1,111 +1,288 @@
-/* Support Section */
+/* Support Page Styling */
 .support {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .support h1 {
     text-align: center;
-    padding: 50px 20px;
-    background-color: #f8f9fa;
-}
-
-.support h1,
-.support h2 {
-    color: #2ecc71;
-    margin-bottom: 20px;
-}
-
-.support p {
-    font-size: 1.1em;
-    color: #333;
-    margin-bottom: 30px;
-}
-
-.support-container {
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    position: relative;
+    padding-bottom: 15px;
+  }
+  
+  .support h1::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #4caf50, #8bc34a);
+    border-radius: 2px;
+  }
+  
+  .support > p {
+    text-align: center;
+    color: #555;
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin: 1rem auto 3rem;
+    line-height: 1.6;
+  }
+  
+  .support-container {
     display: flex;
-    justify-content: center; /* Centers the container content horizontally */
     flex-wrap: wrap;
-    align-items: flex-start;
-}
-
-.faq,
-.support-form {
-    flex-basis: 45%;
+    gap: 2rem;
+    justify-content: space-between;
+  }
+  
+  /* FAQ Section */
+  .faq {
+    flex: 1 1 500px;
     background-color: white;
-    padding: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    margin-bottom: 20px;
-    margin-left: auto; /* Ensure the form is centered */
-    margin-right: auto; /* Ensure the form is centered */
-}
-
-.faq-item {
-    margin-bottom: 20px;
-}
-
-.faq-item h3 {
-    color: #2ecc71;
-    font-size: 1.2em;
-    margin-bottom: 5px;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+  }
+  
+  .faq:hover {
+    transform: translateY(-5px);
+  }
+  
+  .faq h2 {
+    color: #2c3e50;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f0f0f0;
+  }
+  
+  .faq-item {
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+  }
+  
+  .faq-item h3 {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    margin: 0;
+    font-size: 1.1rem;
+    color: #333;
+    cursor: pointer;
     display: flex;
     align-items: center;
-}
-
-.faq-item p {
-    font-size: 1em;
-    color: #666;
+    justify-content: space-between;
+    transition: background-color 0.3s ease;
+  }
+  
+  .faq-item h3:hover {
+    background-color: #e9ecef;
+  }
+  
+  .faq-item h3::after {
+    content: "\f107";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    transition: transform 0.3s ease;
+  }
+  
+  .faq-item.active h3::after {
+    transform: rotate(180deg);
+  }
+  
+  .faq-item i {
+    color: #4caf50;
+    margin-right: 10px;
+  }
+  
+  .faq-item p {
+    padding: 0 1rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    margin: 0;
     line-height: 1.6;
-}
-
-.support-form form {
+    color: #555;
+  }
+  
+  .faq-item.active p {
+    padding: 1rem;
+    max-height: 300px;
+  }
+  
+  /* Support Form */
+  .support-form {
+    flex: 1 1 500px;
+    background-color: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+  }
+  
+  .support-form:hover {
+    transform: translateY(-5px);
+  }
+  
+  .support-form h2 {
+    color: #2c3e50;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f0f0f0;
+  }
+  
+  .support-form form {
     display: flex;
     flex-direction: column;
-}
-
-.support-form label {
-    margin-bottom: 8px;
-    font-size: 1em;
-    color: #333;
-}
-
-.support-form input,
-.support-form textarea {
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 1em;
-    width: 100%;
-}
-
-.support-form button {
-    background-color: #2ecc71;
+  }
+  
+  .support-form label {
+    margin-bottom: 0.5rem;
+    color: #555;
+    font-weight: 500;
+  }
+  
+  .support-form input,
+  .support-form textarea {
+    padding: 0.8rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .support-form input:focus,
+  .support-form textarea:focus {
+    outline: none;
+    border-color: #4caf50;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+  }
+  
+  .support-form .cta-button {
+    background: linear-gradient(135deg, #4caf50 0%, #8bc34a 100%);
     color: white;
-    padding: 12px 20px;
     border: none;
-    border-radius: 5px;
+    padding: 1rem;
+    font-size: 1.1rem;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 1.1em;
-    transition: background-color 0.3s;
-}
-
-.support-form button:hover {
-    background-color: #27ae60;
-}
-
-/* Responsive adjustments for support section */
-@media (max-width: 768px) {
+    transition: all 0.3s ease;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .support-form .cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, #43a047 0%, #7cb342 100%);
+  }
+  
+  .support-form .cta-button:active {
+    transform: translateY(0);
+  }
+  
+  /* Form feedback */
+  .form-feedback {
+    padding: 1rem;
+    margin-top: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    display: none;
+  }
+  
+  .form-feedback.success {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: #2e7d32;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+  }
+  
+  .form-feedback.error {
+    background-color: rgba(244, 67, 54, 0.1);
+    color: #c62828;
+    border: 1px solid rgba(244, 67, 54, 0.3);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .support {
+      padding: 1.5rem;
+      margin: 1rem;
+    }
+  
+    .support h1 {
+      font-size: 2rem;
+    }
+  
     .support-container {
-        flex-direction: column;
-        align-items: center; /* Ensures the form stays centered on smaller screens */
+      flex-direction: column;
+      gap: 1.5rem;
     }
-
+  
     .faq,
     .support-form {
-        flex-basis: 90%; /* Make the form take up more space on smaller screens */
+      flex: 1 1 100%;
     }
-}
-
-@media (max-width: 480px) {
-    .faq,
-    .support-form {
-        flex-basis: 100%; /* Full width on mobile devices */
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
     }
-}
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .support h1,
+  .support > p,
+  .faq,
+  .support-form {
+    animation: fadeIn 0.8s ease forwards;
+  }
+  
+  .faq {
+    animation-delay: 0.2s;
+  }
+  
+  .support-form {
+    animation-delay: 0.4s;
+  }
+  
+  /* Loading indicator for form submission */
+  .loading-spinner {
+    display: none;
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+    border: 3px solid rgba(76, 175, 80, 0.3);
+    border-radius: 50%;
+    border-top-color: #4caf50;
+    animation: spin 1s ease-in-out infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  

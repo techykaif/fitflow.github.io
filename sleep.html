@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sleep Tracker - FitFlow</title>
-   <!-- <link rel="stylesheet" href="sleep.css"> -->
+   <link rel="stylesheet" href="sleep.css">
     <link rel="stylesheet" href="dashboard.css">
+    <script type="module" src="notifications.js"></script>
 </head>
 <body>
     <div class="dashboard">
@@ -20,7 +21,7 @@
                     <li class="active"><a href="#"><span class="icon">📊</span> Dashboard</a></li>
                     <li><a href="activites.html"><span class="icon">👟</span> Activities</a></li>
                     <li><a href="progress.html"><span class="icon">📈</span> Progress</a></li>
-                    <li><a href="#"><span class="icon">🍎</span> Nutrition</a></li>
+                    <li><a href="nutrition.html"><span class="icon">🍎</span> Nutrition</a></li>
                     <li><a href="sleep.html"><span class="icon">💤</span> Sleep</a></li>
                     <li><a href="settings.html"><span class="icon">⚙️</span> Settings</a></li>
                 </ul>   
@@ -54,15 +55,30 @@
                 </div>
             </header>
 
-            <div class="welcome-section">
-                <h1>Sleep Tracker</h1>
-                <p>Monitor your sleep patterns and improve your rest quality</p>
+            <div class="sleep-tracker-section">
+                <h2>Sleep Tracker</h2>
+                <input type="number" id="sleepHours" placeholder="Enter sleep hours" min="0" step="0.1" />
+                <select id="sleepQuality">
+                    <option value="Poor">Poor</option>
+                    <option value="Average">Average</option>
+                    <option value="Good">Good</option>
+                    <option value="Excellent">Excellent</option>
+                </select>
+                <button id="saveSleepBtn">Save Sleep</button>
+            
+                <canvas id="sleepChart" width="400" height="200"></canvas>
             </div>
+            
+            <!-- Chart.js CDN -->
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            
+              
+              
 
           
     </div>
 
-    <script src="sleep.js">
+    <script type="module" src="sleep.js">
     </script>
     <script type="module" src="dashboardjs.js"></script>
     <script type="module">
