@@ -84,23 +84,47 @@ saveChangesBtn.addEventListener("click", () => {
                 });
         }
     });
-});
-
-// Logout Button - Sign out the user
+});// Logout Button - Sign out the user
 document.addEventListener("DOMContentLoaded", () => {
     if (logoutBtn) {
         logoutBtn.addEventListener("click", () => {
-            signOut(auth)
-                .then(() => {
-                    showToast("Logged out successfully!", "success");
-                    setTimeout(() => (window.location.href = "login.html"), 1500);
-                })
-                .catch((error) => {
-                    showToast("Error logging out: " + error.message, "error");
-                });
+            const user = auth.currentUser;
+
+            if (user) {
+                const formattedEmail = formatEmail(user.email);
+                const sessionRef = ref(database, `users/${formattedEmail}/session`);
+
+                // Set session active to false
+                update(sessionRef, { active: false })
+                    .then(() => {
+                        // Now sign out
+                        signOut(auth)
+                            .then(() => {
+                                showToast("Logged out successfully!", "success");
+                                setTimeout(() => (window.location.href = "login.html"), 1500);
+                            })
+                            .catch((error) => {
+                                showToast("Error signing out: " + error.message, "error");
+                            });
+                    })
+                    .catch((error) => {
+                        showToast("Error updating session: " + error.message, "error");
+                    });
+            } else {
+                // Fallback: Just sign out
+                signOut(auth)
+                    .then(() => {
+                        showToast("Logged out successfully!", "success");
+                        setTimeout(() => (window.location.href = "login.html"), 1500);
+                    })
+                    .catch((error) => {
+                        showToast("Error signing out: " + error.message, "error");
+                    });
+            }
         });
     }
 });
+
 
 // Dashboard Navigation
 document.getElementById("dashboardBtn").addEventListener("click", () => {

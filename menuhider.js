@@ -14,3 +14,27 @@ window.authReady = new Promise((resolve) => {
         resolve(); // Let other scripts know auth is ready
     });
 });
+
+window.authReady.then(async (user) => {
+    if (user) {
+        const email = user.email;
+        const formattedEmail = email.toLowerCase().replace(/\./g, "_dot_").replace(/@/g, "_at_");
+
+        const sessionRef = ref(database, `users/${formattedEmail}/session`);
+
+        try {
+            const sessionSnapshot = await get(sessionRef);
+
+            if (sessionSnapshot.exists()) {
+                const session = sessionSnapshot.val();
+
+                if (session.active) {
+                    document.querySelectorAll("#nav-menu li a[href='dashboard.html']").forEach(el => el.parentElement.style.display = "block");
+                    document.querySelectorAll("#nav-menu li a[href='logout.html']").forEach(el => el.parentElement.style.display = "block");
+                }
+            }
+        } catch (error) {
+            console.error("Error checking session:", error);
+        }
+    }
+});

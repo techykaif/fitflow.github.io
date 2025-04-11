@@ -80,10 +80,20 @@ export function login() {
                         previous_logins: previousLogins
                     })
                     .then(() => {
-                        // Save login status locally
-                        localStorage.setItem('isLoggedIn', 'true');
-                        localStorage.setItem('userId', user.uid);
-                        window.location.href = "dashboard.html";
+                        // Save session to Firebase
+                        const sessionRef = ref(database, `users/${formattedEmail}/session`);
+                        const sessionData = {
+                            active: true,
+                            lastLogin: currentLoginTime
+                        };
+
+                        update(sessionRef, sessionData)
+                            .then(() => {
+                                window.location.href = "dashboard.html";
+                            })
+                            .catch((error) => {
+                                alert('Error saving session: ' + error.message);
+                            });
                     })
                     .catch((error) => {
                         alert('Database error: ' + error.message);
