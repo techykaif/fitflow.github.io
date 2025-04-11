@@ -5,10 +5,17 @@ function formatEmail(email) {
     return email.toLowerCase().replace(/\./g, "_dot_").replace(/@/g, "_at_");
 }
 
-const changePass=document.getElementById("changePasswordBtn")
-changePass.addEventListener("click", () => {
-    window.location.href = "changepassword.html";
-});
+// Function to get a consistent device ID (stored in localStorage)
+function getDeviceId() {
+    let deviceId = localStorage.getItem("deviceId");
+    if (!deviceId) {
+        deviceId = crypto.randomUUID();
+        localStorage.setItem("deviceId", deviceId); // Persist it!
+    }
+    return deviceId;
+}
+
+
 // Function to show custom toast messages
 function showToast(message, type = "success") {
     const toast = document.createElement("div");
@@ -27,12 +34,18 @@ function showToast(message, type = "success") {
     }, 3000);
 }
 
+// Change Password Button
+const changePass = document.getElementById("changePasswordBtn");
+changePass.addEventListener("click", () => {
+    window.location.href = "changepassword.html";
+});
+
 // Get UI elements
 const logoutBtn = document.getElementById("logoutBtn");
 const saveChangesBtn = document.getElementById("saveChangesBtn");
 const nameInput = document.getElementById("name");
 
-// Check if the user is logged in and fetch data
+// Fetch user info and render UI
 onAuthStateChanged(auth, (user) => {
     if (!user) {
         window.location.href = "index.html";
@@ -84,7 +97,9 @@ saveChangesBtn.addEventListener("click", () => {
                 });
         }
     });
-});// Logout Button - Sign out the user
+});
+
+// Logout Button - Device-based Session Logout
 document.addEventListener("DOMContentLoaded", () => {
     if (logoutBtn) {
         logoutBtn.addEventListener("click", () => {
@@ -92,12 +107,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (user) {
                 const formattedEmail = formatEmail(user.email);
-                const sessionRef = ref(database, `users/${formattedEmail}/session`);
+                const deviceId = getDeviceId(); // Get consistent device ID
+                const sessionRef = ref(database, `users/${formattedEmail}/sessions/${deviceId}`);
 
-                // Set session active to false
+                // Mark this session as inactive
                 update(sessionRef, { active: false })
                     .then(() => {
-                        // Now sign out
                         signOut(auth)
                             .then(() => {
                                 showToast("Logged out successfully!", "success");
@@ -111,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         showToast("Error updating session: " + error.message, "error");
                     });
             } else {
-                // Fallback: Just sign out
+                // Fallback logout
                 signOut(auth)
                     .then(() => {
                         showToast("Logged out successfully!", "success");
@@ -124,7 +139,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
-
 
 // Dashboard Navigation
 document.getElementById("dashboardBtn").addEventListener("click", () => {
