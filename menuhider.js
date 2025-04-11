@@ -1,5 +1,6 @@
-import { auth, database, ref, get, onAuthStateChanged } from "./firebaseConfig.js";
+import { auth, database, ref, get, onAuthStateChanged } from "/firebaseConfig.js";
 
+// Generate device ID (must match login.js logic)
 function getDeviceId() {
     let deviceId = localStorage.getItem("deviceId");
     if (!deviceId) {
@@ -14,38 +15,37 @@ function getDeviceId() {
 
 const deviceId = getDeviceId();
 
-// Wait for DOM
 document.addEventListener("DOMContentLoaded", () => {
     console.log("DOM fully loaded and parsed");
 
-    // Wait for auth
-    onAuthStateChanged(auth, (user) => {
-        console.log("onAuthStateChanged triggered. User:", user);
+    window.authReady = new Promise((resolve) => {
+        onAuthStateChanged(auth, (user) => {
+            console.log("onAuthStateChanged triggered. User:", user);
 
-        if (user) {
-            console.log("User is logged in. Hiding login/signup links...");
+            window.isUserLoggedIn = !!user;
+            console.log("Is user logged in?", window.isUserLoggedIn);
 
-            // Make sure nav-menu exists before selecting
-            const navMenu = document.querySelector("#nav-menu");
-            if (!navMenu) {
-                console.warn("Navbar menu not found in DOM");
-                return;
+            if (window.isUserLoggedIn) {
+                console.log("Hiding login/signup links...");
+
+                const loginLinks = document.querySelectorAll("#nav-menu li a[href='login.html']");
+                const signupLinks = document.querySelectorAll("#nav-menu li a[href='signup.html']");
+
+                console.log("Found login links:", loginLinks);
+                console.log("Found signup links:", signupLinks);
+
+                loginLinks.forEach(el => {
+                    console.log("Hiding login link element:", el);
+                    el.parentElement.style.display = "none";
+                });
+
+                signupLinks.forEach(el => {
+                    console.log("Hiding signup link element:", el);
+                    el.parentElement.style.display = "none";
+                });
             }
 
-            const loginLinks = navMenu.querySelectorAll("li a[href='login.html']");
-            const signupLinks = navMenu.querySelectorAll("li a[href='signup.html']");
-
-            loginLinks.forEach(el => {
-                console.log("Hiding login link element:", el);
-                el.parentElement.style.display = "none";
-            });
-
-            signupLinks.forEach(el => {
-                console.log("Hiding signup link element:", el);
-                el.parentElement.style.display = "none";
-            });
-        } else {
-            console.log("No user logged in. Showing all links.");
-        }
+            resolve(user); // Pass user to next block
+        });
     });
 });
