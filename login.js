@@ -105,11 +105,7 @@ export async function login() {
         const formattedEmail = formatEmail(email);
         const currentLoginTime = getCurrentIST();
         const loginRef = ref(database, `users/${formattedEmail}/login_activity`);
-
-        // Persistent Device ID
         const deviceId = await getDeviceId();
-
-        // Fetch login history
         const snapshot = await get(loginRef);
         const loginData = snapshot.val();
         let previousLogins = [];
@@ -119,33 +115,27 @@ export async function login() {
             previousLogins.push(loginData.last_login);
         }
 
-        // Update login activity
         await update(loginRef, {
             last_login: currentLoginTime,
             previous_logins: previousLogins,
         });
 
-        // Session tracking
         const sessionsRef = ref(database, `users/${formattedEmail}/sessions`);
         const sessionsSnapshot = await get(sessionsRef);
         const sessions = sessionsSnapshot.val() || {};
         const sessionUpdates = {};
 
-        // Set all sessions to inactive
         Object.keys(sessions).forEach((key) => {
             sessionUpdates[`users/${formattedEmail}/sessions/${key}/active`] = false;
         });
 
-        // ✅ Activate current device session using separate path updates
         sessionUpdates[`users/${formattedEmail}/sessions/${deviceId}/active`] = true;
         sessionUpdates[`users/${formattedEmail}/sessions/${deviceId}/lastLogin`] = currentLoginTime;
 
         await update(ref(database), sessionUpdates);
 
-        // Redirect
         window.location.href = "dashboard.html";
     } catch (error) {
-        console.error("❌ Login failed:", error.message);
         incorrectMessage.style.display = "block";
         document.getElementById("email").value = "";
         document.getElementById("password").value = "";
