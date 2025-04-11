@@ -26,26 +26,38 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log("Is user logged in?", window.isUserLoggedIn);
 
             if (window.isUserLoggedIn) {
-                console.log("Hiding login/signup links...");
-
-                const loginLinks = document.querySelectorAll("#nav-menu li a[href='login.html']");
-                const signupLinks = document.querySelectorAll("#nav-menu li a[href='signup.html']");
-
-                console.log("Found login links:", loginLinks);
-                console.log("Found signup links:", signupLinks);
-
-                loginLinks.forEach(el => {
-                    console.log("Hiding login link element:", el);
-                    el.parentElement.style.display = "none";
-                });
-
-                signupLinks.forEach(el => {
-                    console.log("Hiding signup link element:", el);
-                    el.parentElement.style.display = "none";
-                });
+                waitForNavLinks();
             }
 
             resolve(user); // Pass user to next block
         });
     });
 });
+
+function waitForNavLinks(retries = 20) {
+    const loginLinks = document.querySelectorAll("#nav-menu li a[href='login.html']");
+    const signupLinks = document.querySelectorAll("#nav-menu li a[href='signup.html']");
+
+    if (loginLinks.length === 0 && signupLinks.length === 0) {
+        if (retries > 0) {
+            console.log("Nav links not found yet. Retrying...");
+            setTimeout(() => waitForNavLinks(retries - 1), 200);
+        } else {
+            console.warn("Failed to find nav links after multiple retries.");
+        }
+        return;
+    }
+
+    console.log("Found login links:", loginLinks);
+    console.log("Found signup links:", signupLinks);
+
+    loginLinks.forEach(el => {
+        console.log("Hiding login link element:", el);
+        el.parentElement.style.display = "none";
+    });
+
+    signupLinks.forEach(el => {
+        console.log("Hiding signup link element:", el);
+        el.parentElement.style.display = "none";
+    });
+}
