@@ -1,6 +1,6 @@
 import { auth, database, ref, get, onAuthStateChanged } from "/firebaseConfig.js";
 
-// Generate device ID (must match login.js logic)
+// Generate or retrieve device ID
 function getDeviceId() {
     let deviceId = localStorage.getItem("deviceId");
     if (!deviceId) {
@@ -15,6 +15,51 @@ function getDeviceId() {
 
 const deviceId = getDeviceId();
 
+// Function to hide login and signup links using MutationObserver
+function hideAuthLinksInMenu(selector = "a") {
+    const hideLinks = () => {
+        const loginLinks = document.querySelectorAll(`${selector}[href$='login.html']`);
+        const signupLinks = document.querySelectorAll(`${selector}[href$='signup.html']`);
+
+        let hidden = false;
+
+        loginLinks.forEach(el => {
+            if (el?.parentElement) {
+                el.parentElement.style.display = "none";
+                console.log("Hiding login link element:", el);
+                hidden = true;
+            }
+        });
+
+        signupLinks.forEach(el => {
+            if (el?.parentElement) {
+                el.parentElement.style.display = "none";
+                console.log("Hiding signup link element:", el);
+                hidden = true;
+            }
+        });
+
+        return hidden;
+    };
+
+    if (hideLinks()) return;
+
+    const observer = new MutationObserver(() => {
+        if (hideLinks()) {
+            observer.disconnect(); // Stop observing once hidden
+        }
+    });
+
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+
+    // Optional safety: stop observing after 10 seconds
+    setTimeout(() => observer.disconnect(), 10000);
+}
+
+// DOM ready listener
 document.addEventListener("DOMContentLoaded", () => {
     console.log("DOM fully loaded and parsed");
 
@@ -26,43 +71,16 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log("Is user logged in?", window.isUserLoggedIn);
 
             if (window.isUserLoggedIn) {
-                // Slight delay to give DOM a bit more time
-                setTimeout(() => waitForNavLinks(), 100);
+                setTimeout(() => {
+                    // Main nav
+                    hideAuthLinksInMenu("a");
+
+                    // Tooltip/hamburger nav (if used)
+                    hideAuthLinksInMenu("#tooltip a");
+                }, 100);
             }
 
-            resolve(user); // Pass user to next block
+            resolve(user);
         });
     });
 });
-
-function waitForNavLinks(retries = 20) {
-    const loginLinks = document.querySelectorAll("a[href$='login.html']");
-    const signupLinks = document.querySelectorAll("a[href$='signup.html']");
-
-    if (loginLinks.length === 0 && signupLinks.length === 0) {
-        if (retries > 0) {
-            console.log("Nav links not found yet. Retrying...");
-            setTimeout(() => waitForNavLinks(retries - 1), 200);
-        } else {
-            console.warn("Failed to find nav links after multiple retries.");
-        }
-        return;
-    }
-
-    console.log("Found login links:", loginLinks);
-    console.log("Found signup links:", signupLinks);
-
-    loginLinks.forEach(el => {
-        if (el?.parentElement) {
-            el.parentElement.style.display = "none";
-            console.log("Hiding login link element:", el);
-        }
-    });
-
-    signupLinks.forEach(el => {
-        if (el?.parentElement) {
-            el.parentElement.style.display = "none";
-            console.log("Hiding signup link element:", el);
-        }
-    });
-}
