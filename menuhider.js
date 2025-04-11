@@ -1,6 +1,6 @@
-import { auth, database, ref, get, onAuthStateChanged } from "/firebaseConfig.js";
+import { auth, onAuthStateChanged } from "/firebaseConfig.js";
 
-// Generate or retrieve device ID
+// Get or generate device ID
 function getDeviceId() {
     let deviceId = localStorage.getItem("deviceId");
     if (!deviceId) {
@@ -15,72 +15,57 @@ function getDeviceId() {
 
 const deviceId = getDeviceId();
 
-// Function to hide login and signup links using MutationObserver
-function hideAuthLinksInMenu(selector = "a") {
-    const hideLinks = () => {
-        const loginLinks = document.querySelectorAll(`${selector}[href$='login.html']`);
-        const signupLinks = document.querySelectorAll(`${selector}[href$='signup.html']`);
+function hideAuthLinks(selector = "a") {
+    const loginLinks = document.querySelectorAll(`${selector}[href='/login'], ${selector}[href='login.html']`);
+    const signupLinks = document.querySelectorAll(`${selector}[href='/signup'], ${selector}[href='signup.html']`);
+    let anyHidden = false;
 
-        let hidden = false;
+    loginLinks.forEach(link => {
+        const wrapper = link.closest("li") || link;
+        wrapper.style.display = "none";
+        console.log("Hid login element:", wrapper);
+        anyHidden = true;
+    });
 
-        loginLinks.forEach(el => {
-            if (el?.parentElement) {
-                el.parentElement.style.display = "none";
-                console.log("Hiding login link element:", el);
-                hidden = true;
-            }
-        });
+    signupLinks.forEach(link => {
+        const wrapper = link.closest("li") || link;
+        wrapper.style.display = "none";
+        console.log("Hid signup element:", wrapper);
+        anyHidden = true;
+    });
 
-        signupLinks.forEach(el => {
-            if (el?.parentElement) {
-                el.parentElement.style.display = "none";
-                console.log("Hiding signup link element:", el);
-                hidden = true;
-            }
-        });
+    return anyHidden;
+}
 
-        return hidden;
-    };
-
-    if (hideLinks()) return;
+// Observer for dynamic nav injection
+function observeAndHideAuthLinks(selector = "a") {
+    if (hideAuthLinks(selector)) return;
 
     const observer = new MutationObserver(() => {
-        if (hideLinks()) {
-            observer.disconnect(); // Stop observing once hidden
+        if (hideAuthLinks(selector)) {
+            observer.disconnect();
         }
     });
 
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
+    observer.observe(document.body, { childList: true, subtree: true });
 
-    // Optional safety: stop observing after 10 seconds
-    setTimeout(() => observer.disconnect(), 10000);
+    setTimeout(() => observer.disconnect(), 10000); // Stop after 10s max
 }
 
-// DOM ready listener
 document.addEventListener("DOMContentLoaded", () => {
     console.log("DOM fully loaded and parsed");
 
-    window.authReady = new Promise((resolve) => {
-        onAuthStateChanged(auth, (user) => {
-            console.log("onAuthStateChanged triggered. User:", user);
+    onAuthStateChanged(auth, (user) => {
+        console.log("onAuthStateChanged triggered. User:", user);
+        window.isUserLoggedIn = !!user;
+        console.log("Is user logged in?", window.isUserLoggedIn);
 
-            window.isUserLoggedIn = !!user;
-            console.log("Is user logged in?", window.isUserLoggedIn);
-
-            if (window.isUserLoggedIn) {
-                setTimeout(() => {
-                    // Main nav
-                    hideAuthLinksInMenu("a");
-
-                    // Tooltip/hamburger nav (if used)
-                    hideAuthLinksInMenu("#tooltip a");
-                }, 100);
-            }
-
-            resolve(user);
-        });
+        if (window.isUserLoggedIn) {
+            // Delay to allow UI insertion (especially for tooltips or async nav)
+            setTimeout(() => {
+                observeAndHideAuthLinks("a");
+                observeAndHideAuthLinks("#tooltip a");
+            }, 100);
+        }
     });
 });
