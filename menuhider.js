@@ -1,6 +1,6 @@
-import { auth, onAuthStateChanged } from "/firebaseConfig.js";
+import { auth, database, ref, get, signOut, onAuthStateChanged } from "/firebaseConfig.js";
 
-// Get or generate device ID
+// 📱 Get or generate device ID
 function getDeviceId() {
     let deviceId = localStorage.getItem("deviceId");
     if (!deviceId) {
@@ -9,9 +9,14 @@ function getDeviceId() {
     }
     return deviceId;
 }
-
 const deviceId = getDeviceId();
 
+// 🔐 Format Firebase-safe email
+function formatEmail(email) {
+    return email.replace(/\./g, "_dot_").replace(/@/g, "_at_");
+}
+
+// 🧼 Hide login/signup links
 function hideAuthLinks(selector = "a") {
     const loginLinks = document.querySelectorAll(`${selector}[href='/login'], ${selector}[href='login.html']`);
     const signupLinks = document.querySelectorAll(`${selector}[href='/signup'], ${selector}[href='signup.html']`);
@@ -32,7 +37,7 @@ function hideAuthLinks(selector = "a") {
     return anyHidden;
 }
 
-// Observer for dynamic nav injection
+// 👀 Watch for dynamic DOM nav links
 function observeAndHideAuthLinks(selector = "a") {
     if (hideAuthLinks(selector)) return;
 
@@ -43,18 +48,55 @@ function observeAndHideAuthLinks(selector = "a") {
     });
 
     observer.observe(document.body, { childList: true, subtree: true });
-    setTimeout(() => observer.disconnect(), 10000); // Stop after 10s max
+    setTimeout(() => observer.disconnect(), 10000); // Auto-stop after 10s
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    onAuthStateChanged(auth, (user) => {
-        window.isUserLoggedIn = !!user;
+// 🍞 Toast Message
+function showToast(message) {
+    const toast = document.getElementById("toast");
+    if (!toast) return;
 
-        if (window.isUserLoggedIn) {
+    toast.textContent = message;
+    toast.style.display = "block";
+
+    setTimeout(() => {
+        toast.style.display = "none";
+    }, 3000);
+}
+
+// 🔐 Session Validation + Auto Logout
+async function handleSession(user) {
+    const emailKey = formatEmail(user.email);
+    const sessionRef = ref(database, `users/${emailKey}/sessions/${deviceId}`);
+
+    try {
+        const snapshot = await get(sessionRef);
+        const sessionData = snapshot.val();
+
+        if (!snapshot.exists() || sessionData.active === false) {
+            showToast("Session expired or logged out from another device.");
+            setTimeout(async () => {
+                await signOut(auth);
+                window.location.href = "login.html";
+            }, 3000);
+        } else {
+            // Session valid → hide login/signup
             setTimeout(() => {
                 observeAndHideAuthLinks("a");
                 observeAndHideAuthLinks("#tooltip a");
             }, 100);
+        }
+    } catch (error) {
+        console.error("❌ Error checking session:", error);
+    }
+}
+
+// 🌐 DOM loaded
+document.addEventListener("DOMContentLoaded", () => {
+    onAuthStateChanged(auth, (user) => {
+        window.isUserLoggedIn = !!user;
+        if (window.isUserLoggedIn) {
+            handleSession(user);
         }
     });
 });
