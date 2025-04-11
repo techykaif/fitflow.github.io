@@ -25,16 +25,13 @@ async function generateDeviceId() {
 
     const encoder = new TextEncoder();
     const data = encoder.encode(info);
-
     const hashBuffer = await crypto.subtle.digest("SHA-256", data);
     const hashArray = Array.from(new Uint8Array(hashBuffer));
     const hashHex = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
-
-    const deviceId = "device_" + hashHex.slice(0, 16);
-    return deviceId;
+    return "device_" + hashHex.slice(0, 16);
 }
 
-// Async: Get device ID (from localStorage or generate and save it)
+// Get or store device ID in localStorage
 async function getDeviceId() {
     let deviceId = localStorage.getItem("deviceId");
     if (!deviceId) {
@@ -44,7 +41,7 @@ async function getDeviceId() {
     return deviceId;
 }
 
-// Get current IST date/time
+// Get current IST time
 function getCurrentIST() {
     const now = new Date();
     const options = {
@@ -56,17 +53,14 @@ function getCurrentIST() {
         minute: "2-digit",
         second: "2-digit",
     };
-    return new Intl.DateTimeFormat("en-GB", options)
-        .format(now)
-        .replace(",", "");
+    return new Intl.DateTimeFormat("en-GB", options).format(now).replace(",", "");
 }
 
-// DOM ready
+// DOM Ready
 document.addEventListener("DOMContentLoaded", function () {
     const loginBtn = document.getElementById("loginBtn");
     const emailInput = document.getElementById("email");
     const passwordInput = document.getElementById("password");
-
     const emailError = document.getElementById("emailError");
     const passwordError = document.getElementById("passwordError");
     const loadingMessage = document.getElementById("loadingMessage");
@@ -82,11 +76,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// Main login function
+// Login Function
 export async function login() {
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
-
     const emailError = document.getElementById("emailError");
     const passwordError = document.getElementById("passwordError");
     const loadingMessage = document.getElementById("loadingMessage");
@@ -97,6 +90,7 @@ export async function login() {
         emailError.style.display = "block";
         return;
     }
+
     if (!validatePassword(password)) {
         passwordError.textContent = "Password must be at least 6 characters long";
         passwordError.style.display = "block";
@@ -109,38 +103,48 @@ export async function login() {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         const formattedEmail = formatEmail(email);
-        const loginRef = ref(database, `users/${formattedEmail}/login_activity`);
         const currentLoginTime = getCurrentIST();
+        const loginRef = ref(database, `users/${formattedEmail}/login_activity`);
 
-        // 🧠 Get persistent device ID
+        // Persistent Device ID
         const deviceId = await getDeviceId();
 
-        // ⏱️ Fetch existing login history
+        // Fetch login history
         const snapshot = await get(loginRef);
         const loginData = snapshot.val();
         let previousLogins = [];
 
-        if (loginData && loginData.last_login) {
+        if (loginData?.last_login) {
             previousLogins = loginData.previous_logins || [];
             previousLogins.push(loginData.last_login);
         }
 
-        // 🔁 Update login activity
+        // Update login activity
         await update(loginRef, {
             last_login: currentLoginTime,
             previous_logins: previousLogins,
         });
 
-        // 💡 Save session info under device
-        const sessionRef = ref(database, `users/${formattedEmail}/sessions/${deviceId}`);
-        const sessionData = {
+        // Session tracking
+        const sessionsRef = ref(database, `users/${formattedEmail}/sessions`);
+        const sessionsSnapshot = await get(sessionsRef);
+        const sessions = sessionsSnapshot.val() || {};
+        const sessionUpdates = {};
+
+        // Set all sessions to inactive
+        Object.keys(sessions).forEach((key) => {
+            sessionUpdates[`users/${formattedEmail}/sessions/${key}/active`] = false;
+        });
+
+        // Activate current device session
+        sessionUpdates[`users/${formattedEmail}/sessions/${deviceId}`] = {
             active: true,
             lastLogin: currentLoginTime,
         };
 
-        await update(sessionRef, sessionData);
+        await update(ref(database), sessionUpdates);
 
-        // ✅ Redirect to dashboard
+        // Redirect
         window.location.href = "dashboard.html";
     } catch (error) {
         console.error("❌ Login failed:", error.message);
@@ -152,13 +156,12 @@ export async function login() {
     }
 }
 
-// Validate email
+// Validation Helpers
 function validateEmail(email) {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
 }
 
-// Validate password
 function validatePassword(password) {
     return password.length >= 6;
 }
