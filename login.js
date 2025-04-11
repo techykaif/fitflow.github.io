@@ -136,11 +136,9 @@ export async function login() {
             sessionUpdates[`users/${formattedEmail}/sessions/${key}/active`] = false;
         });
 
-        // Activate current device session
-        sessionUpdates[`users/${formattedEmail}/sessions/${deviceId}`] = {
-            active: true,
-            lastLogin: currentLoginTime,
-        };
+        // ✅ Activate current device session using separate path updates
+        sessionUpdates[`users/${formattedEmail}/sessions/${deviceId}/active`] = true;
+        sessionUpdates[`users/${formattedEmail}/sessions/${deviceId}/lastLogin`] = currentLoginTime;
 
         await update(ref(database), sessionUpdates);
 
