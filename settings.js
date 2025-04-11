@@ -15,7 +15,6 @@ function getDeviceId() {
     return deviceId;
 }
 
-
 // Function to show custom toast messages
 function showToast(message, type = "success") {
     const toast = document.createElement("div");
@@ -69,8 +68,7 @@ onAuthStateChanged(auth, (user) => {
                         avatarElement.textContent = initials;
                     }
                 }
-            })
-            .catch((error) => console.error("Error fetching user data:", error));
+            });
     }
 });
 

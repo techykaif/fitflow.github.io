@@ -23,8 +23,6 @@ function toggleMenu() {
                     } else if (retryCount < 10) {
                         retryCount++;
                         setTimeout(tryHideAuthLinks, 50);
-                    } else {
-                        console.warn("Auth links not found after retry.");
                     }
                 }
 

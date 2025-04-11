@@ -31,7 +31,6 @@ async function generateDeviceId() {
     const hashHex = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
 
     const deviceId = "device_" + hashHex.slice(0, 16);
-    console.log("🔧 Generated new device ID (SHA-256):", deviceId);
     return deviceId;
 }
 
@@ -39,12 +38,8 @@ async function generateDeviceId() {
 async function getDeviceId() {
     let deviceId = localStorage.getItem("deviceId");
     if (!deviceId) {
-        console.log("📱 No device ID found in localStorage. Generating a new one...");
         deviceId = await generateDeviceId();
         localStorage.setItem("deviceId", deviceId);
-        console.log("💾 Device ID saved to localStorage:", deviceId);
-    } else {
-        console.log("✅ Existing Device ID found in localStorage:", deviceId);
     }
     return deviceId;
 }
@@ -135,7 +130,6 @@ export async function login() {
             last_login: currentLoginTime,
             previous_logins: previousLogins,
         });
-        console.log("📌 Login activity updated for user:", formattedEmail);
 
         // 💡 Save session info under device
         const sessionRef = ref(database, `users/${formattedEmail}/sessions/${deviceId}`);
@@ -145,7 +139,6 @@ export async function login() {
         };
 
         await update(sessionRef, sessionData);
-        console.log("✅ Session saved to Firebase under device ID:", deviceId);
 
         // ✅ Redirect to dashboard
         window.location.href = "dashboard.html";

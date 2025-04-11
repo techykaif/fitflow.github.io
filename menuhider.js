@@ -6,9 +6,6 @@ function getDeviceId() {
     if (!deviceId) {
         deviceId = "device-" + Math.random().toString(36).substring(2, 15);
         localStorage.setItem("deviceId", deviceId);
-        console.log("Generated new deviceId:", deviceId);
-    } else {
-        console.log("Retrieved existing deviceId from localStorage:", deviceId);
     }
     return deviceId;
 }
@@ -23,14 +20,12 @@ function hideAuthLinks(selector = "a") {
     loginLinks.forEach(link => {
         const wrapper = link.closest("li") || link;
         wrapper.style.display = "none";
-        console.log("Hid login element:", wrapper);
         anyHidden = true;
     });
 
     signupLinks.forEach(link => {
         const wrapper = link.closest("li") || link;
         wrapper.style.display = "none";
-        console.log("Hid signup element:", wrapper);
         anyHidden = true;
     });
 
@@ -48,20 +43,14 @@ function observeAndHideAuthLinks(selector = "a") {
     });
 
     observer.observe(document.body, { childList: true, subtree: true });
-
     setTimeout(() => observer.disconnect(), 10000); // Stop after 10s max
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("DOM fully loaded and parsed");
-
     onAuthStateChanged(auth, (user) => {
-        console.log("onAuthStateChanged triggered. User:", user);
         window.isUserLoggedIn = !!user;
-        console.log("Is user logged in?", window.isUserLoggedIn);
 
         if (window.isUserLoggedIn) {
-            // Delay to allow UI insertion (especially for tooltips or async nav)
             setTimeout(() => {
                 observeAndHideAuthLinks("a");
                 observeAndHideAuthLinks("#tooltip a");
