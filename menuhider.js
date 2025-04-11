@@ -65,7 +65,7 @@ function showToast(message) {
 }
 
 // 🔐 Session Validation + Auto Logout
-async function handleSession(user) {
+async function checkSession(user) {
     const emailKey = formatEmail(user.email);
     const sessionRef = ref(database, `users/${emailKey}/sessions/${deviceId}`);
 
@@ -75,28 +75,32 @@ async function handleSession(user) {
 
         if (!snapshot.exists() || sessionData.active === false) {
             showToast("Session expired or logged out from another device.");
+            clearInterval(window.sessionCheckInterval); // stop polling
             setTimeout(async () => {
                 await signOut(auth);
                 window.location.href = "login.html";
             }, 3000);
-        } else {
-            // Session valid → hide login/signup
-            setTimeout(() => {
-                observeAndHideAuthLinks("a");
-                observeAndHideAuthLinks("#tooltip a");
-            }, 100);
         }
     } catch (error) {
         console.error("❌ Error checking session:", error);
     }
 }
 
-// 🌐 DOM loaded
+// ✅ Main on load
 document.addEventListener("DOMContentLoaded", () => {
     onAuthStateChanged(auth, (user) => {
         window.isUserLoggedIn = !!user;
-        if (window.isUserLoggedIn) {
-            handleSession(user);
+
+        if (user) {
+            // Initial UI update
+            setTimeout(() => {
+                observeAndHideAuthLinks("a");
+                observeAndHideAuthLinks("#tooltip a");
+            }, 100);
+
+            // Start polling every 2 seconds
+            checkSession(user); // initial call
+            window.sessionCheckInterval = setInterval(() => checkSession(user), 2000);
         }
     });
 });
