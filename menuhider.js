@@ -6,47 +6,46 @@ function getDeviceId() {
     if (!deviceId) {
         deviceId = "device-" + Math.random().toString(36).substring(2, 15);
         localStorage.setItem("deviceId", deviceId);
+        console.log("Generated new deviceId:", deviceId);
+    } else {
+        console.log("Retrieved existing deviceId from localStorage:", deviceId);
     }
     return deviceId;
 }
 
 const deviceId = getDeviceId();
 
-window.authReady = new Promise((resolve) => {
-    onAuthStateChanged(auth, (user) => {
-        window.isUserLoggedIn = !!user;
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("DOM fully loaded and parsed");
 
-        // Immediately hide login/signup links if logged in
-        if (window.isUserLoggedIn) {
-            document.querySelectorAll("#nav-menu li a[href='login.html']").forEach(el => el.parentElement.style.display = "none");
-            document.querySelectorAll("#nav-menu li a[href='signup.html']").forEach(el => el.parentElement.style.display = "none");
-        }
+    window.authReady = new Promise((resolve) => {
+        onAuthStateChanged(auth, (user) => {
+            console.log("onAuthStateChanged triggered. User:", user);
 
-        resolve(user); // Pass user to next block
-    });
-});
+            window.isUserLoggedIn = !!user;
+            console.log("Is user logged in?", window.isUserLoggedIn);
 
-window.authReady.then(async (user) => {
-    if (user) {
-        const email = user.email;
-        const formattedEmail = email.toLowerCase().replace(/\./g, "_dot_").replace(/@/g, "_at_");
+            if (window.isUserLoggedIn) {
+                console.log("Hiding login/signup links...");
 
-        const sessionRef = ref(database, `users/${formattedEmail}/sessions/${deviceId}`);
+                const loginLinks = document.querySelectorAll("#nav-menu li a[href='login.html']");
+                const signupLinks = document.querySelectorAll("#nav-menu li a[href='signup.html']");
 
-        try {
-            const sessionSnapshot = await get(sessionRef);
+                console.log("Found login links:", loginLinks);
+                console.log("Found signup links:", signupLinks);
 
-            if (sessionSnapshot.exists()) {
-                const session = sessionSnapshot.val();
+                loginLinks.forEach(el => {
+                    console.log("Hiding login link element:", el);
+                    el.parentElement.style.display = "none";
+                });
 
-                if (session.active) {
-                    // Show dashboard and logout links
-                    document.querySelectorAll("#nav-menu li a[href='dashboard.html']").forEach(el => el.parentElement.style.display = "block");
-                    document.querySelectorAll("#nav-menu li a[href='logout.html']").forEach(el => el.parentElement.style.display = "block");
-                }
+                signupLinks.forEach(el => {
+                    console.log("Hiding signup link element:", el);
+                    el.parentElement.style.display = "none";
+                });
             }
-        } catch (error) {
-            console.error("Error checking session on Netlify:", error);
-        }
-    }
+
+            resolve(user); // Pass user to next block
+        });
+    });
 });
