@@ -1,110 +1,72 @@
-// Import Firebase modules
-import { auth, database, ref, set, get, onAuthStateChanged } from "./firebaseConfig.js";
-
-// Format email to use as Firebase key
-function formatEmail(email) {
-    return email.toLowerCase().replace(/\./g, "_dot_").replace(/@/g, "_at_");
-}
-
-// Get today's date in yyyy-mm-dd
-function getTodayDate() {
-    return new Date().toISOString().split('T')[0];
-}
-
-// Save sleep data to Firebase
-function saveSleepData(hours, quality) {
-    const user = auth.currentUser;
-    if (!user) return alert("User not logged in");
-
-    const formattedEmail = formatEmail(user.email);
-    const date = getTodayDate();
-    const sleepRef = ref(database, `users/${formattedEmail}/sleep_tracking/${date}`);
-
-    set(sleepRef, {
-        hours,
-        quality
-    }).then(() => {
-        alert("Sleep data saved successfully!");
-        fetchAndDisplaySleepData();
-    }).catch(err => {
-        alert("Error saving data: " + err.message);
-    });
-}
-
-// Fetch and analyze sleep data
-function fetchAndDisplaySleepData() {
-    const user = auth.currentUser;
-    if (!user) return;
-
-    const formattedEmail = formatEmail(user.email);
-    const sleepRef = ref(database, `users/${formattedEmail}/sleep_tracking`);
-
-    get(sleepRef).then(snapshot => {
-        const data = snapshot.val();
-        if (!data) return;
-
-        const labels = [];
-        const hoursData = [];
-
-        Object.entries(data).forEach(([date, record]) => {
-            labels.push(date);
-            hoursData.push(record.hours);
-        });
-
-        renderChart(labels, hoursData);
-    });
-}
-
-// Render chart using Chart.js
-function renderChart(labels, data) {
-    const ctx = document.getElementById("sleepChart").getContext("2d");
-    if (window.sleepChart) window.sleepChart.destroy(); // reset if reloading
-
-    window.sleepChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels,
-            datasets: [{
-                label: 'Sleep Hours',
-                data,
-                borderColor: '#6c5ce7',
-                backgroundColor: 'rgba(108, 92, 231, 0.2)',
-                borderWidth: 2,
-                tension: 0.3,
-                fill: true,
-                pointRadius: 5
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { display: false },
-                tooltip: { mode: 'index' }
-            },
-            scales: {
-                y: { beginAtZero: true, title: { display: true, text: 'Hours' } },
-                x: { title: { display: true, text: 'Date' } }
-            }
-        }
-    });
-}
-
-// Event listeners
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 document.addEventListener("DOMContentLoaded", () => {
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            fetchAndDisplaySleepData();
+  const sleepDate = document.getElementById("sleepDate");
+  const sleepStart = document.getElementById("sleepStart");
+  const wakeTime = document.getElementById("wakeTime");
+  const calculatedHours = document.getElementById("calculatedHours");
+  const saveBtn = document.getElementById("saveSleepBtn");
 
-            document.getElementById("saveSleepBtn").addEventListener("click", () => {
-                const hours = parseFloat(document.getElementById("sleepHours").value);
-                const quality = document.getElementById("sleepQuality").value;
+  // Set default date to today
+  sleepDate.valueAsDate = new Date();
 
-                if (isNaN(hours) || hours <= 0) {
-                    alert("Please enter valid sleep hours.");
-                    return;
-                }
-                saveSleepData(hours, quality);
-            });
+  function calculateSleepDuration() {
+    const start = sleepStart.value;
+    const end = wakeTime.value;
+    if (start && end) {
+      const [h1, m1] = start.split(":").map(Number);
+      const [h2, m2] = end.split(":").map(Number);
+      let startDate = new Date(0, 0, 0, h1, m1);
+      let endDate = new Date(0, 0, 0, h2, m2);
+      if (endDate <= startDate) endDate.setDate(endDate.getDate() + 1); // next day
+      const diff = (endDate - startDate) / 1000 / 60 / 60;
+      calculatedHours.value = diff.toFixed(2);
+    }
+  }
+
+  sleepStart.addEventListener("change", calculateSleepDuration);
+  wakeTime.addEventListener("change", calculateSleepDuration);
+
+  saveBtn.addEventListener("click", () => {
+    const data = {
+      date: sleepDate.value,
+      sleepStart: sleepStart.value,
+      wakeTime: wakeTime.value,
+      sleepHours: parseFloat(calculatedHours.value),
+      sleepQuality: document.getElementById("sleepQuality").value,
+      notes: document.getElementById("sleepNotes").value.trim()
+    };
+
+    console.log("Saving sleep data:", data);
+    // TODO: Save to Firebase using current user's formatted email
+  });
+
+  // Dummy Chart Init
+  const ctx = document.getElementById("sleepChart").getContext("2d");
+  const sleepChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: [], // will be populated dynamically
+      datasets: [{
+        label: 'Sleep Hours',
+        data: [],
+        borderColor: '#42a5f5',
+        backgroundColor: 'rgba(66, 165, 245, 0.2)',
+        fill: true,
+        tension: 0.4,
+        pointRadius: 4
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+          suggestedMax: 10
         }
-    });
+      }
+    }
+  });
+
+  // TODO: Fetch data from Firebase and update chart dynamically
 });
+

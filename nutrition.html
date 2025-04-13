@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nutrition - FitFlow</title>
     <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="nutrition.css">
     <script src="notifications.js" type="module"></script>
 </head>
 <body>
@@ -38,7 +39,7 @@
         <main class="main-content">
             <header class="header">
                 <div class="search-bar">
-                    <input type="text" placeholder="Search activities...">
+                    <input type="text" placeholder="Search nutrition...">
                     <button class="search-btn">🔍</button>
                 </div>
                 <div class="header-actions">
@@ -54,15 +55,108 @@
             </header>
 
             <div class="welcome-section">
-                <h1>Your Activities</h1>
-                <p>Track, manage, and analyze your fitness activities</p>
+                <h1>Nutrition Tracker</h1>
+                <p>Track your meals and monitor your macronutrient intake</p>
+                
+                <div class="nutrition-container">
+                    <!-- Meal Input Form -->
+                    <div class="meal-form-container">
+                        <h2>Log a Meal</h2>
+                        <form id="meal-form">
+                            <div class="form-group">
+                                <label for="meal-type">Meal Type</label>
+                                <select id="meal-type" required>
+                                    <option value="">Select meal type</option>
+                                    <option value="Breakfast">Breakfast</option>
+                                    <option value="Lunch">Lunch</option>
+                                    <option value="Dinner">Dinner</option>
+                                    <option value="Snack">Snack</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="food-name">Food Name</label>
+                                <input type="text" id="food-name" required placeholder="e.g., Grilled Chicken Salad">
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="calories">Calories</label>
+                                    <input type="number" id="calories" required min="0" placeholder="kcal">
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="protein">Protein (g)</label>
+                                    <input type="number" id="protein" required min="0" step="0.1" placeholder="g">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="carbs">Carbs (g)</label>
+                                    <input type="number" id="carbs" required min="0" step="0.1" placeholder="g">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="fats">Fats (g)</label>
+                                    <input type="number" id="fats" required min="0" step="0.1" placeholder="g">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="meal-date">Date</label>
+                                <input type="date" id="meal-date" required>
+                            </div>
+                            
+                            <button type="submit" class="log-meal-btn">Log Meal</button>
+                        </form>
+                    </div>
+                    
+                    <!-- Nutrition Charts -->
+                    <div class="nutrition-charts">
+                        <div class="chart-container">
+                            <h2>Macronutrient Distribution</h2>
+                            <canvas id="macro-chart"></canvas>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <h2>Daily Calorie Intake</h2>
+                            <canvas id="calorie-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Meal Log -->
+                <div class="meal-log-container">
+                    <h2>Meal Log</h2>
+                    <div class="meal-log-filters">
+                        <select id="date-filter">
+                            <option value="all">All Dates</option>
+                            <!-- Dates will be populated dynamically -->
+                        </select>
+                        <select id="meal-filter">
+                            <option value="all">All Meal Types</option>
+                            <option value="Breakfast">Breakfast</option>
+                            <option value="Lunch">Lunch</option>
+                            <option value="Dinner">Dinner</option>
+                            <option value="Snack">Snack</option>
+                        </select>
+                        <input type="text" id="food-search" placeholder="Search foods...">
+                    </div>
+                    
+                    <div id="meal-log" class="meal-log">
+                        <!-- Meals will be populated here -->
+                        <div class="loading-meals">Loading your meal data...</div>
+                    </div>
+                </div>
             </div>
-
-            <!-- Activities content here -->
+            
+           
         </main>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <script src="activities.js"></script>
+    <script type="module" src="nutrition.js"></script>
     <script type="module" src="dashboardjs.js"></script>
     <script type="module">
         import { initSidebar } from "./components/sidebar.js";

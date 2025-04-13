@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Activities - FitFlow</title>
     <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="activites.css">
     <script src="notifications.js" type="module"></script>
 </head>
 <body>
@@ -56,13 +57,79 @@
             <div class="welcome-section">
                 <h1>Your Activities</h1>
                 <p>Track, manage, and analyze your fitness activities</p>
+                
+                <div class="activities-container">
+                    <!-- Activity Form -->
+                    <div class="activity-form-container">
+                        <h2>Add New Activity</h2>
+                        <form id="activity-form">
+                            <div class="form-group">
+                                <label for="activity-name">Activity Name</label>
+                                <input type="text" id="activity-name" required placeholder="e.g., Running, Swimming, Yoga">
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="activity-duration">Duration (minutes)</label>
+                                    <input type="number" id="activity-duration" required min="1" placeholder="e.g., 30">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="activity-calories">Calories Burned</label>
+                                    <input type="number" id="activity-calories" required min="1" placeholder="e.g., 250">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="activity-date">Date</label>
+                                <input type="date" id="activity-date" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="activity-notes">Notes (optional)</label>
+                                <textarea id="activity-notes" rows="3" placeholder="Add any additional details here..."></textarea>
+                            </div>
+                            
+                            <button type="submit" class="save-activity-btn">Save Activity</button>
+                        </form>
+                    </div>
+                    
+                    <!-- Activity Visualization -->
+                    <div class="activity-visualization">
+                        <div class="chart-container">
+                            <h2>Calories Burned This Week</h2>
+                            <canvas id="calories-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Activity List -->
+                <div class="activity-list-container">
+                    <h2>Recent Activities</h2>
+                    <div class="activity-filters">
+                        <select id="activity-sort">
+                            <option value="date-desc">Newest First</option>
+                            <option value="date-asc">Oldest First</option>
+                            <option value="calories-desc">Highest Calories</option>
+                            <option value="calories-asc">Lowest Calories</option>
+                            <option value="duration-desc">Longest Duration</option>
+                            <option value="duration-asc">Shortest Duration</option>
+                        </select>
+                        <input type="text" id="activity-search" placeholder="Search activities...">
+                    </div>
+                    <div id="activities-list" class="activities-list">
+                        <div class="loading-activities">Loading your activities...</div>
+                    </div>
+                </div>
             </div>
-
-            <!-- Activities content here -->
+            
+            
         </main>
     </div>
 
-    <script src="activities.js"></script>
+   <!-- Add this before your activities.js script -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="module" src="activities.js"></script>
     <script type="module" src="dashboardjs.js"></script>
     <script type="module">
         import { initSidebar } from "./components/sidebar.js";

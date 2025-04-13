@@ -20,7 +20,12 @@ onAuthStateChanged(auth, (user) => {
                 if (snapshot.exists()) {
                     const userData = snapshot.val();
                     document.getElementById("user-name").textContent = userData.name || "User";
-                    document.getElementById("user-name1").textContent = userData.name || "User";
+
+// Check if the element with ID "user-name1" exists before updating it
+if (document.getElementById("user-name1")) {
+    document.getElementById("user-name1").textContent = userData.name || "User";
+}
+
 
                     // Set avatar (either from Firebase profile pic or initials)
                     const avatarElement = document.getElementById("user-avatar");
