@@ -16,6 +16,7 @@ import {
     ref, 
     update, 
     set, 
+    remove,
     get, 
     push 
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
@@ -48,7 +49,8 @@ export {
     get, 
     getAuth, 
     push, 
-    onAuthStateChanged, 
+    onAuthStateChanged,
+    remove, 
     signOut, 
     reauthenticateWithCredential, 
     updatePassword, 

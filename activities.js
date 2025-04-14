@@ -1,6 +1,4 @@
 // Initialize Firebase with your config
-
-// CORRECT:
 import { auth, database, onAuthStateChanged, ref, update, get, push, set } from "./firebaseConfig.js";
 
 document.addEventListener('DOMContentLoaded', function () {

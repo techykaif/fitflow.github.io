@@ -52,65 +52,207 @@
                     </div>
                 </div>
             </header>
-<!-- sleep.html -->
-<section class="sleep-tracker-section">
-  <h2>🛌 Sleep Tracker</h2>
-  <p class="subtitle">Track your daily sleep duration and quality for better health insights</p>
+            <main class="app-content">
+              <!-- Sleep Dashboard Summary -->
+              <section class="sleep-dashboard">
+                <div class="dashboard-card sleep-average">
+                  <h3>Average Sleep</h3>
+                  <div class="stat-value" id="averageSleep">0h 0m</div>
+                  <div class="stat-label">Last 7 days</div>
+                </div>
+                
+                <div class="dashboard-card sleep-quality">
+                  <h3>Sleep Quality</h3>
+                  <div class="stat-value" id="averageQuality">--</div>
+                  <div class="stat-label">Last 7 days</div>
+                </div>
+                
+                <div class="dashboard-card sleep-goal">
+                  <h3>Sleep Goal</h3>
+                  <div class="stat-value" id="sleepGoalProgress">0%</div>
+                  <div class="stat-label">of 8 hours</div>
+                </div>
+                
+                <div class="dashboard-card sleep-streak">
+                  <h3>Sleep Streak</h3>
+                  <div class="stat-value" id="currentStreak">0</div>
+                  <div class="stat-label">days ≥ 7 hours</div>
+                </div>
+              </section>
+        
+              <div class="main-content-grid">
+                <!-- Sleep Entry Form -->
+                <section class="sleep-tracker-section">
+                  <h2>🛌 Log Sleep</h2>
+                  <p class="subtitle">Record your sleep details</p>
+        
+                  <div class="sleep-inputs">
+                    <div class="input-group">
+                      <label for="sleepDate">Date</label>
+                      <input type="date" id="sleepDate" />
+                    </div>
+        
+                    <div class="time-inputs">
+                      <div class="input-group">
+                        <label for="sleepStart">Sleep Start Time</label>
+                        <input type="time" id="sleepStart" />
+                      </div>
+        
+                      <div class="input-group">
+                        <label for="wakeTime">Wake-Up Time</label>
+                        <input type="time" id="wakeTime" />
+                      </div>
+                    </div>
+        
+                    <div class="input-group">
+                      <label for="sleepQuality">Sleep Quality</label>
+                      <select id="sleepQuality">
+                        <option value="">Select quality</option>
+                        <option value="Poor">😴 Poor</option>
+                        <option value="Average">😌 Average</option>
+                        <option value="Good">😊 Good</option>
+                        <option value="Excellent">💤 Excellent</option>
+                      </select>
+                    </div>
+        
+                    <div class="input-group">
+                      <label for="sleepNotes">Notes</label>
+                      <textarea id="sleepNotes" placeholder="E.g., Caffeine late, stressful day, etc."></textarea>
+                    </div>
+        
+                    <div class="calculated-sleep">
+                      <div class="input-group">
+                        <label for="calculatedHours">Calculated Sleep Duration</label>
+                        <input type="text" id="calculatedHours" readonly />
+                      </div>
+                      <div class="sleep-recommendation" id="sleepRecommendation"></div>
+                    </div>
+        
+                    <button id="saveSleepBtn" class="save-btn">💾 Save Sleep Record</button>
+                  </div>
+                </section>
+        
+                <!-- Sleep Visualization -->
+                <section class="sleep-visualization">
+                  <h2>📊 Sleep Patterns</h2>
+                  <p class="subtitle">Visualize your sleep data</p>
+                  
+                  <div class="chart-tabs">
+                    <button class="chart-tab active" data-chart="weekly">Last 7 Days</button>
+                    <button class="chart-tab" data-chart="monthly">Last 30 Days</button>
+                    <button class="chart-tab" data-chart="quality">Quality Trends</button>
+                  </div>
+                  
+                  <div class="chart-container">
+                    <canvas id="sleepChart"></canvas>
+                  </div>
+                  
+                  <div class="sleep-insights" id="sleepInsights">
+                    <h3>Sleep Insights</h3>
+                    <p>Log your sleep to receive personalized insights.</p>
+                  </div>
+                </section>
+              </div>
+        
+              <!-- Sleep History -->
+              <section class="sleep-history">
+                <div class="history-header">
+                  <h2>📝 Sleep History</h2>
+                  <div class="history-filters">
+                    <div class="filter-group">
+                      <label for="filterMonth">Filter by:</label>
+                      <select id="filterMonth">
+                        <option value="all">All Time</option>
+                        <option value="current">Current Month</option>
+                        <option value="last">Last Month</option>
+                      </select>
+                    </div>
+                    <div class="filter-group">
+                      <label for="sortBy">Sort by:</label>
+                      <select id="sortBy">
+                        <option value="date-desc">Date (Newest)</option>
+                        <option value="date-asc">Date (Oldest)</option>
+                        <option value="duration-desc">Duration (Longest)</option>
+                        <option value="duration-asc">Duration (Shortest)</option>
+                        <option value="quality-desc">Quality (Best)</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="sleep-records-container">
+                  <div class="sleep-records-header">
+                    <div class="record-date">Date</div>
+                    <div class="record-time">Sleep Time</div>
+                    <div class="record-duration">Duration</div>
+                    <div class="record-quality">Quality</div>
+                    <div class="record-actions">Actions</div>
+                  </div>
+                  
+                  <div id="sleepRecordsList" class="sleep-records-list">
+                    <div class="empty-state">
+                      <div class="empty-icon">😴</div>
+                      <p>No sleep records yet. Start tracking your sleep!</p>
+                    </div>
+                  </div>
+                </div>
+              </section>
+        
+              <!-- Sleep Goals -->
+              <section class="sleep-goals">
+                <h2>🎯 Sleep Goals</h2>
+                <p class="subtitle">Set and track your sleep targets</p>
+                
+                <div class="goals-container">
+                  <div class="goal-setting">
+                    <h3>Set Your Sleep Goal</h3>
+                    <div class="goal-inputs">
+                      <div class="input-group">
+                        <label for="sleepGoalHours">Target Hours</label>
+                        <input type="number" id="sleepGoalHours" min="4" max="12" step="0.5" value="8" />
+                      </div>
+                      <div class="input-group">
+                        <label for="sleepGoalDays">Target Days Per Week</label>
+                        <input type="number" id="sleepGoalDays" min="1" max="7" value="5" />
+                      </div>
+                      <button id="saveGoalBtn" class="save-btn">Save Goal</button>
+                    </div>
+                  </div>
+                  
+                  <div class="goal-progress">
+                    <h3>Weekly Progress</h3>
+                    <div class="progress-container">
+                      <div class="progress-bar-container">
+                        <div class="progress-bar" id="weeklyProgressBar"></div>
+                      </div>
+                      <div class="progress-text" id="weeklyProgressText">0/7 days</div>
+                    </div>
+                    <div class="day-indicators" id="dayIndicators">
+                      <div class="day-indicator" data-day="0">S</div>
+                      <div class="day-indicator" data-day="1">M</div>
+                      <div class="day-indicator" data-day="2">T</div>
+                      <div class="day-indicator" data-day="3">W</div>
+                      <div class="day-indicator" data-day="4">T</div>
+                      <div class="day-indicator" data-day="5">F</div>
+                      <div class="day-indicator" data-day="6">S</div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </main>
+        
+            <!-- Sleep Record Detail Modal -->
+            <div id="sleepDetailModal" class="modal">
+              <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Sleep Record Details</h2>
+                <div id="modalContent" class="modal-body"></div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-  <div class="sleep-inputs">
-    <div class="input-group">
-      <label for="sleepDate">Date</label>
-      <input type="date" id="sleepDate" />
-    </div>
-
-    <div class="input-group">
-      <label for="sleepStart">Sleep Start Time</label>
-      <input type="time" id="sleepStart" />
-    </div>
-
-    <div class="input-group">
-      <label for="wakeTime">Wake-Up Time</label>
-      <input type="time" id="wakeTime" />
-    </div>
-
-    <div class="input-group">
-      <label for="sleepQuality">Sleep Quality</label>
-      <select id="sleepQuality">
-        <option value="Poor">😴 Poor</option>
-        <option value="Average">😌 Average</option>
-        <option value="Good">😊 Good</option>
-        <option value="Excellent">💤 Excellent</option>
-      </select>
-    </div>
-
-    <div class="input-group">
-      <label for="sleepNotes">Notes</label>
-      <textarea id="sleepNotes" placeholder="E.g., Caffeine late, stressful day, etc."></textarea>
-    </div>
-
-    <div class="input-group">
-      <label for="calculatedHours">Calculated Sleep Hours</label>
-      <input type="text" id="calculatedHours" readonly />
-    </div>
-
-    <button id="saveSleepBtn" class="save-btn">💾 Save Sleep Record</button>
-  </div>
-
-  <div class="chart-container">
-    <h3>Sleep Pattern Overview</h3>
-    <canvas id="sleepChart"></canvas>
-  </div>
-</section>
-
-            <!-- Chart.js CDN -->
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-            
-              
-              
-
-          
-    </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="module" src="sleep.js">
     </script>
     <script type="module" src="dashboardjs.js"></script>
