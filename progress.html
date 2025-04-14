@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Progress - FitFlow</title>
    <link rel="stylesheet" href="sidebar.css">
-    <!-- <link rel="stylesheet" href="progress.css"> -->
+    <link rel="stylesheet" href="progress.css">
      <script src="notifications.js" type="module"></script>
      
 </head>
@@ -54,15 +54,40 @@
                     </div>
                 </div>
             </header>
-
-            <div class="welcome-section">
-                <h1>Your Progress</h1>
-                <p>Track your fitness journey and see how far you've come</p>
-            </div>
+            <div class="container">
+                <div class="welcome-section">
+                  <h1 class="welcome-animation">Your Progress</h1>
+                  <p class="welcome-animation" style="animation-delay: 0.2s;">
+                    Track your fitness journey and see how far you've come
+                  </p>
+                </div>
+            
+                <!-- Sleep Progress Section -->
+                <section class="progress-section">
+                  <h2>🛌 Sleep Progress</h2>
+                  <canvas id="sleepProgressChart"></canvas>
+                  <p id="sleepSummary"></p>
+                </section>
+            
+                <!-- Nutrition Progress Section -->
+                <section class="progress-section">
+                  <h2>🍎 Nutrition Progress</h2>
+                  <canvas id="nutritionProgressChart"></canvas>
+                  <p id="nutritionSummary"></p>
+                </section>
+            
+                <!-- Activity Progress Section -->
+                <section class="progress-section">
+                  <h2>🏃 Activity Progress</h2>
+                  <canvas id="activityProgressChart"></canvas>
+                  <p id="activitySummary"></p>
+                </section>
+              </div>
+            
 
     </div>
-
-   <script src="progress.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   <script type="module" src="progress.js"></script>
    <script type="module">
     import { initSidebar } from "./components/sidebar.js";
     initSidebar()
