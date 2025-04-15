@@ -38,52 +38,251 @@
 
         <!-- Main Content -->
         <main class="main-content">
-            <header class="header">
-                <div class="search-bar">
-                    <input type="text" placeholder="Search...">
-                    <button class="search-btn">🔍</button>
-                </div>
-                <div class="header-actions">
-                    <div class="notification-wrapper">
-                        <button id="bell-icon" class="notification-btn">
-                          🔔
-                        </button>
-                        <div id="login-history" class="dropdown hidden">
-                          <ul></ul>
-                        </div>
-                    </div>
-                </div>
-            </header>
-            <div class="container">
+        <header class="header">
+          <div class="search-bar">
+            <input type="text" placeholder="Search...">
+            <button class="search-btn">🔍</button>
+          </div>
+          <div class="header-actions">
+            <div class="notification-wrapper">
+              <button id="bell-icon" class="notification-btn">
+                🔔
+              </button>
+              <div id="login-history" class="dropdown hidden">
+                <ul></ul>
+              </div>
+            </div>
+          </div>
+        </header>
+              <div class="container">
                 <div class="welcome-section">
                   <h1 class="welcome-animation">Your Progress</h1>
                   <p class="welcome-animation" style="animation-delay: 0.2s;">
                     Track your fitness journey and see how far you've come
                   </p>
                 </div>
-            
+                
+                <!-- Time Range Selector -->
+                <div class="time-range-selector">
+                  <button class="time-btn active" data-range="week">Week</button>
+                  <button class="time-btn" data-range="month">Month</button>
+                  <button class="time-btn" data-range="year">Year</button>
+                </div>
+        
+                <!-- Progress Overview -->
+                <section class="overview-section">
+                  <h2>Overview</h2>
+                  <div class="overview-cards">
+                    <div class="overview-card sleep-card">
+                      <div class="card-icon">😴</div>
+                      <div class="card-content">
+                        <h3>Sleep</h3>
+                        <div class="stat-value" id="avgSleepHours">0h</div>
+                        <div class="stat-label">Avg. Duration</div>
+                        <div class="progress-bar">
+                          <div class="progress-fill" id="sleepProgress" style="width: 0%"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="overview-card nutrition-card">
+                      <div class="card-icon">🍎</div>
+                      <div class="card-content">
+                        <h3>Nutrition</h3>
+                        <div class="stat-value" id="avgCalories">0</div>
+                        <div class="stat-label">Avg. Calories</div>
+                        <div class="progress-bar">
+                          <div class="progress-fill" id="nutritionProgress" style="width: 0%"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="overview-card activity-card">
+                      <div class="card-icon">🏃</div>
+                      <div class="card-content">
+                        <h3>Activity</h3>
+                        <div class="stat-value" id="caloriesBurned">0</div>
+                        <div class="stat-label">Calories Burned</div>
+                        <div class="progress-bar">
+                          <div class="progress-fill" id="activityProgress" style="width: 0%"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+        
                 <!-- Sleep Progress Section -->
-                <section class="progress-section">
-                  <h2>🛌 Sleep Progress</h2>
-                  <canvas id="sleepProgressChart"></canvas>
-                  <p id="sleepSummary"></p>
+                <section class="progress-section sleep-section">
+                  <div class="section-header">
+                    <h2>🛌 Sleep Progress</h2>
+                    <div class="section-actions">
+                      <button class="insight-btn" id="sleepInsightBtn">
+                        <span class="insight-icon">💡</span>
+                        <span class="insight-text">Insights</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="chart-container">
+                    <canvas id="sleepProgressChart"></canvas>
+                  </div>
+                  <div class="summary-container">
+                    <p id="sleepSummary" class="summary-text">Loading sleep data...</p>
+                  </div>
+                  <div class="insight-modal" id="sleepInsightModal">
+                    <div class="insight-content">
+                      <button class="close-insight">&times;</button>
+                      <h3>Sleep Insights</h3>
+                      <div id="sleepInsightContent"></div>
+                    </div>
+                  </div>
                 </section>
-            
+        
                 <!-- Nutrition Progress Section -->
-                <section class="progress-section">
-                  <h2>🍎 Nutrition Progress</h2>
-                  <canvas id="nutritionProgressChart"></canvas>
-                  <p id="nutritionSummary"></p>
+                <section class="progress-section nutrition-section">
+                  <div class="section-header">
+                    <h2>🍎 Nutrition Progress</h2>
+                    <div class="section-actions">
+                      <button class="insight-btn" id="nutritionInsightBtn">
+                        <span class="insight-icon">💡</span>
+                        <span class="insight-text">Insights</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="chart-container">
+                    <canvas id="nutritionProgressChart"></canvas>
+                  </div>
+                  <div class="summary-container">
+                    <p id="nutritionSummary" class="summary-text">Loading nutrition data...</p>
+                  </div>
+                  <div class="insight-modal" id="nutritionInsightModal">
+                    <div class="insight-content">
+                      <button class="close-insight">&times;</button>
+                      <h3>Nutrition Insights</h3>
+                      <div id="nutritionInsightContent"></div>
+                    </div>
+                  </div>
                 </section>
-            
+        
                 <!-- Activity Progress Section -->
-                <section class="progress-section">
-                  <h2>🏃 Activity Progress</h2>
-                  <canvas id="activityProgressChart"></canvas>
-                  <p id="activitySummary"></p>
+                <section class="progress-section activity-section">
+                  <div class="section-header">
+                    <h2>🏃 Activity Progress</h2>
+                    <div class="section-actions">
+                      <button class="insight-btn" id="activityInsightBtn">
+                        <span class="insight-icon">💡</span>
+                        <span class="insight-text">Insights</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="chart-container">
+                    <canvas id="activityProgressChart"></canvas>
+                  </div>
+                  <div class="summary-container">
+                    <p id="activitySummary" class="summary-text">Loading activity data...</p>
+                  </div>
+                  <div class="insight-modal" id="activityInsightModal">
+                    <div class="insight-content">
+                      <button class="close-insight">&times;</button>
+                      <h3>Activity Insights</h3>
+                      <div id="activityInsightContent"></div>
+                    </div>
+                  </div>
+                </section>
+        
+                <!-- Combined Progress Section -->
+                <section class="progress-section combined-section">
+                  <h2>📈 Combined Progress</h2>
+                  <div class="chart-container">
+                    <canvas id="combinedProgressChart"></canvas>
+                  </div>
+                  <div class="summary-container">
+                    <p id="combinedSummary" class="summary-text">
+                      This chart shows how your sleep, nutrition, and activity habits are working together.
+                    </p>
+                  </div>
+                </section>
+        
+                <!-- Achievements Section -->
+                <section class="achievements-section">
+                  <h2>🏆 Your Achievements</h2>
+                  <div class="achievements-container" id="achievementsContainer">
+                    <!-- Achievements will be added dynamically -->
+                  </div>
                 </section>
               </div>
-            
+            </main>
+          </div>
+        
+          <!-- Insight Templates (Hidden) -->
+          <template id="sleepInsightTemplate">
+            <div class="insight-item">
+              <div class="insight-icon">😴</div>
+              <div class="insight-detail">
+                <h4>Sleep Quality</h4>
+                <p>Your average sleep quality has <span class="highlight">improved by 15%</span> compared to last week.</p>
+              </div>
+            </div>
+            <div class="insight-item">
+              <div class="insight-icon">⏰</div>
+              <div class="insight-detail">
+                <h4>Sleep Duration</h4>
+                <p>You've been consistently getting <span class="highlight">7+ hours</span> of sleep for the past 5 days.</p>
+              </div>
+            </div>
+            <div class="insight-item">
+              <div class="insight-icon">📊</div>
+              <div class="insight-detail">
+                <h4>Sleep Pattern</h4>
+                <p>Your sleep schedule has become more consistent, with bedtimes varying by less than 30 minutes.</p>
+              </div>
+            </div>
+          </template>
+        
+          <template id="nutritionInsightTemplate">
+            <div class="insight-item">
+              <div class="insight-icon">🍎</div>
+              <div class="insight-detail">
+                <h4>Calorie Intake</h4>
+                <p>Your average daily calorie intake is <span class="highlight">within 5%</span> of your target.</p>
+              </div>
+            </div>
+            <div class="insight-item">
+              <div class="insight-icon">🥦</div>
+              <div class="insight-detail">
+                <h4>Nutrient Balance</h4>
+                <p>You've maintained a good balance of macronutrients this week.</p>
+              </div>
+            </div>
+            <div class="insight-item">
+              <div class="insight-icon">💧</div>
+              <div class="insight-detail">
+                <h4>Hydration</h4>
+                <p>Your water intake has been consistent and meets daily recommendations.</p>
+              </div>
+            </div>
+          </template>
+        
+          <template id="activityInsightTemplate">
+            <div class="insight-item">
+              <div class="insight-icon">🏃</div>
+              <div class="insight-detail">
+                <h4>Activity Level</h4>
+                <p>You've increased your activity level by <span class="highlight">20%</span> compared to last month.</p>
+              </div>
+            </div>
+            <div class="insight-item">
+              <div class="insight-icon">🔥</div>
+              <div class="insight-detail">
+                <h4>Calories Burned</h4>
+                <p>You've burned an average of <span class="highlight">350 calories</span> per day through exercise.</p>
+              </div>
+            </div>
+            <div class="insight-item">
+              <div class="insight-icon">📈</div>
+              <div class="insight-detail">
+                <h4>Consistency</h4>
+                <p>You've been active <span class="highlight">5 out of 7 days</span> this week, meeting your goal.</p>
+              </div>
+            </div>
+          </template>        
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

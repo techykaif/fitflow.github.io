@@ -15,12 +15,13 @@ function createSidebar() {
         <li class="${pageName === "dashboard.html" ? "active" : ""}">
           <a href="dashboard.html"><span class="icon">📊</span> Dashboard</a>
         </li>
-        <li class="${pageName === "activites.html" ? "active" : ""}">
-          <a href="activites.html"><span class="icon">👟</span> Activities</a>
-        </li>
         <li class="${pageName === "progress.html" ? "active" : ""}">
           <a href="progress.html"><span class="icon">📈</span> Progress</a>
         </li>
+        <li class="${pageName === "activites.html" ? "active" : ""}">
+          <a href="activites.html"><span class="icon">👟</span> Activities</a>
+        </li>
+        
         <li class="${pageName === "nutrition.html" ? "active" : ""}">
           <a href="nutrition.html"><span class="icon">🍎</span> Nutrition</a>
         </li>

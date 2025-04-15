@@ -10,7 +10,7 @@
 </head>
 <script src="notifications.js" type="module"></script>
 <body>
-        <div class="dashboard">
+      <div class="dashboard">
             <!-- Sidebar -->
             <aside class="sidebar">
                 <div class="logo">
@@ -57,43 +57,58 @@
             <div class="welcome-section user-info">
                 <h1>Welcome back, <span id="user-name1">loding...</span></h1>
                 <p>Here's your fitness summary for today</p>
-            </div><!-- Dashboard Summary Cards -->
-            <div class="dashboard-grid">
-              <!-- Sleep Summary -->
-              <div class="dashboard-card">
-                <h3>🛌 Sleep</h3>
-                <p class="summary-value" id="dashboardSleep">Loading...</p>
-                <p class="summary-label">Last Recorded Sleep</p>
+            </div>
+            <br>
+            <div class="dashboard-container">
+              
+              <!-- Dashboard Summary Cards -->
+              <div class="dashboard-grid">
+                <!-- Sleep Summary -->
+                <div class="dashboard-card">
+                  <h3>🛌 Sleep</h3>
+                  <p class="summary-value" id="dashboardSleep">Loading...</p>
+                  <p class="summary-label">Last Recorded Sleep</p>
+                </div>
+                <!-- Nutrition Summary -->
+                <div class="dashboard-card">
+                  <h3>🍎 Nutrition</h3>
+                  <p class="summary-value" id="dashboardNutrition">Loading...</p>
+                  <p class="summary-label">Today's Calorie Intake</p>
+                </div>
+                <!-- Activity Summary -->
+                <div class="dashboard-card">
+                  <h3>🏃 Activity</h3>
+                  <p class="summary-value" id="dashboardActivity">Loading...</p>
+                  <p class="summary-label">Minutes of Exercise</p>
+                </div>
               </div>
-            
-              <!-- Nutrition Summary -->
-              <div class="dashboard-card">
-                <h3>🍎 Nutrition</h3>
-                <p class="summary-value" id="dashboardNutrition">Loading...</p>
-                <p class="summary-label">Today's Calorie Intake</p>
+              
+              <!-- Quote of the Day Section -->
+              <div class="quote-container">
+                <div class="quote-card" id="quoteOfTheDay">
+                  <p class="quote-text">"The best way to predict the future is to create it."</p>
+                  <p class="quote-author">— Abraham Lincoln</p>
+                </div>
               </div>
-            
-              <!-- Activity Summary -->
-              <div class="dashboard-card">
-                <h3>🏃 Activity</h3>
-                <p class="summary-value" id="dashboardActivity">Loading...</p>
-                <p class="summary-label">Minutes of Exercise</p>
+              
+              <!-- Weekly Charts Section -->
+              <div class="dashboard-charts">
+                <div class="chart-card">
+                  <h4>Weekly Sleep Chart</h4>
+                  <div class="chart-container">
+                    <canvas id="dashboardSleepChart"></canvas>
+                  </div>
+                </div>
+                <div class="chart-card">
+                  <h4>Weekly Activity Chart</h4>
+                  <div class="chart-container">
+                    <canvas id="dashboardActivityChart"></canvas>
+                  </div>
+                </div>
               </div>
             </div>
             
-            <!-- Optional Chart Section -->
-            <div class="dashboard-charts">
-              <div class="chart-card">
-                <h4>Weekly Sleep Chart</h4>
-                <canvas id="dashboardSleepChart"></canvas>
-              </div>
-              <div class="chart-card">
-                <h4>Weekly Activity Chart</h4>
-                <canvas id="dashboardActivityChart"></canvas>
-              </div>
-            </div>
-            
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
           
     <script src="dashboard.js"></script>
     <script type="module">
