@@ -7,7 +7,9 @@ function createSidebar() {
 
   sidebar.innerHTML = `
     <div class="logo">
-      <h2 style="cursor: pointer;" onclick="window.location.href='index.html'">FitFlow</h2>
+      <h2 style="cursor: pointer;font-weight: 700 !important;font-size: 1.5rem !important;
+    line-height: 1.2;
+    margin-bottom: 0.5rem; " onclick="window.location.href='index.html'">FitFlow</h2>
     </div>
     <button class="close-sidebar-btn">❌</button>
     <nav class="nav">
