@@ -1,4 +1,5 @@
 import { auth, database, ref, get, onAuthStateChanged } from "./firebaseConfig.js";
+import { generateAIInsights } from "./insights.js";
 
 // Function to format email for Firebase keys
 function formatEmail(email) {
@@ -14,6 +15,7 @@ onAuthStateChanged(auth, (user) => {
         // Fetch user data
         const formattedEmail = formatEmail(user.email);
         const userRef = ref(database, `users/${formattedEmail}/personal_information`);
+        generateAIInsights(formattedEmail);
 
         get(userRef)
             .then((snapshot) => {
@@ -42,3 +44,5 @@ if (document.getElementById("user-name1")) {
             });
     }
 });
+
+

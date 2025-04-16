@@ -16,6 +16,7 @@ import {
     ref, 
     update, 
     set, 
+    child,
     remove,
     get, 
     push 
@@ -55,5 +56,6 @@ export {
     reauthenticateWithCredential, 
     updatePassword, 
     EmailAuthProvider,
-    sendPasswordResetEmail // ✅ Added
+    sendPasswordResetEmail ,
+    child
 };

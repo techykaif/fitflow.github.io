@@ -90,7 +90,10 @@
                   <p class="quote-author">— Abraham Lincoln</p>
                 </div>
               </div>
-              
+              <div class="dashboard-card">
+                <h3>🧠 AI Insights</h3>
+                <p id="ai-insights">Loading AI insights...</p>
+              </div><br>
               <!-- Weekly Charts Section -->
               <div class="dashboard-charts">
                 <div class="chart-card">
@@ -106,11 +109,13 @@
                   </div>
                 </div>
               </div>
+             
             </div>
+           
             
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
           
-    <script src="dashboard.js"></script>
+    <script type="module" src="dashboard.js"></script>
     <script type="module">
         import { initSidebar } from "./components/sidebar.js";
         initSidebar()
