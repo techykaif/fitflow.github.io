@@ -1,4 +1,5 @@
-import { auth, database, onAuthStateChanged, ref, update, get, push, set ,remove} from "./firebaseConfig.js";
+import { auth, database, onAuthStateChanged, ref, update, get, push, set, remove } from "./firebaseConfig.js";
+let currentMealId = null;
 
 document.addEventListener('DOMContentLoaded', function () {
     // Set today's date as default for the date input
@@ -165,19 +166,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Save to Firebase
         const mealRef = ref(database, `users/${formattedEmail}/nutrition`);
-const newMealRef = push(mealRef);
-set(newMealRef, meal)
-    .then(() => {
-        console.log('Meal logged successfully:', meal);
-        mealForm.reset();
-        document.getElementById('meal-date').valueAsDate = new Date();
-        alert('Meal logged successfully!');
-        loadMeals();
-    })
-    .catch(error => {
-        console.error('Error logging meal:', error);
-        alert('Error logging meal. Please try again.');
-    });
+        const newMealRef = push(mealRef);
+        set(newMealRef, meal)
+            .then(() => {
+                console.log('Meal logged successfully:', meal);
+                mealForm.reset();
+                document.getElementById('meal-date').valueAsDate = new Date();
+                alert('Meal logged successfully!');
+                loadMeals();
+            })
+            .catch(error => {
+                console.error('Error logging meal:', error);
+                alert('Error logging meal. Please try again.');
+            });
 
     });
 
@@ -196,16 +197,16 @@ set(newMealRef, meal)
                     meal.id = childSnapshot.key;
                     meals.push(meal);
                 });
-        
+
                 console.log(`Loaded ${meals.length} meals from Firebase.`);
-        
+
                 if (meals.length === 0) {
                     mealLog.innerHTML = '<div class="no-meals">No meals logged yet. Start tracking your nutrition above!</div>';
                     updateDateFilter([]);
                     updateCharts(meals);
                     return;
                 }
-        
+
                 // Sort meals by date (newest first) and then by timestamp
                 meals.sort((a, b) => {
                     if (a.date === b.date) {
@@ -213,7 +214,7 @@ set(newMealRef, meal)
                     }
                     return new Date(b.date) - new Date(a.date);
                 });
-        
+
                 const uniqueDates = [...new Set(meals.map(meal => meal.date))];
                 updateDateFilter(uniqueDates);
                 filterAndDisplayMeals(meals);
@@ -223,7 +224,7 @@ set(newMealRef, meal)
                 console.error('Error loading meals:', error);
                 mealLog.innerHTML = '<div class="loading-error">Error loading meals. Please refresh the page.</div>';
             });
-        
+
     }
 
     // Update date filter dropdown
@@ -374,16 +375,16 @@ set(newMealRef, meal)
     // Delete meal
     function deleteMeal(mealId) {
         console.log(`Deleting meal with ID: ${mealId}`);
-        
+
         // Ensure the mealId is valid
         if (!mealId) {
             alert('Meal ID is invalid!');
             return;
         }
-    
+
         // Define the reference path in Firebase using modular SDK
         const mealRef = ref(database, `users/${formattedEmail}/nutrition/${mealId}`);
-    
+
         // Remove the meal entry from Firebase
         remove(mealRef)
             .then(() => {
@@ -396,12 +397,12 @@ set(newMealRef, meal)
                 showToast('Error deleting meal. Please try again.', 'error');
             });
     }
-    
+
 
     // Edit meal
     function editMeal(meal) {
         console.log(`Editing meal: ${meal.name}`);
-    
+
         // Fill form with meal data
         document.getElementById('meal-type').value = meal.type;
         document.getElementById('food-name').value = meal.name;
@@ -410,21 +411,22 @@ set(newMealRef, meal)
         document.getElementById('carbs').value = meal.carbs;
         document.getElementById('fats').value = meal.fats;
         document.getElementById('meal-date').value = meal.date;
-    
+        currentMealId = meal.id;
+
         // Change button text
         const submitBtn = document.querySelector('.log-meal-btn');
         submitBtn.textContent = 'Update Meal';
-    
+
         // Store meal ID in a data attribute
         submitBtn.dataset.editId = meal.id;
-    
+
         // Scroll to form
         document.querySelector('.meal-form-container').scrollIntoView({ behavior: 'smooth' });
-    
+
         // Change form submission handler
         mealForm.onsubmit = function (e) {
             e.preventDefault();
-    
+
             // Get form values
             const mealType = document.getElementById('meal-type').value;
             const foodName = document.getElementById('food-name').value;
@@ -433,13 +435,13 @@ set(newMealRef, meal)
             const carbs = parseFloat(document.getElementById('carbs').value);
             const fats = parseFloat(document.getElementById('fats').value);
             const mealDate = document.getElementById('meal-date').value;
-    
+
             // Validate form inputs (you can add more validation as needed)
             if (!mealType || !foodName || !calories || !protein || !carbs || !fats || !mealDate) {
                 alert('Please fill in all fields!');
                 return;
             }
-    
+
             // Create updated meal object
             const updatedMeal = {
                 type: mealType,
@@ -452,29 +454,34 @@ set(newMealRef, meal)
                 timestamp: meal.timestamp, // Retain the original timestamp
                 updated: Date.now() // Set a new update timestamp
             };
-    
+
             console.log(`Updating meal: ${updatedMeal.name}`);
-    
+
             // Update in Firebase using the correct reference
-            const mealRef = ref(database, `users/${formattedEmail}/nutrition/${meal.id}`); // Use meal.id for the reference
-    
+            let mealRef = ref(database, `users/${formattedEmail}/nutrition/${meal.id}`); // Use meal.id for the reference
+            if(currentMealId){
+                mealRef = ref(database, `users/${formattedEmail}/nutrition/${currentMealId}`);
+            }
+            else{
+                const mealRef = ref(database, `users/${formattedEmail}/nutrition/${meal.id}`);
+            }
             // Update the meal data
             update(mealRef, updatedMeal)
                 .then(() => {
                     // Reset form
                     mealForm.reset();
                     document.getElementById('meal-date').valueAsDate = new Date();
-    
+
                     // Reset button text
                     submitBtn.textContent = 'Log Meal';
                     delete submitBtn.dataset.editId;
-    
+
                     // Reset form submission handler
                     mealForm.onsubmit = null;
-    
+
                     // Show success message
                     showToast('Meal updated successfully!', 'success');
-    
+
                     // Refresh meals list
                     loadMeals();
                 })
@@ -484,20 +491,20 @@ set(newMealRef, meal)
                 });
         };
     }
-    
+
     // Utility function to display toast messages
     function showToast(message, type) {
         const toast = document.createElement('div');
         toast.className = `toast ${type}`;
         toast.innerText = message;
         document.body.appendChild(toast);
-    
+
         // Remove toast after 3 seconds
         setTimeout(() => {
             toast.remove();
         }, 3000);
     }
-        
+
 
     // Update charts with meal data
     function updateCharts(meals) {

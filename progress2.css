@@ -349,7 +349,7 @@
     display: flex;
     align-items: center;
     background-color: var(--primary-light) !important;
-    color: var(--primary-dark) !important;
+    color: var(--primary-dark);
     border: none !important;
     border-radius: var(--radius-md) !important;
     padding: 0.5rem 1rem;
