@@ -85,3 +85,10 @@ ctaButton.addEventListener('mouseout', function () {
     ctaButton.style.transform = 'scale(1)';
     ctaButton.style.transition = 'transform 0.3s ease';
 });
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then(() => console.log('✅ Service Worker registered!'))
+      .catch((error) => console.error('❌ Service Worker error:', error));
+  }
+  
