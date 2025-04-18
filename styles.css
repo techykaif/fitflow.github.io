@@ -824,7 +824,18 @@
   transform: translateY(2px);
   box-shadow: 0 5px 10px rgba(37, 211, 102, 0.2);
 }
+/* Fade animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(20px); }
+}
+
+/* Modal Container */
 .fitflow-chat-modal {
   display: none;
   position: fixed;
@@ -832,12 +843,25 @@
   right: 10px;
   width: 250px;
   height: 320px;
-  /* border: 1px solid #ccc; */
   z-index: 1001;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
+  background-color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
+/* Show and hide classes with animations */
+.fitflow-chat-modal.show {
+  display: block;
+  animation: fadeIn 0.4s forwards;
+}
+
+.fitflow-chat-modal.hide {
+  animation: fadeOut 0.4s forwards;
+}
+
+/* Remaining styles (unchanged from yours) */
 .fitflow-modal-content {
   display: flex;
   flex-direction: column;
@@ -849,11 +873,12 @@
   align-items: center;
   padding: 10px;
   border-bottom: 1px solid #eee;
-  background-color:var(--primary-color);
+  background-color: var(--primary-color);
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
 }
-.fitflow-modal-header h3{
+
+.fitflow-modal-header h3 {
   color: white;
   position: relative;
   top: -10px;
@@ -893,39 +918,38 @@
 .fitflow-modal-footer {
   display: flex;
   align-items: center;
-  justify-content: center;
   justify-content: space-between;
   padding: 10px;
   border-top: 1px solid #eee;
-  background-color:var(--text-light);
+  background-color: var(--text-light);
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
+
 .fitflow-whatsapp-chat-btn {
   background-color: var(--primary-color);
   color: white;
   position: relative;
   left: 15px;
   border: none;
-  padding: 10px 60px; /* Increased padding for a more elegant look */
-  border-radius: 8px; /* Slightly more rounded edges for elegance */
+  padding: 10px 60px;
+  border-radius: 8px;
   cursor: pointer;
-  font-weight: 600; /* Increased font weight for boldness */
-  font-size: 16px; /* Slightly larger font for better visibility */
+  font-weight: 600;
+  font-size: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center; /* Ensures the text is centered properly */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Added shadow for elegance */
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
 }
 
 .fitflow-whatsapp-chat-btn:hover {
-  background-color: #128C7E; /* Darker shade on hover for effect */
-  transform: translateY(-2px); /* Button lifts on hover */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+  background-color: #128C7E;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
-
 
 .fitflow-close-btn {
   font-size: 30px;
