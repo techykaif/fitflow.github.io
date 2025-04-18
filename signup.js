@@ -110,10 +110,17 @@ export function signup() {
                         account_created: creationTime
                     })
                     .then(() => {
-                        statusMessage.textContent = "User registered successfully!";
+                        statusMessage.textContent = "Account registered successfully!";
                         statusMessage.style.color = "green";
+                    
+                        // Clear input fields after successful registration
+                        document.getElementById('name').value = "";
+                        document.getElementById('email').value = "";
+                        document.getElementById('password').value = "";
+                        document.getElementById('confirmPassword').value = "";
+                    
                         resetButton();
-                    })
+                    })                    
                     .catch((error) => {
                         statusMessage.textContent = "Some error occurred. Please try again later.";
                         statusMessage.style.color = "red";
@@ -152,3 +159,18 @@ function validateEmail(email) {
 function validatePassword(password) {
     return password.length >= 6;
 }
+function togglePassword(fieldId, icon) {
+    const field = document.getElementById(fieldId);
+    const isPassword = field.type === "password";
+    field.type = isPassword ? "text" : "password";
+    icon.textContent = isPassword ? "🙈" : "👁️";
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".toggle-password").forEach(toggle => {
+        toggle.addEventListener("click", function () {
+            const inputId = this.getAttribute("data-target");
+            togglePassword(inputId, this);
+        });
+    });
+});
