@@ -826,13 +826,13 @@
 }
 
 .fitflow-chat-modal {
-  display: block;
+  display: none;
   position: fixed;
   bottom: 100px;
   right: 10px;
   width: 250px;
   height: 320px;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   z-index: 1001;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
@@ -883,7 +883,7 @@
   flex: 1;
   padding: 10px;
   overflow-y: auto;
-  background-color: rgb(214, 210, 210);
+  background-color: rgb(234, 227, 227);
 }
 
 .fitflow-chat-message {
@@ -897,6 +897,9 @@
   justify-content: space-between;
   padding: 10px;
   border-top: 1px solid #eee;
+  background-color:var(--text-light);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 .fitflow-whatsapp-chat-btn {
   background-color: var(--primary-color);

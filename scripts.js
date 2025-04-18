@@ -91,8 +91,8 @@ if ('serviceWorker' in navigator) {
       .then(() => console.log('✅ Service Worker registered!'))
       .catch((error) => console.error('❌ Service Worker error:', error));
   }
-  
-  // Function to open the chat modal
+
+
 // Function to open the chat modal
 function openChat() {
     document.getElementById('chatModal').style.display = 'block';

@@ -221,3 +221,72 @@
     }
   }
   
+  /* Styling the password input container */
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Styling for password input field */
+#password {
+  padding: 1rem 2.5rem 1rem 1rem; /* Extra padding on right for the icon */
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: #f9f9f9;
+  width: 100%;
+}
+
+/* Focus styling for password input */
+#password:focus {
+  border-color: #4CAF50;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+  outline: none;
+  background-color: #fff;
+}
+
+/* Toggle password visibility button */
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 40%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #888;
+  transition: color 0.3s ease;
+  z-index: 1; /* Ensure it is above the input field */
+}
+
+/* Change color on hover */
+.toggle-password:hover {
+  color: #333;
+}
+
+/* Styling for password visibility icon */
+.toggle-password i {
+  font-size: 18px;
+}
+
+/* Make sure the input and toggle button are aligned properly */
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Styling for the error message */
+.error-message {
+  color: #e53935;
+  text-align: left;
+  font-size: 0.85rem;
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+  height: 20px;
+  transition: all 0.3s ease;
+}
