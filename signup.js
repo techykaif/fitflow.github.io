@@ -159,12 +159,25 @@ function validateEmail(email) {
 function validatePassword(password) {
     return password.length >= 6;
 }
-function togglePassword(fieldId, icon) {
-    const field = document.getElementById(fieldId);
-    const isPassword = field.type === "password";
-    field.type = isPassword ? "text" : "password";
-    icon.textContent = isPassword ? "🙈" : "👁️";
-}
+// Function to toggle password visibility
+document.querySelectorAll('.toggle-password').forEach(toggle => {
+    toggle.addEventListener('click', function () {
+        const targetId = this.getAttribute('data-target');
+        const inputField = document.getElementById(targetId);
+        const icon = this.querySelector('i');
+        
+        // Toggle password field visibility
+        if (inputField.type === "password") {
+            inputField.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        } else {
+            inputField.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        }
+    });
+});
 
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".toggle-password").forEach(toggle => {
