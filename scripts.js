@@ -92,3 +92,18 @@ if ('serviceWorker' in navigator) {
       .catch((error) => console.error('❌ Service Worker error:', error));
   }
   
+  // Function to open the chat modal
+// Function to open the chat modal
+function openChat() {
+    document.getElementById('chatModal').style.display = 'block';
+}
+
+// Function to close the chat modal
+function closeChat() {
+    document.getElementById('chatModal').style.display = 'none';
+}
+
+// Redirect to WhatsApp chat when the button is clicked
+document.querySelector('.whatsapp-chat-btn').addEventListener('click', function() {
+    window.open('https://wa.me/your-phone-number', '_blank');
+});

@@ -4,12 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="FitFlow - Your all-in-one fitness tracker for sleep, nutrition, and activity insights. Stay fit, stay flowing!">
-<link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#4361ee">
+    <meta name="description"
+        content="FitFlow - Your all-in-one fitness tracker for sleep, nutrition, and activity insights. Stay fit, stay flowing!">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#4361ee">
 
-<!-- Favicon (fallback) -->
-<link rel="icon" href="/icons/icon-192x192.webp" type="image/webp">
+    <!-- Favicon (fallback) -->
+    <link rel="icon" href="/icons/icon-192x192.webp" type="image/webp">
 
     <title>FitFlow Health & Wellness Tracker</title>
     <link rel="stylesheet" href="styles.css">
@@ -35,18 +36,31 @@
   z-index: 9999;
   animation: fadein 0.3s ease, fadeout 0.3s ease 2.7s;
 ">
-  Session expired. Redirecting to login...
+    Session expired. Redirecting to login...
 </div>
 
 <style>
-@keyframes fadein {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes fadeout {
-  from { opacity: 1; }
-  to { opacity: 0; }
-}
+    @keyframes fadein {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeout {
+        from {
+            opacity: 1;
+        }
+
+        to {
+            opacity: 0;
+        }
+    }
 </style>
 
 <body>
@@ -178,7 +192,8 @@
                 </div>
                 <div class="feature-content">
                     <h3>Track Your Activities</h3>
-                    <p>Log your daily physical activities and keep track of your progress with detailed analytics and insights.</p>
+                    <p>Log your daily physical activities and keep track of your progress with detailed analytics and
+                        insights.</p>
                 </div>
                 <div class="feature-hover">
                     <ul>
@@ -195,7 +210,8 @@
                 </div>
                 <div class="feature-content">
                     <h3>Monitor Your Health</h3>
-                    <p>Track vital signs like heart rate, sleep patterns, and more to ensure you're maintaining optimal health.</p>
+                    <p>Track vital signs like heart rate, sleep patterns, and more to ensure you're maintaining optimal
+                        health.</p>
                 </div>
                 <div class="feature-hover">
                     <ul>
@@ -212,7 +228,8 @@
                 </div>
                 <div class="feature-content">
                     <h3>Personalized Goals</h3>
-                    <p>Set and achieve personalized health and wellness goals tailored to your specific needs and lifestyle.</p>
+                    <p>Set and achieve personalized health and wellness goals tailored to your specific needs and
+                        lifestyle.</p>
                 </div>
                 <div class="feature-hover">
                     <ul>
@@ -229,7 +246,8 @@
                 </div>
                 <div class="feature-content">
                     <h3>Nutrition Insights</h3>
-                    <p>Track your meals, calorie intake, and nutritional information to maintain a balanced and healthy diet.</p>
+                    <p>Track your meals, calorie intake, and nutritional information to maintain a balanced and healthy
+                        diet.</p>
                 </div>
                 <div class="feature-hover">
                     <ul>
@@ -295,13 +313,14 @@
                     <div class="quote-icon">
                         <i class="fas fa-quote-left"></i>
                     </div>
-                    <p class="testimonial-text">"This tracker has helped me stay on top of my health goals! I've lost 15 pounds and feel more energetic than ever."</p>
+                    <p class="testimonial-text">"This tracker has helped me stay on top of my health goals! I've lost 15
+                        pounds and feel more energetic than ever."</p>
                     <div class="testimonial-author">
                         <div class="author-avatar">
                             <i class="fas fa-user-circle"></i>
                         </div>
                         <div class="author-info">
-                            <h4>Jack Thompson</h4>
+                            <h4>Mahesh Aggrawal</h4>
                             <p>FitFlow User - 6 months</p>
                         </div>
                     </div>
@@ -310,13 +329,14 @@
                     <div class="quote-icon">
                         <i class="fas fa-quote-left"></i>
                     </div>
-                    <p class="testimonial-text">"A great tool for monitoring my daily activities. The interface is intuitive and the insights have been incredibly helpful for my fitness journey."</p>
+                    <p class="testimonial-text">"A great tool for monitoring my daily activities. The interface is
+                        intuitive and the insights have been incredibly helpful for my fitness journey."</p>
                     <div class="testimonial-author">
                         <div class="author-avatar">
                             <i class="fas fa-user-circle"></i>
                         </div>
                         <div class="author-info">
-                            <h4>Samantha Davis</h4>
+                            <h4>Saloni Mehta</h4>
                             <p>FitFlow User - 1 year</p>
                         </div>
                     </div>
@@ -325,13 +345,14 @@
                     <div class="quote-icon">
                         <i class="fas fa-quote-left"></i>
                     </div>
-                    <p class="testimonial-text">"I love the personalized goals feature. It's so motivating! FitFlow has completely changed how I approach my health and wellness."</p>
+                    <p class="testimonial-text">"I love the personalized goals feature. It's so motivating! FitFlow has
+                        completely changed how I approach my health and wellness."</p>
                     <div class="testimonial-author">
                         <div class="author-avatar">
                             <i class="fas fa-user-circle"></i>
                         </div>
                         <div class="author-info">
-                            <h4>Samuel Wilson</h4>
+                            <h4>Suresh Sharma</h4>
                             <p>FitFlow User - 8 months</p>
                         </div>
                     </div>
@@ -365,6 +386,34 @@
         </div>
         <div class="cta-background"></div>
     </section>
+    <!-- Floating WhatsApp Button with Text -->
+    <a href="javascript:void(0);" class="whatsapp-button" onclick="openChat()">
+        <i class="fab fa-whatsapp"></i>
+        <span>Chat with Us</span>
+    </a>
+
+   <!-- Modal Dialog (WhatsApp-like chat interface) -->
+<div id="chatModal" class="fitflow-chat-modal">
+    <div class="fitflow-modal-content">
+        <div class="fitflow-modal-header">
+            <img src="logo.webp" alt="FitFlow" class="fitflow-icon">
+            <h3>FitFlow</h3>
+            <p class="fitflow-location">Online</p>
+            <span class="fitflow-close-btn" onclick="closeChat()">&times;</span>
+        </div>
+        <div class="fitflow-chat-body">
+            <div class="fitflow-chat-message">
+                <div class="fitflow-message-box received">
+                    <p>Hi there! How can I help you today?</p>
+                </div>
+            </div>
+        </div>
+        <div class="fitflow-modal-footer">
+            <button class="fitflow-whatsapp-chat-btn"
+                onclick="window.open('https://wa.me/your-phone-number', '_blank')">Start Chat</button>
+        </div>
+    </div>
+</div>
 
     <!-- Footer -->
     <footer>
@@ -379,8 +428,8 @@
                 <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                 <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
                 <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-              </div>
-              
+            </div>
+
             <div class="contact-info">
                 <p><i class="fas fa-map-marker-alt"></i> Newada Samogar, Industrial Area Naini, Prayagraj UP 211010</p>
                 <p><i class="fas fa-envelope"></i> Email: fitflow71@gmail.com</p>

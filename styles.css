@@ -773,5 +773,161 @@
       flex-direction: column;
       align-items: center;
     }
+  }/* Enhanced WhatsApp Button Styles */
+.whatsapp-button {
+  position: fixed;
+  bottom: clamp(20px, 4vw, 30px);
+  right: clamp(20px, 4vw, 30px);
+  background: linear-gradient(145deg, #2ad371, #1eae55);
+  border-radius: 50px;
+  padding: clamp(10px, 1.8vw, 15px) clamp(12px, 2.5vw, 18px); /* Reduced padding */
+  font-size: clamp(14px, 1.8vw, 16px); /* Reduced font size */
+  color: white;
+  box-shadow: 0 8px 15px rgba(37, 211, 102, 0.3), 0 5px 5px rgba(0, 0, 0, 0.1);
+  animation: float 3s ease-in-out infinite, buttonAnimate 1.5s ease-out infinite; /* Added animation */
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  justify-content: center;
+  border: none;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Animation for button movement */
+@keyframes buttonAnimate {
+  0% {
+    transform: scale(1);
   }
-  
+  50% {
+    transform: scale(0.95); /* Slightly smaller size for animation */
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.whatsapp-button i {
+  margin-right: 8px; /* Reduced margin for a more compact look */
+  font-size: clamp(18px, 2.2vw, 22px); /* Reduced icon size */
+  animation: pulse 2s infinite;
+}
+
+.whatsapp-button:hover {
+  background: linear-gradient(145deg, #20c866, #0f9d4a);
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 12px 20px rgba(37, 211, 102, 0.4), 0 8px 8px rgba(0, 0, 0, 0.1);
+}
+
+.whatsapp-button:active {
+  transform: translateY(2px);
+  box-shadow: 0 5px 10px rgba(37, 211, 102, 0.2);
+}
+
+.fitflow-chat-modal {
+  display: block;
+  position: fixed;
+  bottom: 100px;
+  right: 10px;
+  width: 250px;
+  height: 320px;
+  border: 1px solid #ccc;
+  z-index: 1001;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.fitflow-modal-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.fitflow-modal-header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  background-color:var(--primary-color);
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+.fitflow-modal-header h3{
+  color: white;
+  position: relative;
+  top: -10px;
+  left: 20px;
+}
+
+.fitflow-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+  position: relative;
+  left: 10px;
+}
+
+.fitflow-location {
+  margin-left: auto;
+  font-size: 0.8rem;
+  color: white;
+  position: relative;
+  right: 99px;
+  top: 15px;
+}
+
+.fitflow-chat-body {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  background-color: rgb(214, 210, 210);
+}
+
+.fitflow-chat-message {
+  margin-bottom: 10px;
+}
+
+.fitflow-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-top: 1px solid #eee;
+}
+.fitflow-whatsapp-chat-btn {
+  background-color: var(--primary-color);
+  color: white;
+  position: relative;
+  left: 15px;
+  border: none;
+  padding: 10px 60px; /* Increased padding for a more elegant look */
+  border-radius: 8px; /* Slightly more rounded edges for elegance */
+  cursor: pointer;
+  font-weight: 600; /* Increased font weight for boldness */
+  font-size: 16px; /* Slightly larger font for better visibility */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center; /* Ensures the text is centered properly */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Added shadow for elegance */
+  transition: all 0.3s ease;
+}
+
+.fitflow-whatsapp-chat-btn:hover {
+  background-color: #128C7E; /* Darker shade on hover for effect */
+  transform: translateY(-2px); /* Button lifts on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
+
+
+.fitflow-close-btn {
+  font-size: 30px;
+  position: relative;
+  top: -10px;
+  cursor: pointer;
+  color: white;
+}
